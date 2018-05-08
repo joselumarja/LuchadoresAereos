@@ -60,7 +60,7 @@ void ALuchadoresAereosPawn::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAxis(MoveForwardBinding);
 	PlayerInputComponent->BindAxis(MoveRightBinding);
 	PlayerInputComponent->BindAxis(FireForwardBinding);
-	PlayerInputComponent->BindAxis(FireRightBinding);
+	//PlayerInputComponent->BindAxis(FireRightBinding);
 }
 
 void ALuchadoresAereosPawn::Tick(float DeltaSeconds)
@@ -78,7 +78,8 @@ void ALuchadoresAereosPawn::Tick(float DeltaSeconds)
 	// If non-zero size, move this actor
 	if (Movement.SizeSquared() > 0.0f)
 	{
-		const FRotator NewRotation = Movement.Rotation();
+		//quitada la rotacion de la nave
+		const FRotator NewRotation(0,0,0);
 		FHitResult Hit(1.f);
 		RootComponent->MoveComponent(Movement, NewRotation, true, &Hit);
 		
