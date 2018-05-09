@@ -78,7 +78,7 @@ void ALuchadoresAereosPawn::Tick(float DeltaSeconds)
 	// If non-zero size, move this actor
 	if (Movement.SizeSquared() > 0.0f)
 	{
-		//quitada la rotacion de la nave
+		// No rotation on Z axis
 		const FRotator NewRotation(0,0,0);
 		FHitResult Hit(1.f);
 		RootComponent->MoveComponent(Movement, NewRotation, true, &Hit);
