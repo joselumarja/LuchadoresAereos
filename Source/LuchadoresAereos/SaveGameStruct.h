@@ -3,26 +3,31 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "SaveGameStruct.generated.h"
 
-UCLASS()
-class LUCHADORESAEREOS_API ASaveGameStruct : public AActor
+USTRUCT()
+struct FSaveGameStruct
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	ASaveGameStruct();
+public:
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY()
+		FText PlayerName;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY()
+		int32 Score;
 
-	
-	
+	UPROPERTY()
+		int32 KilledEnemies;
+
+	FORCEINLINE bool operator<(const FSaveGameStruct &Other) const
+	{
+		return Score > Other.Score;
+	}
+
+	FORCEINLINE bool operator==(const FSaveGameStruct &Other) const
+	{
+		return Score == Other.Score;
+	}
+
 };
