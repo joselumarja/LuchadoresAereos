@@ -62,6 +62,7 @@ void ALuchadoresAereosPawn::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAxis(FireForwardBinding);
 	//PlayerInputComponent->BindAxis(FireRightBinding);
 	//me comes los cojones
+	//no ofrecemos ese tipo de servicio
 }
 
 void ALuchadoresAereosPawn::Tick(float DeltaSeconds)
