@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "LuchadoresAereosProjectile.h"
+#include "EngineMinimal.h"
+//#include "GameFramework/Actor.h"
 #include "Bullet.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class LUCHADORESAEREOS_API ABullet : public ALuchadoresAereosProjectile
 {
 	GENERATED_BODY()
-	
-	
+
+public:
+	ABullet();
 	
 	
 };

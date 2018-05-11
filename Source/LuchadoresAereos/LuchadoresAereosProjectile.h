@@ -3,28 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine.h"
 #include "GameFramework/Actor.h"
 #include "Enemy.h"
 #include "LuchadoresAereosProjectile.generated.h"
-
-class UProjectileMovementComponent;
-class UStaticMeshComponent;
 
 UCLASS(config=Game)
 class ALuchadoresAereosProjectile : public AActor
 {
 	GENERATED_BODY()
-
-	/** Sphere collision component */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* ProjectileMesh;
-
-	/** Projectile movement component */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
-	UProjectileMovementComponent* ProjectileMovement;
-
-	UPROPERTY()
-		TWeakObjectPtr<UParticleSystem> ExplosionParticleSystem;
 
 public:
 	ALuchadoresAereosProjectile();
@@ -45,6 +32,17 @@ public:
 	void UpdateEnergy(uint8 HitEnergy);
 
 protected:
+
+	/** Sphere collision component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
+		UStaticMeshComponent* ProjectileMesh;
+
+	/** Projectile movement component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
+		UProjectileMovementComponent* ProjectileMovement;
+
+	UPROPERTY()
+		TWeakObjectPtr<UParticleSystem> ExplosionParticleSystem;
 
 	UPROPERTY()
 		uint8 Damage;
