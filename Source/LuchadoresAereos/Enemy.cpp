@@ -54,6 +54,7 @@ void AEnemy::UpdateLife(uint8 Damage)
 	}
 }
 
-void AEnemy::UpdateState() {
+void AEnemy::UpdateState() 
+{
 
 }

@@ -51,8 +51,27 @@ void ALuchadoresAereosProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 	if ((OtherActor != NULL) && OtherActor->IsA(AEnemy::StaticClass()))
 	{
 		(Cast<AEnemy>(OtherActor))->UpdateLife(Damage);
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
+		Destroy();
 	}
 
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
+	if ((OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
+	{
+		uint8 HitEnergy;
+		HitEnergy=(Cast<ALuchadoresAereosProjectile>(OtherActor))->GetEnergy();
+		UpdateEnergy(HitEnergy);
+	}
+
 	Destroy();
+}
+
+void ALuchadoresAereosProjectile::UpdateEnergy(uint8 HitEnergy)
+{
+	Energy -= HitEnergy;
+
+	if (Energy <= 0) 
+	{
+		Destroy();
+	}
+
 }
