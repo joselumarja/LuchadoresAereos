@@ -24,9 +24,6 @@ class ALuchadoresAereosProjectile : public AActor
 	UProjectileMovementComponent* ProjectileMovement;
 
 	UPROPERTY()
-	uint8 Damage;
-
-	UPROPERTY()
 		TWeakObjectPtr<UParticleSystem> ExplosionParticleSystem;
 
 public:
@@ -42,5 +39,18 @@ public:
 	FORCEINLINE UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
 
 	FORCEINLINE uint8 GetDamage() const { return Damage; }
+
+	FORCEINLINE uint8 GetEnergy() const { return Energy; }
+
+	void UpdateEnergy(uint8 HitEnergy);
+
+protected:
+
+	UPROPERTY()
+		uint8 Damage;
+
+	UPROPERTY()
+		uint8 Energy;
+
 };
 
