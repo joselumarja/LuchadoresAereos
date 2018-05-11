@@ -26,7 +26,7 @@ ALuchadoresAereosProjectile::ALuchadoresAereosProjectile()
 	ProjectileMesh->SetStaticMesh(ProjectileMeshAsset.Object);
 	ProjectileMesh->SetupAttachment(RootComponent);
 	ProjectileMesh->BodyInstance.SetCollisionProfileName("Projectile");
-//	ProjectileMesh->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);		// set up a notification for when this component hits something
+	ProjectileMesh->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);		// set up a notification for when this component hits something
 	RootComponent = ProjectileMesh;
 
 
@@ -43,19 +43,14 @@ ALuchadoresAereosProjectile::ALuchadoresAereosProjectile()
 	InitialLifeSpan = 3.0f;
 }
 
-void ALuchadoresAereosProjectile::DestroyProjectile()
+void ALuchadoresAereosProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	// Only add impulse and destroy projectile if we hit a physics
+	if ((OtherActor != NULL) && OtherActor->IsA(AEnemy::StaticClass()))
+	{
+		(Cast<AEnemy>(OtherActor))->UpdateLife(Damage);
+	}
+
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
 	Destroy();
 }
-
-/*void ALuchadoresAereosProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
-{
-	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
-	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 20.0f, GetActorLocation());
-	}
-
-	Destroy();
-}*/

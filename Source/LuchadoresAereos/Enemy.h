@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "LuchadoresAereosProjectile.h"
 #include "Enemy.generated.h"
 
 UCLASS(Abstract)
@@ -25,14 +24,14 @@ protected:
 
 	TSubclassOf<AActor> ProjectileClass;
 
-	virtual void UpdateLife(ALuchadoresAereosProjectile *Projectile);
+	UPROPERTY()
+		float Life;
 
 	void UpdateState();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY()
-		float Life;
+	void UpdateLife(uint8 Damage);
 	
 };

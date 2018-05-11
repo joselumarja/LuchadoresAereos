@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Enemy.h"
 #include "LuchadoresAereosProjectile.generated.h"
 
 class UProjectileMovementComponent;
@@ -31,12 +32,9 @@ class ALuchadoresAereosProjectile : public AActor
 public:
 	ALuchadoresAereosProjectile();
 
-	/* Function to handle the projectile hitting something 
+	// Function to handle the projectile hitting something 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-	*/
-
-	void DestroyProjectile();
 
 	/** Returns ProjectileMesh subobject **/
 	FORCEINLINE UStaticMeshComponent* GetProjectileMesh() const { return ProjectileMesh; }
