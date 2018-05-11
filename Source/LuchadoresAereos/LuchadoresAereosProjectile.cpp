@@ -6,9 +6,18 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Engine/StaticMesh.h"
+#include "EngineMinimal.h"
 
 ALuchadoresAereosProjectile::ALuchadoresAereosProjectile() 
 {
+	auto ParticleSystemAsset = ConstructorHelpers::FObjectFinder<UParticleSystem>(TEXT("ParticleSystem'/Game/StarterContent/Particles/P_Explosion.P_Explosion'"));//hay que incluir las particulas en el proyecto todavia
+	if (ParticleSystemAsset.Succeeded())
+	{
+		ExplosionParticleSystem = ParticleSystemAsset.Object;
+	}
+
+	//TODO EL CODIGO RESTANTE DEL METODO HAY QUE MOVERLO A LAS CLASES HIJAS Y MODIFICARLO EN CADA UNA
+
 	// Static reference to the mesh to use for the projectile
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
 
@@ -19,6 +28,7 @@ ALuchadoresAereosProjectile::ALuchadoresAereosProjectile()
 	ProjectileMesh->BodyInstance.SetCollisionProfileName("Projectile");
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);		// set up a notification for when this component hits something
 	RootComponent = ProjectileMesh;
+
 
 	// Use a ProjectileMovementComponent to govern this projectile's movement
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement0"));
@@ -33,7 +43,13 @@ ALuchadoresAereosProjectile::ALuchadoresAereosProjectile()
 	InitialLifeSpan = 3.0f;
 }
 
-void ALuchadoresAereosProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void ALuchadoresAereosProjectile::Destroy()
+{
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
+	Destroy();
+}
+
+/*void ALuchadoresAereosProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
@@ -42,4 +58,4 @@ void ALuchadoresAereosProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 	}
 
 	Destroy();
-}
+}*/

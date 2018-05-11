@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Enemy.h"
-
+#include "EngineMinimal.h"
 
 // Sets default values
 AEnemy::AEnemy()
@@ -9,6 +9,12 @@ AEnemy::AEnemy()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	auto FirstPersonProjectileBPClass = ConstructorHelpers::FClassFinder<AActor>(TEXT("Class'/Script/LuchadoresAereos.LuchadoresAereosProjectile'"));
+	if (FirstPersonProjectileBPClass.Succeeded()) {
+		ProjectileClass = FirstPersonProjectileBPClass.Class;
+	}
+
+	OnActorHit.AddDynamic(this, &AEnemy::OnHit);
 }
 
 // Called when the game starts or when spawned
@@ -25,3 +31,25 @@ void AEnemy::Tick(float DeltaTime)
 
 }
 
+void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
+{
+	if (OtherActor) {
+
+		if (OtherActor->IsA(ProjectileClass)) {
+			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);
+			UpdateLife(Cast<ALuchadoresAereosProjectile>(OtherActor));
+		}
+
+		
+	}
+}
+
+void AEnemy::UpdateLife(ALuchadoresAereosProjectile *Projectile)
+{
+	Life -= Projectile->GetDamage();
+	Projectile->Destroy();
+}
+
+void AEnemy::UpdateState() {
+
+}

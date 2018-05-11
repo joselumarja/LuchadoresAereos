@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "LuchadoresAereosProjectile.h"
 #include "Enemy.generated.h"
 
-UCLASS()
+UCLASS(Abstract)
 class LUCHADORESAEREOS_API AEnemy : public AActor
 {
 	GENERATED_BODY()
@@ -19,10 +20,19 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+		virtual void OnHit(AActor *SelfActor, AActor *OtherActor, FVector NormalImpulse, const FHitResult &Hit);
+
+	TSubclassOf<AActor> ProjectileClass;
+
+	virtual void UpdateLife(ALuchadoresAereosProjectile *Projectile);
+
+	void UpdateState();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+	UPROPERTY()
+		float Life;
 	
 };

@@ -25,6 +25,9 @@ class ALuchadoresAereosProjectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Damage, meta = (AllowPrivateAccess = "true"))
 	int8 Damage;
 
+	UPROPERTY()
+		TWeakObjectPtr<UParticleSystem> ExplosionParticleSystem;
+
 public:
 	ALuchadoresAereosProjectile();
 
@@ -32,9 +35,13 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
+	void Destroy();
+
 	/** Returns ProjectileMesh subobject **/
 	FORCEINLINE UStaticMeshComponent* GetProjectileMesh() const { return ProjectileMesh; }
 	/** Returns ProjectileMovement subobject **/
 	FORCEINLINE UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+	FORCEINLINE int8 GetDamage() const { return Damage; }
 };
 
