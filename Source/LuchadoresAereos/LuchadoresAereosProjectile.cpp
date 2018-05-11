@@ -26,7 +26,7 @@ ALuchadoresAereosProjectile::ALuchadoresAereosProjectile()
 	ProjectileMesh->SetStaticMesh(ProjectileMeshAsset.Object);
 	ProjectileMesh->SetupAttachment(RootComponent);
 	ProjectileMesh->BodyInstance.SetCollisionProfileName("Projectile");
-	ProjectileMesh->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);		// set up a notification for when this component hits something
+//	ProjectileMesh->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);		// set up a notification for when this component hits something
 	RootComponent = ProjectileMesh;
 
 
@@ -43,7 +43,7 @@ ALuchadoresAereosProjectile::ALuchadoresAereosProjectile()
 	InitialLifeSpan = 3.0f;
 }
 
-void ALuchadoresAereosProjectile::Destroy()
+void ALuchadoresAereosProjectile::DestroyProjectile()
 {
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
 	Destroy();

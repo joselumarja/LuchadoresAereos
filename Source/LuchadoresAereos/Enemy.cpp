@@ -47,7 +47,7 @@ void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpuls
 void AEnemy::UpdateLife(ALuchadoresAereosProjectile *Projectile)
 {
 	Life -= Projectile->GetDamage();
-	Projectile->Destroy();
+	Projectile->DestroyProjectile();
 }
 
 void AEnemy::UpdateState() {
