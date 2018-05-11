@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "LuchadoresAereosProjectile.h"
-#include "EngineMinimal.h"
-//#include "GameFramework/Actor.h"
 #include "Bullet.generated.h"
 
 UCLASS()

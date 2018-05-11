@@ -14,7 +14,8 @@ class LUCHADORESAEREOS_API AHeavyAmo : public ALuchadoresAereosProjectile
 {
 	GENERATED_BODY()
 	
-	
+public:
+	AHeavyAmo();
 	
 	
 };
