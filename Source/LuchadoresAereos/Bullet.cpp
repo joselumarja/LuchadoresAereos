@@ -27,7 +27,7 @@ ABullet::ABullet()
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
 
-													  // Die after 0.5 seconds by default
+													  // Die after 0.1 seconds by default
 	InitialLifeSpan = 0.1f;
 
 	Energy = 10;
