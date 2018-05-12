@@ -59,6 +59,7 @@ void AHUDManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	
 	AccumulatedDeltaTime += DeltaTime;
 	if (AccumulatedDeltaTime >= 1.0f) {
 		UpdateSeconds();
@@ -71,12 +72,13 @@ void AHUDManager::Tick(float DeltaTime)
 void AHUDManager::UpdateSeconds()
 {
 	Seconds--;
-
+	if (Seconds <= 0) Seconds = 10;
 	pTimeInRound->SetText(FText::Format(LOCTEXT("Timefmt", "{0}"), FText::AsNumber(Seconds)));
 }
 
 void AHUDManager::UpdateLives()
 {
+	if (Lives <= 0) Lives = 0;
 	pLives->SetText(FText::Format(LOCTEXT("Livesfmt", "{0}"), FText::AsNumber(--Lives)));
 }
 
