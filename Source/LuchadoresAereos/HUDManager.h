@@ -41,18 +41,11 @@ private:
 
 	TWeakObjectPtr<class UTextBlock> pKilledEnemies;
 
-	//TWeakObjectPtr<class UTextBlock> pPrepareText;
-
 	TWeakObjectPtr<class UTextBlock> pTimeInRound;
 
 	TWeakObjectPtr<class UTextBlock> pLives;
 
 	float AccumulatedDeltaTime;
-
-	TArray<FText> PrepareArray;
-
-	//TArray<FSlateColor> PrepareColor;
-
 
 	uint8 PositionPrepare;
 

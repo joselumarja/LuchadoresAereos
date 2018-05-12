@@ -11,16 +11,6 @@ AHUDManager::AHUDManager() :AccumulatedDeltaTime(.0f), Seconds(200),  Lives(3)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-/*
-	PrepareArray.Emplace(FText::FromString("PREPARATE!!"));
-	PrepareArray.Emplace(FText::FromString("3"));
-	PrepareArray.Emplace(FText::FromString("2"));
-	PrepareArray.Emplace(FText::FromString("1"));
-
-	PrepareColor.Emplace(FSlateColor(FLinearColor(FColor::Red)));
-	PrepareColor.Emplace(FSlateColor(FLinearColor(FColor::Blue)));
-	PrepareColor.Emplace(FSlateColor(FLinearColor(FColor::Green)));
-	PrepareColor.Emplace(FSlateColor(FLinearColor(FColor::Yellow)));*/
 }
 
 // Called when the game starts or when spawned
@@ -43,14 +33,13 @@ void AHUDManager::BeginPlay()
 			// and retrieve the TextBlock widget within it
 			pScore = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxScore");
 			pKilledEnemies = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxKilledEnemies");
-			//pPrepareText = (UTextBlock*)pHUDWidget->GetWidgetFromName("Prepare");
+			
 			pLives = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxVidas");
 			pTimeInRound = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxSeconds");
 
 		}
 	}
 
-	
 	pLives->SetText(FText::Format(LOCTEXT("Livesfmt", "{0}"), FText::AsNumber(Lives)));
 }
 
@@ -68,11 +57,10 @@ void AHUDManager::Tick(float DeltaTime)
 
 }
 
-//QUEDA PENDIENTE DE HACER EL CONTADOR REGRESIVO
 void AHUDManager::UpdateSeconds()
 {
 	Seconds--;
-	if (Seconds <= 0) Seconds = 10;
+	if (Seconds <= 0) Seconds = 0;
 	pTimeInRound->SetText(FText::Format(LOCTEXT("Timefmt", "{0}"), FText::AsNumber(Seconds)));
 }
 
