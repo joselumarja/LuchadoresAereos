@@ -2,7 +2,7 @@
 
 #include "Bullet.h"
 
-ABullet::ABullet()
+ABullet::ABullet():Super()
 {
 
 	// Static reference to the mesh to use for the projectile

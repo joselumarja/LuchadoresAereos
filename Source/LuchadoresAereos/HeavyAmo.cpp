@@ -2,8 +2,9 @@
 
 #include "HeavyAmo.h"
 
-AHeavyAmo::AHeavyAmo()
+AHeavyAmo::AHeavyAmo():Super()
 {
+
 	// Static reference to the mesh to use for the projectile
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
 

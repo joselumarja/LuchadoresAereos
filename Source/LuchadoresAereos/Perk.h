@@ -3,40 +3,37 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine.h"
 #include "GameFramework/Actor.h"
 #include "LuchadoresAereosPawn.h"
-#include "Enemy.generated.h"
+#include "Perk.generated.h"
 
-UCLASS(Abstract)
-class LUCHADORESAEREOS_API AEnemy : public AActor
+UCLASS()
+class LUCHADORESAEREOS_API APerk : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AEnemy();
+	APerk();
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UFUNCTION()
-	virtual void OnHit(AActor *SelfActor, AActor *OtherActor, FVector NormalImpulse, const FHitResult &Hit);
-
-	TSubclassOf<AActor> ProjectileClass;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* ProjectileMesh;
 
 	UPROPERTY()
-	float Life;
-
-	void UpdateState();
-
-	UPROPERTY()
-	TWeakObjectPtr<APawn> PlayerPawn;
+	ALuchadoresAereosPawn* PlayerPawn;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void UpdateLife(uint8 Damage);
+	
 	
 };

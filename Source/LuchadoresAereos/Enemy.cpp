@@ -37,7 +37,7 @@ void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpuls
 
 		if (OtherActor->IsA(ProjectileClass)) {
 			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);
-			//UpdateLife(Cast<ALuchadoresAereosProjectile>(OtherActor));
+
 		}
 
 		

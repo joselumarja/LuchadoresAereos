@@ -2,7 +2,7 @@
 
 #include "LightBullet.h"
 
-ALightBullet::ALightBullet()
+ALightBullet::ALightBullet():Super()
 {
 
 	// Static reference to the mesh to use for the projectile
