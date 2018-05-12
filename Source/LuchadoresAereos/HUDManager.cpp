@@ -50,12 +50,8 @@ void AHUDManager::BeginPlay()
 		}
 	}
 
-	//pTimeInRound->SetVisibility(ESlateVisibility::Hidden);
-	//pRoundText->SetText(LOCTEXT("Roundfmt", "RONDA:  "));
-	//pNumFails->SetText(LOCTEXT("Failsfmt", "Num Fails: 0"));
-	//pScore->SetText(LOCTEXT("Scorefmt", "0"));
-
-
+	
+	pLives->SetText(FText::Format(LOCTEXT("Livesfmt", "{0}"), FText::AsNumber(Lives)));
 }
 
 // Called every frame
@@ -64,10 +60,10 @@ void AHUDManager::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	AccumulatedDeltaTime += DeltaTime;
-
-	UpdateSeconds();
-	AccumulatedDeltaTime = .0f;
-	
+	if (AccumulatedDeltaTime >= 1.0f) {
+		UpdateSeconds();
+		AccumulatedDeltaTime = .0f;
+	}
 
 }
 
@@ -81,7 +77,7 @@ void AHUDManager::UpdateSeconds()
 
 void AHUDManager::UpdateLives()
 {
-	pLives->SetText(FText::Format(LOCTEXT("Failsfmt", "{0}"), FText::AsNumber(--Lives)));
+	pLives->SetText(FText::Format(LOCTEXT("Livesfmt", "{0}"), FText::AsNumber(--Lives)));
 }
 
 void AHUDManager::UpdateScore(int Score)
