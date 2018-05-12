@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Bullet.h"
+#include "LightBullet.h"
 
-ABullet::ABullet()
+ALightBullet::ALightBullet()
 {
 
 	// Static reference to the mesh to use for the projectile
@@ -20,18 +20,18 @@ ABullet::ABullet()
 	// Use a ProjectileMovementComponent to govern this projectile's movement
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("BulletMovement"));
 	ProjectileMovement->UpdatedComponent = ProjectileMesh;
-	ProjectileMovement->InitialSpeed = 2000.f;
-	ProjectileMovement->MaxSpeed = 2000.f;
+	ProjectileMovement->InitialSpeed = 7000.f;
+	ProjectileMovement->MaxSpeed = 7000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
 
 													  // Die after 0.1 seconds by default
-	InitialLifeSpan = 1.0f;
+	InitialLifeSpan = 0.1f;
 
-	Energy = 20;
+	Energy = 10;
 
-	Damage = 7;
+	Damage = 1;
 }
 
 

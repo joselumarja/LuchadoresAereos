@@ -5,8 +5,8 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
-#include "Engine/StaticMesh.h"
-#include "EngineMinimal.h"
+
+
 
 ALuchadoresAereosProjectile::ALuchadoresAereosProjectile() 
 {
