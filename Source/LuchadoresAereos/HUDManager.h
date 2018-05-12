@@ -7,7 +7,7 @@
 #include "HUDManager.generated.h"
 
 UCLASS()
-class AHUDManager : public AActor
+class LUCHADORESAEREOS_API AHUDManager : public AActor
 {
 	GENERATED_BODY()
 
@@ -24,15 +24,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
-		TSubclassOf<class UUserWidget> ArchievementWidget;
-
-	void NewRound(int Round);
+		TSubclassOf<class UUserWidget> HUDWidget;
 
 	void UpdateSeconds();
 
-	void InInterRoundBehaviour();
-
-	void UpdateFails();
+	void UpdateLives();
 
 	void UpdateScore(int Score);
 
@@ -43,27 +39,26 @@ private:
 
 	TWeakObjectPtr<class UTextBlock> pScore;
 
-	TWeakObjectPtr<class UTextBlock> pRoundText;
+	TWeakObjectPtr<class UTextBlock> pKilledEnemies;
 
 	TWeakObjectPtr<class UTextBlock> pPrepareText;
 
 	TWeakObjectPtr<class UTextBlock> pTimeInRound;
 
-	TWeakObjectPtr<class UTextBlock> pNumFails;
+	TWeakObjectPtr<class UTextBlock> pLives;
 
 	float AccumulatedDeltaTime;
 
 	TArray<FText> PrepareArray;
 
-	TArray<FSlateColor> PrepareColor;
+	//TArray<FSlateColor> PrepareColor;
 
-	bool InInterRound;
 
 	uint8 PositionPrepare;
 
-	int SecondsInRound, MinutesInRound;
+	int Seconds;
 
-	int Fails;
+	int Lives;
 
 
 };
