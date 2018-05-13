@@ -6,9 +6,6 @@
 #include "LuchadoresAereosProjectile.h"
 #include "HeavyAmo.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class LUCHADORESAEREOS_API AHeavyAmo : public ALuchadoresAereosProjectile
 {

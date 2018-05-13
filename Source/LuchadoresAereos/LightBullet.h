@@ -6,9 +6,6 @@
 #include "LuchadoresAereosProjectile.h"
 #include "LightBullet.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class LUCHADORESAEREOS_API ALightBullet : public ALuchadoresAereosProjectile
 {

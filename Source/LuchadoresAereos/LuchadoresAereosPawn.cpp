@@ -169,7 +169,7 @@ void ALuchadoresAereosPawn::SetInvulnerability()
 
 void ALuchadoresAereosPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if ((OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
+	if (!bInvulnerability && (OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
 	{
 		if (--Lifes <= 0)
 		{
