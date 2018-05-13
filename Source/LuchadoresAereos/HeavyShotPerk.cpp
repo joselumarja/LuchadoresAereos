@@ -2,9 +2,8 @@
 
 #include "HeavyShotPerk.h"
 
-AHeavyShotPerk::AHeavyShotPerk()
+AHeavyShotPerk::AHeavyShotPerk():Super()
 {
-	Super();
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
 

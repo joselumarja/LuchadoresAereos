@@ -2,9 +2,8 @@
 
 #include "LifePerk.h"
 
-ALifePerk::ALifePerk()
+ALifePerk::ALifePerk():Super()
 {
-	Super();
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
 

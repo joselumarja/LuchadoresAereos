@@ -2,9 +2,8 @@
 
 #include "LightShotPerk.h"
 
-ALightShotPerk::ALightShotPerk()
+ALightShotPerk::ALightShotPerk():Super()
 {
-	Super();
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
 
