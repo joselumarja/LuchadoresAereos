@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "TimerManager.h"
 #include "HUDManager.generated.h"
 
 UCLASS()
@@ -32,6 +33,8 @@ public:
 
 	void UpdateScore(int Score);
 
+	void SumPlaySeconds(uint8 ExtraSeconds);
+
 private:
 
 	// Variable to hold the widget after creating it
@@ -45,13 +48,14 @@ private:
 
 	TWeakObjectPtr<class UTextBlock> pLives;
 
-	float AccumulatedDeltaTime;
-
 	uint8 PositionPrepare;
 
 	int Seconds;
 
 	int Lives;
 
+	UWorld* World;
+
+	FTimerHandle ClockHandler;
 
 };

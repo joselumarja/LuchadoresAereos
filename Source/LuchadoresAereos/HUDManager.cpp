@@ -4,10 +4,11 @@
 #include "TextWidgetTypes.h"
 #include "TextBlock.h"
 
+
 #define LOCTEXT_NAMESPACE "HUD Manager"
 
 // Sets default values
-AHUDManager::AHUDManager() :AccumulatedDeltaTime(.0f), Seconds(200),  Lives(3)
+AHUDManager::AHUDManager() : Seconds(200),  Lives(3)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -37,6 +38,8 @@ void AHUDManager::BeginPlay()
 			pLives = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxVidas");
 			pTimeInRound = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxSeconds");
 
+			World = GetWorld();
+			World->GetTimerManager().SetTimer(ClockHandler, this, &AHUDManager::UpdateSeconds, 1.0f);
 		}
 	}
 
@@ -48,20 +51,18 @@ void AHUDManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	
-	AccumulatedDeltaTime += DeltaTime;
-	if (AccumulatedDeltaTime >= 1.0f) {
-		UpdateSeconds();
-		AccumulatedDeltaTime = .0f;
-	}
-
 }
 
 void AHUDManager::UpdateSeconds()
 {
-	Seconds--;
-	if (Seconds <= 0) Seconds = 0;
+	--Seconds;
 	pTimeInRound->SetText(FText::Format(LOCTEXT("Timefmt", "{0}"), FText::AsNumber(Seconds)));
+	World->GetTimerManager().SetTimer(ClockHandler, this, &AHUDManager::UpdateSeconds, 1.0f);
+}
+
+void AHUDManager::SumPlaySeconds(uint8 ExtraSeconds)
+{
+	Seconds += ExtraSeconds;
 }
 
 void AHUDManager::UpdateLives()
