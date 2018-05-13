@@ -51,10 +51,24 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	// Weapon
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	bCanFire = true;
-	Lifes = 3;
 	bInvulnerability = false;
 	InvulnerabilityTime = 20.0f;
 	SetNormalShotState();
+}
+
+void ALuchadoresAereosPawn::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	for (TActorIterator<AGameManager> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (FString(TEXT("GameManager_1")).Equals(ActorItr->GetName()))
+		{
+			//finding archievement manager
+			Manager = *ActorItr;
+		}
+	}
+	World = GetWorld();
 }
 
 void ALuchadoresAereosPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -118,7 +132,6 @@ void ALuchadoresAereosPawn::FireShot(FVector FireDirection)
 			// Spawn projectile at an offset from this pawn
 			const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 
-			UWorld* const World = GetWorld();
 			if (World != NULL)
 			{
 				switch (ShotMode)
@@ -171,10 +184,7 @@ void ALuchadoresAereosPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAct
 {
 	if (!bInvulnerability && (OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
 	{
-		if (--Lifes <= 0)
-		{
-			GameOver();
-		}
+		Manager->UpdateLives();
 		SetNormalShotState();
 		SetInvulnerability();
 	}
@@ -196,11 +206,6 @@ void ALuchadoresAereosPawn::SetLightShotState()
 {
 	ShotMode = PlayerShot::Light;
 	FireRate = 0.1f;
-}
-
-void ALuchadoresAereosPawn::GameOver()
-{
-
 }
 
 

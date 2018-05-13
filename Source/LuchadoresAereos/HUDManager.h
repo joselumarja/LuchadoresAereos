@@ -27,13 +27,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 		TSubclassOf<class UUserWidget> HUDWidget;
 
-	void UpdateSeconds();
+	void UpdateSeconds(int Seconds);
 
-	void UpdateLives();
+	void UpdateLives(int Lives);
 
 	void UpdateScore(int Score);
-
-	void SumPlaySeconds(uint8 ExtraSeconds);
 
 private:
 
@@ -49,13 +47,5 @@ private:
 	TWeakObjectPtr<class UTextBlock> pLives;
 
 	uint8 PositionPrepare;
-
-	int Seconds;
-
-	int Lives;
-
-	UWorld* World;
-
-	FTimerHandle ClockHandler;
 
 };

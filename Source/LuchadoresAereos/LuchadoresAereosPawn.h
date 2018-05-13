@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameManager.h"
 #include "LuchadoresAereosPawn.generated.h"
 
 enum class PlayerShot : uint8
@@ -36,10 +37,6 @@ public:
 	/** Offset from the ships location to spawn projectiles */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite )
 	FVector GunOffset;
-
-	/** Number of lifes */
-	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
-	uint8 Lifes;
 
 	/* How fast the weapon will fire */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
@@ -81,13 +78,15 @@ public:
 
 	void SetLightShotState();
 
-	void GameOver();
-
 	// Static names for axis bindings
 	static const FName MoveForwardBinding;
 	static const FName MoveRightBinding;
 	static const FName FireForwardBinding;
 	static const FName FireRightBinding;
+
+protected:
+
+	virtual void BeginPlay() override;
 
 private:
 
@@ -102,6 +101,10 @@ private:
 	FTimerHandle TimerHandle_InvulnerabilityExpired;
 
 	PlayerShot ShotMode;
+
+	UWorld* World;
+
+	AGameManager* Manager;
 
 public:
 	/** Returns ShipMeshComponent subobject **/

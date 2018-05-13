@@ -8,7 +8,7 @@
 #define LOCTEXT_NAMESPACE "HUD Manager"
 
 // Sets default values
-AHUDManager::AHUDManager() : Seconds(200),  Lives(3)
+AHUDManager::AHUDManager() 
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -37,13 +37,9 @@ void AHUDManager::BeginPlay()
 			
 			pLives = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxVidas");
 			pTimeInRound = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxSeconds");
-
-			World = GetWorld();
-			World->GetTimerManager().SetTimer(ClockHandler, this, &AHUDManager::UpdateSeconds, 1.0f);
+			
 		}
 	}
-
-	pLives->SetText(FText::Format(LOCTEXT("Livesfmt", "{0}"), FText::AsNumber(Lives)));
 }
 
 // Called every frame
@@ -53,22 +49,15 @@ void AHUDManager::Tick(float DeltaTime)
 
 }
 
-void AHUDManager::UpdateSeconds()
+void AHUDManager::UpdateSeconds(int Seconds)
 {
-	--Seconds;
 	pTimeInRound->SetText(FText::Format(LOCTEXT("Timefmt", "{0}"), FText::AsNumber(Seconds)));
-	World->GetTimerManager().SetTimer(ClockHandler, this, &AHUDManager::UpdateSeconds, 1.0f);
 }
 
-void AHUDManager::SumPlaySeconds(uint8 ExtraSeconds)
-{
-	Seconds += ExtraSeconds;
-}
 
-void AHUDManager::UpdateLives()
+void AHUDManager::UpdateLives(int Lives)
 {
-	if (Lives <= 0) Lives = 0;
-	pLives->SetText(FText::Format(LOCTEXT("Livesfmt", "{0}"), FText::AsNumber(--Lives)));
+	pLives->SetText(FText::Format(LOCTEXT("Livesfmt", "{0}"), FText::AsNumber(Lives)));
 }
 
 void AHUDManager::UpdateScore(int Score)
