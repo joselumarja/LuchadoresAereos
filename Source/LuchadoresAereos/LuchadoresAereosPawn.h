@@ -6,6 +6,13 @@
 #include "GameFramework/Character.h"
 #include "LuchadoresAereosPawn.generated.h"
 
+enum class PlayerShot : uint8
+{
+	Standar,
+	Light,
+	Heavy
+};
+
 UCLASS(Blueprintable)
 class ALuchadoresAereosPawn : public APawn
 {
@@ -29,10 +36,18 @@ public:
 	/** Offset from the ships location to spawn projectiles */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite )
 	FVector GunOffset;
-	
+
+	/** Number of lifes */
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+	uint8 Lifes;
+
 	/* How fast the weapon will fire */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
 	float FireRate;
+
+	/* How much time ship is unvulnerable*/
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+	float InvulnerabilityTime;
 
 	/* The speed our ship moves around the level */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
@@ -41,6 +56,9 @@ public:
 	/** Sound to play each time we fire */
 	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
 	class USoundBase* FireSound;
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 	// Begin Actor Interface
 	virtual void Tick(float DeltaSeconds) override;
@@ -53,6 +71,18 @@ public:
 	/* Handler for the fire timer expiry */
 	void ShotTimerExpired();
 
+	void InvulnerabilityTimerExpired();
+
+	void SetInvulnerability();
+
+	void SetNormalShotState();
+
+	void SetHeavyShotState();
+
+	void SetLightShotState();
+
+	void GameOver();
+
 	// Static names for axis bindings
 	static const FName MoveForwardBinding;
 	static const FName MoveRightBinding;
@@ -64,8 +94,14 @@ private:
 	/* Flag to control firing  */
 	uint32 bCanFire : 1;
 
+	bool bInvulnerability;
+
 	/** Handle for efficient management of ShotTimerExpired timer */
 	FTimerHandle TimerHandle_ShotTimerExpired;
+
+	FTimerHandle TimerHandle_InvulnerabilityExpired;
+
+	PlayerShot ShotMode;
 
 public:
 	/** Returns ShipMeshComponent subobject **/

@@ -12,6 +12,7 @@ class LUCHADORESAEREOS_API ABullet : public ALuchadoresAereosProjectile
 	GENERATED_BODY()
 
 public:
+
 	ABullet();
 	
 	

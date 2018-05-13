@@ -1,7 +1,9 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
 #include "LuchadoresAereosPawn.h"
-#include "LuchadoresAereosProjectile.h"
+#include "Bullet.h"
+#include "LightBullet.h"
+#include "HeavyAmo.h"
 #include "TimerManager.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Camera/CameraComponent.h"
@@ -48,8 +50,11 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	MoveSpeed = 1000.0f;
 	// Weapon
 	GunOffset = FVector(90.f, 0.f, 0.f);
-	FireRate = 0.1f;
 	bCanFire = true;
+	Lifes = 3;
+	bInvulnerability = false;
+	InvulnerabilityTime = 20.0f;
+	SetNormalShotState();
 }
 
 void ALuchadoresAereosPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -116,8 +121,18 @@ void ALuchadoresAereosPawn::FireShot(FVector FireDirection)
 			UWorld* const World = GetWorld();
 			if (World != NULL)
 			{
-				// spawn the projectile
-				World->SpawnActor<ALuchadoresAereosProjectile>(SpawnLocation, FireRotation);
+				switch (ShotMode)
+				{
+					case PlayerShot::Standar:
+						World->SpawnActor<ABullet>(SpawnLocation, FireRotation);
+						break;
+					case PlayerShot::Light:
+						World->SpawnActor<ALightBullet>(SpawnLocation, FireRotation);
+						break;
+					case PlayerShot::Heavy:
+						World->SpawnActor<AHeavyAmo>(SpawnLocation, FireRotation);
+						break;
+				}
 			}
 
 			bCanFire = false;
@@ -138,4 +153,54 @@ void ALuchadoresAereosPawn::ShotTimerExpired()
 {
 	bCanFire = true;
 }
+
+void ALuchadoresAereosPawn::InvulnerabilityTimerExpired()
+{
+	bInvulnerability = false;
+	//quitar las texturas de la invulnerabilidad
+}
+
+void ALuchadoresAereosPawn::SetInvulnerability()
+{
+	bInvulnerability = true;
+	//añadir aqui un cambio de texturas o algo asi
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityExpired, this, &ALuchadoresAereosPawn::InvulnerabilityTimerExpired, InvulnerabilityTime);
+}
+
+void ALuchadoresAereosPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if ((OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
+	{
+		if (--Lifes <= 0)
+		{
+			GameOver();
+		}
+		SetNormalShotState();
+		SetInvulnerability();
+	}
+}
+
+void ALuchadoresAereosPawn::SetNormalShotState()
+{
+	ShotMode = PlayerShot::Standar;
+	FireRate = 0.3f;
+}
+
+void ALuchadoresAereosPawn::SetHeavyShotState()
+{
+	ShotMode = PlayerShot::Heavy;
+	FireRate = 0.7f;
+}
+
+void ALuchadoresAereosPawn::SetLightShotState()
+{
+	ShotMode = PlayerShot::Light;
+	FireRate = 0.1f;
+}
+
+void ALuchadoresAereosPawn::GameOver()
+{
+
+}
+
 
