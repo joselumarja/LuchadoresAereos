@@ -38,6 +38,7 @@ void AHUDManager::BeginPlay()
 			pLives = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxVidas");
 			pTimeInRound = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxSeconds");
 			
+
 		}
 	}
 }

@@ -46,6 +46,4 @@ private:
 
 	TWeakObjectPtr<class UTextBlock> pLives;
 
-	uint8 PositionPrepare;
-
 };
