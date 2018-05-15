@@ -9,6 +9,8 @@ AGameManager::AGameManager():Lives(3),Seconds(200)
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+
+
 }
 
 // Called when the game starts or when spawned
@@ -26,16 +28,32 @@ void AGameManager::BeginPlay()
 			HUD = *ActorItr;
 		}
 	}
+
+	FString EnemySpawnPlaneString = FString(TEXT("Floor"));
+
+	// Get a reference to the invisible plane used to spawn enemies
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (EnemySpawnPlaneString.Equals(ActorItr->GetName()))
+		{
+			// Conversion to smart pointer
+			ReferencePlane = *ActorItr;
+			break;
+		}
+	}
+
 	HUD->UpdateSeconds(Seconds);
 	HUD->UpdateLives(Lives);
-	World->GetTimerManager().SetTimer(ClockTimer, this, &AGameManager::Clock, 1.0f);
+	HUD->UpdateScore(Score);
+	World->GetTimerManager().SetTimer(ClockTimer, this, &AGameManager::Clock, 1.0f);	
 }
+
 
 // Called every frame
 void AGameManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	SpawnEnemies(1);
 }
 
 void AGameManager::Clock()
@@ -53,6 +71,13 @@ void AGameManager::SumSeconds(uint8 ExtraSeconds)
 	Seconds += ExtraSeconds;
 }
 
+void AGameManager::InitializeSpawnEnemies() {
+	EnemyClasses.AddUnique(ALightEnemy::StaticClass());
+	EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
+	EnemyClasses.AddUnique(ATankEnemy::StaticClass());
+
+}
+
 void AGameManager::UpdateLives()
 {
 	if (--Lives == 0)
@@ -61,7 +86,46 @@ void AGameManager::UpdateLives()
 	}
 	HUD->UpdateLives(Lives);
 }
+
+void AGameManager::UpdateEnemyKilled() {
+	EnemiesKilled++;
+	HUD->UpdateEnemiesKilled(EnemiesKilled);
+}
+
+void AGameManager::UpdateScore(uint8 ExtraScore) 
+{
+	Score += ExtraScore;
+	HUD->UpdateScore(Score);
+}
+
+void AGameManager::SpawnEnemies(int Enemies) {
+	Spawn = false;
+	for (int i = 0; i < Enemies; i++) {
+		TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
+		FVector EnemySpawnLocation = GetRandomLocationFromReferencePlane();
+		GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
+	}
+}
+
 void AGameManager::GameOver()
 {
 
+}
+
+TSubclassOf<AEnemy> AGameManager::GetRandomEnemyClass() const
+{
+	return EnemyClasses[FMath::RandRange(0, EnemyClasses.Num() - 1)];
+}
+
+FVector AGameManager::GetRandomLocationFromReferencePlane() const
+{
+	FVector RandomLocation;
+	FVector Orgin;
+	FVector BoundsExtent;
+	ReferencePlane->GetActorBounds(false, Orgin, BoundsExtent);
+
+	// Build a bounding box and get a random location.
+	RandomLocation = FMath::RandPointInBox(FBox::BuildAABB(Orgin, BoundsExtent));
+
+	return RandomLocation;
 }

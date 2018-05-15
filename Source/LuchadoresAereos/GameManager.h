@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "HUDManager.h"
 #include "TimerManager.h"
+#include "Enemy.h"
+#include "LightEnemy.h"
+#include "MediumEnemy.h"
+#include "TankEnemy.h"
 #include "GameManager.generated.h"
 
 UCLASS()
@@ -25,6 +29,16 @@ public:
 
 	void UpdateLives();
 
+	void UpdateScore(uint8 ExtraScore);
+
+	void SpawnEnemies(int Enemies);
+	
+	void UpdateEnemyKilled();
+
+	void InitializeSpawnEnemies();
+
+	TSubclassOf<AEnemy> GetRandomEnemyClass() const;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -34,8 +48,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	int Score;
 
 	int Seconds;
+
+	int EnemiesKilled;
+
+	bool Spawn = true;
 
 	uint8 Lives;
 
@@ -44,4 +63,10 @@ private:
 	FTimerHandle ClockTimer;
 	
 	UWorld* World;
+
+	TArray<TSubclassOf<AEnemy>> EnemyClasses;
+
+	FVector GetRandomLocationFromReferencePlane() const;
+
+	TWeakObjectPtr<AActor> ReferencePlane;
 };

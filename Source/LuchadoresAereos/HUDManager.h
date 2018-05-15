@@ -33,6 +33,8 @@ public:
 
 	void UpdateScore(int Score);
 
+	void UpdateEnemiesKilled(int Enemies);
+
 private:
 
 	// Variable to hold the widget after creating it

@@ -52,7 +52,7 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	bCanFire = true;
 	bInvulnerability = false;
-	InvulnerabilityTime = 20.0f;
+	InvulnerabilityTime = 3.0f;
 	SetNormalShotState();
 }
 

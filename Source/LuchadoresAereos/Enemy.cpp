@@ -21,9 +21,17 @@ AEnemy::AEnemy()
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	
-}
 
+	for (TActorIterator<AGameManager> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (FString(TEXT("GameManager_1")).Equals(ActorItr->GetName()))
+		{
+			//finding archievement manager
+			Manager = *ActorItr;
+		}
+	}
+	World = GetWorld();
+}
 // Called every frame
 void AEnemy::Tick(float DeltaTime)
 {
@@ -37,7 +45,7 @@ void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpuls
 
 		if (OtherActor->IsA(ProjectileClass)) {
 			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);
-
+			
 		}
 
 		
@@ -50,11 +58,11 @@ void AEnemy::UpdateLife(uint8 Damage)
 
 	if (Life <= 0)
 	{
+		Manager->SumSeconds(Time);
+		Manager->UpdateScore(Score);
+		Manager->UpdateEnemyKilled();
 		Destroy();
 	}
 }
 
-void AEnemy::UpdateState() 
-{
 
-}

@@ -66,5 +66,9 @@ void AHUDManager::UpdateScore(int Score)
 	pScore->SetText(FText::AsNumber(Score));
 }
 
+void AHUDManager::UpdateEnemiesKilled(int Enemies) {
+
+	pKilledEnemies->SetText(FText::AsNumber(Enemies));
+}
 
 #undef LOCTEXT_NAMESPACE

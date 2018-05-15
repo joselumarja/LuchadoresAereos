@@ -30,11 +30,13 @@ void ALuchadoresAereosProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 	if ((OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
 	{
 		uint8 HitEnergy;
-		HitEnergy=(Cast<ALuchadoresAereosProjectile>(OtherActor))->GetEnergy();
+		HitEnergy = (Cast<ALuchadoresAereosProjectile>(OtherActor))->GetEnergy();
 		UpdateEnergy(HitEnergy);
 	}
-
-	Destroy();
+	else 
+	{
+		Destroy();
+	}	
 }
 
 void ALuchadoresAereosProjectile::UpdateEnergy(uint8 HitEnergy)
