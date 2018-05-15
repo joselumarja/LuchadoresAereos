@@ -15,19 +15,19 @@ class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 {
 	GENERATED_BODY()
 	
-	protected:
+	public:
 		ATankEnemy();
-
-		UPROPERTY()
-		int Time;
-
-		UPROPERTY()
-		float Life;
-	
 
 		void UpdateState();
 
-	public:
 		virtual void Tick(float DeltaTime) override;
-		void Shoot() override;
+		
+	//	void Shoot() override;
+
+	/*private:
+		/*UPROPERTY()
+			float Time;
+
+		UPROPERTY()
+			float Life;*/
 };

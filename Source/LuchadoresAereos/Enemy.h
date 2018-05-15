@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "GameManager.h"
+
 #include "LuchadoresAereosPawn.h"
 #include "Engine.h"
 #include "Enemy.generated.h"
@@ -32,8 +32,8 @@ private:
 	TSubclassOf<AActor> ProjectileClass;
 
 	/* The mesh component */
-	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-		class UStaticMeshComponent* MeshComponent;
+	/*UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		class UStaticMeshComponent* MeshComponent;*/
 
 	UPROPERTY()
 	float Life;
@@ -47,7 +47,7 @@ private:
 	UPROPERTY()
 	TWeakObjectPtr<APawn> PlayerPawn;
 
-	AGameManager* Manager;
+	//AGameManager* Manager;
 
 public:	
 	// Called every frame
@@ -55,6 +55,6 @@ public:
 
 	void UpdateLife(uint8 Damage);
 
-	virtual void Shoot()=0;
+	//virtual void Shoot()=0;
 
 };

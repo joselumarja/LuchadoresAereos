@@ -9,12 +9,12 @@ AEnemy::AEnemy()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	auto FirstPersonProjectileBPClass = ConstructorHelpers::FClassFinder<AActor>(TEXT("Class'/Script/LuchadoresAereos.LuchadoresAereosProjectile'"));
+	/*auto FirstPersonProjectileBPClass = ConstructorHelpers::FClassFinder<AActor>(TEXT("Class'/Script/LuchadoresAereos.LuchadoresAereosProjectile'"));
 	if (FirstPersonProjectileBPClass.Succeeded()) {
 		ProjectileClass = FirstPersonProjectileBPClass.Class;
 	}
 
-	OnActorHit.AddDynamic(this, &AEnemy::OnHit);
+	OnActorHit.AddDynamic(this, &AEnemy::OnHit);*/
 }
 
 // Called when the game starts or when spawned
@@ -27,7 +27,7 @@ void AEnemy::BeginPlay()
 		if (FString(TEXT("GameManager_1")).Equals(ActorItr->GetName()))
 		{
 			//finding archievement manager
-			Manager = *ActorItr;
+			//Manager = *ActorItr;
 		}
 	}
 	World = GetWorld();
@@ -58,9 +58,9 @@ void AEnemy::UpdateLife(uint8 Damage)
 
 	if (Life <= 0)
 	{
-		Manager->SumSeconds(Time);
+		/*Manager->SumSeconds(Time);
 		Manager->UpdateScore(Score);
-		Manager->UpdateEnemyKilled();
+		Manager->UpdateEnemyKilled();*/
 		Destroy();
 	}
 }
