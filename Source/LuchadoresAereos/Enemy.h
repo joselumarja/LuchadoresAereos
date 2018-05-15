@@ -30,23 +30,24 @@ private:
 
 	TSubclassOf<AActor> ProjectileClass;
 
-	/* The mesh component */
-	/*UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-		class UStaticMeshComponent* MeshComponent;*/
-
 	UPROPERTY()
-	float Life;
-
-	UPROPERTY()
-	float Time;
-
-	UPROPERTY()
-	int Score;
-
-	UPROPERTY()
-	TWeakObjectPtr<APawn> PlayerPawn;
+		TWeakObjectPtr<APawn> PlayerPawn;
 
 	AGameManager* Manager;
+
+	
+
+protected:
+	
+	float Life;
+
+	float Time;
+
+	int Score;
+
+	/* The mesh component */
+	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		class UStaticMeshComponent* MeshComponent;
 
 public:	
 	// Called every frame
@@ -54,6 +55,5 @@ public:
 
 	void UpdateLife(uint8 Damage);
 
-	//virtual void Shoot()=0;
-
+	
 };

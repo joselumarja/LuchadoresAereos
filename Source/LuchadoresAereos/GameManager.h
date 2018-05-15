@@ -37,7 +37,7 @@ public:
 
 	void InitializeSpawnEnemies();
 
-	//nTSubclassOf<AEnemy> GetRandomEnemyClass() const;
+	//TSubclassOf<AEnemy> GetRandomEnemyClass() const;
 
 protected:
 	// Called when the game starts or when spawned

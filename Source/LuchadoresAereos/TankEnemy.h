@@ -21,13 +21,5 @@ class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 		void UpdateState();
 
 		virtual void Tick(float DeltaTime) override;
-		
-	//	void Shoot() override;
-
-	/*private:
-		/*UPROPERTY()
-			float Time;
-
-		UPROPERTY()
-			float Life;*/
+	
 };

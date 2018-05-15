@@ -58,5 +58,3 @@ void AEnemy::UpdateLife(uint8 Damage)
 		Destroy();
 	}
 }
-
-

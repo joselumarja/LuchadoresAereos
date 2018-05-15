@@ -4,15 +4,15 @@
 
 
 ATankEnemy::ATankEnemy() {
-	//Life = 100.0;
-	//Time = 20.0;
-	/*
+	Life = 100.0;
+	Time = 20.0;
+	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
 	RootComponent = MeshComponent;
 	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
-	MeshComponent->SetStaticMesh(ShipMesh.Object);*/
+	MeshComponent->SetStaticMesh(ShipMesh.Object);
 
 }
 
@@ -26,8 +26,4 @@ void ATankEnemy::UpdateState() {
 	//PENSADO PARA CAMBIAR DE FASE
 
 }
-/*
-void ATankEnemy::Shoot() {
-	
 
-}*/
