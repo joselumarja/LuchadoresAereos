@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-
 #include "LuchadoresAereosPawn.h"
 #include "Engine.h"
 #include "Enemy.generated.h"
@@ -47,7 +46,7 @@ private:
 	UPROPERTY()
 	TWeakObjectPtr<APawn> PlayerPawn;
 
-	//AGameManager* Manager;
+	AGameManager* Manager;
 
 public:	
 	// Called every frame

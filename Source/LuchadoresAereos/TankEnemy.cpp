@@ -4,9 +4,9 @@
 
 
 ATankEnemy::ATankEnemy() {
-/*	Life = 100.0;
-	Time = 20.0;
-
+	//Life = 100.0;
+	//Time = 20.0;
+	/*
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
