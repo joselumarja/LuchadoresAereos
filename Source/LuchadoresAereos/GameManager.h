@@ -6,10 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "HUDManager.h"
 #include "TimerManager.h"
-//#include "Enemy.h"
-//#include "LightEnemy.h"
-//#include "MediumEnemy.h"
-//#include "TankEnemy.h"
 #include "GameManager.generated.h"
 
 UCLASS()
@@ -37,7 +33,7 @@ public:
 
 	void InitializeSpawnEnemies();
 
-	//TSubclassOf<AEnemy> GetRandomEnemyClass() const;
+	//AEnemy GetRandomEnemyClass() const;
 
 protected:
 	// Called when the game starts or when spawned
@@ -64,7 +60,7 @@ private:
 	
 	UWorld* World;
 
-	//TArray<TSubclassOf<AEnemy>> EnemyClasses;
+	//TArray<TSubclassOf<AEnemy*>> EnemyClasses;
 
 	FVector GetRandomLocationFromReferencePlane() const;
 

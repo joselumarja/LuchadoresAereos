@@ -72,9 +72,9 @@ void AGameManager::SumSeconds(uint8 ExtraSeconds)
 }
 
 void AGameManager::InitializeSpawnEnemies() {
-	/*EnemyClasses.AddUnique(ALightEnemy::StaticClass());
-	EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
-	EnemyClasses.AddUnique(ATankEnemy::StaticClass());*/
+	//EnemyClasses.AddUnique(ALightEnemy::StaticClass());
+	//EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
+	//EnemyClasses.AddUnique(ATankEnemy::StaticClass());
 
 }
 
@@ -111,10 +111,10 @@ void AGameManager::GameOver()
 {
 
 }
-/*
-TSubclassOf<AEnemy> AGameManager::GetRandomEnemyClass() const
+
+/*AEnemy AGameManager::GetRandomEnemyClass() const
 {
-	return EnemyClasses[FMath::RandRange(0, EnemyClasses.Num() - 1)];
+	//return EnemyClasses[FMath::RandRange(0, EnemyClasses.Num() - 1)];
 }*/
 
 FVector AGameManager::GetRandomLocationFromReferencePlane() const
