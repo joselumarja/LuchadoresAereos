@@ -13,6 +13,8 @@ class LUCHADORESAEREOS_API AEnemy : public AActor
 {
 	GENERATED_BODY()
 	
+	
+
 public:	
 	// Sets default values for this actor's properties
 	AEnemy();
@@ -24,19 +26,6 @@ protected:
 	UFUNCTION()
 	virtual void OnHit(AActor *SelfActor, AActor *OtherActor, FVector NormalImpulse, const FHitResult &Hit);
 
-private:
-
-	UWorld* World;
-
-	TSubclassOf<AActor> ProjectileClass;
-
-	UPROPERTY()
-		TWeakObjectPtr<APawn> PlayerPawn;
-
-	AGameManager* Manager;
-
-	
-
 protected:
 	
 	float Life;
@@ -45,9 +34,13 @@ protected:
 
 	int Score;
 
-	/* The mesh component */
-	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-		class UStaticMeshComponent* MeshComponent;
+	UWorld* World;
+
+	TSubclassOf<AActor> ProjectileClass;
+
+	TWeakObjectPtr<ALuchadoresAereosPawn> PlayerPawn;
+
+	class UStaticMeshComponent* MeshComponent;
 
 public:	
 	// Called every frame

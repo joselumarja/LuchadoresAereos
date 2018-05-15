@@ -60,14 +60,6 @@ void ALuchadoresAereosPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	for (TActorIterator<AGameManager> ActorItr(GetWorld()); ActorItr; ++ActorItr)
-	{
-		if (FString(TEXT("GameManager_1")).Equals(ActorItr->GetName()))
-		{
-			//finding archievement manager
-			Manager = *ActorItr;
-		}
-	}
 	World = GetWorld();
 }
 
@@ -184,7 +176,7 @@ void ALuchadoresAereosPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAct
 {
 	if (!bInvulnerability && (OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
 	{
-		Manager->UpdateLives();
+		//INCLUIR AQUI OBSERVER PARA NOTIFICAR IMPACTO
 		SetNormalShotState();
 		SetInvulnerability();
 	}

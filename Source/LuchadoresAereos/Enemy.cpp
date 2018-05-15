@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Enemy.h"
-#include "EngineMinimal.h"
 
 // Sets default values
 AEnemy::AEnemy()
@@ -16,14 +15,6 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (TActorIterator<AGameManager> ActorItr(GetWorld()); ActorItr; ++ActorItr)
-	{
-		if (FString(TEXT("GameManager_1")).Equals(ActorItr->GetName()))
-		{
-			//finding archievement manager
-			Manager = *ActorItr;
-		}
-	}
 	World = GetWorld();
 }
 // Called every frame
@@ -52,9 +43,7 @@ void AEnemy::UpdateLife(uint8 Damage)
 
 	if (Life <= 0)
 	{
-		Manager->SumSeconds(Time);
-		Manager->UpdateScore(Score);
-		Manager->UpdateEnemyKilled();
+		//INCLUIR OBSERVER PARA NOTIFICAR AQUI
 		Destroy();
 	}
 }

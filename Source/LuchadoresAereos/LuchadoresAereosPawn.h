@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "GameManager.h"
 #include "LuchadoresAereosPawn.generated.h"
 
 enum class PlayerShot : uint8
@@ -103,8 +102,6 @@ private:
 	PlayerShot ShotMode;
 
 	UWorld* World;
-
-	AGameManager* Manager;
 
 public:
 	/** Returns ShipMeshComponent subobject **/
