@@ -45,6 +45,7 @@ void AGameManager::BeginPlay()
 	HUD->UpdateSeconds(Seconds);
 	HUD->UpdateLives(Lives);
 	HUD->UpdateScore(Score);
+	InitializeSpawnEnemies();
 	World->GetTimerManager().SetTimer(ClockTimer, this, &AGameManager::Clock, 1.0f);	
 }
 
@@ -73,10 +74,10 @@ void AGameManager::SumSeconds(uint8 ExtraSeconds)
 
 void AGameManager::InitializeSpawnEnemies() {
 
-	/*EnemyClasses.AddUnique(ALightEnemy::StaticClass());
+	EnemyClasses.AddUnique(ALightEnemy::StaticClass());
 	EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
 	EnemyClasses.AddUnique(ATankEnemy::StaticClass());
-	*/
+	
 }
 
 void AGameManager::UpdateLives()
@@ -100,12 +101,16 @@ void AGameManager::UpdateScore(uint8 ExtraScore)
 }
 
 void AGameManager::SpawnEnemies(int Enemies) {
-	Spawn = false;
-	for (int i = 0; i < Enemies; i++) {
-		TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
-		FVector EnemySpawnLocation = GetRandomLocationFromReferencePlane();
-		GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
+	
+	if (Spawn == true) {
+		for (int i = 0; i < Enemies; i++) {
+			TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
+			//FVector EnemySpawnLocation = GetRandomLocationFromReferencePlane();
+			FVector EnemySpawnLocation(0.0f, 0.0f, 215.0f);
+			GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
+		}
 	}
+	Spawn = false;
 }
 
 void AGameManager::GameOver()
