@@ -26,3 +26,11 @@ void ATankEnemy::UpdateState() {
 	//PENSADO PARA CAMBIAR DE FASE
 
 }
+
+void ATankEnemy::Move() {
+
+	FVector NewLocation = GetActorLocation();
+	NewLocation.X -= 5.0f;
+	SetActorLocation(NewLocation);
+
+}

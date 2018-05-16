@@ -39,6 +39,7 @@ public:
 
 	TSubclassOf<AEnemy> GetRandomEnemyClass() const;
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -57,6 +58,12 @@ private:
 	bool Spawn = true;
 
 	uint8 Lives;
+
+	uint8 EnemiesAlived;
+
+	uint8 EnemiesKilledPerRound;
+
+	uint8 Round;
 
 	AHUDManager * HUD;
 

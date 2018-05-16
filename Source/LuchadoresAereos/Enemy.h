@@ -25,8 +25,6 @@ protected:
 
 	UFUNCTION()
 	virtual void OnHit(AActor *SelfActor, AActor *OtherActor, FVector NormalImpulse, const FHitResult &Hit);
-
-protected:
 	
 	float Life;
 
@@ -43,6 +41,7 @@ protected:
 	class UStaticMeshComponent* MeshComponent;
 
 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -50,4 +49,6 @@ public:
 	void UpdateLife(uint8 Damage);
 
 	void Move();
+	
+	
 };
