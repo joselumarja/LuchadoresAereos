@@ -29,7 +29,7 @@ void AGameManager::BeginPlay()
 		}
 	}
 
-	FString EnemySpawnPlaneString = FString(TEXT("Floor"));
+	FString EnemySpawnPlaneString = FString(TEXT("Plane"));
 
 	// Get a reference to the invisible plane used to spawn enemies
 	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
@@ -54,7 +54,7 @@ void AGameManager::BeginPlay()
 void AGameManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	SpawnEnemies(1);
+	SpawnEnemies(3);
 }
 
 void AGameManager::Clock()
@@ -105,8 +105,8 @@ void AGameManager::SpawnEnemies(int Enemies) {
 	if (Spawn == true) {
 		for (int i = 0; i < Enemies; i++) {
 			TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
-			//FVector EnemySpawnLocation = GetRandomLocationFromReferencePlane();
-			FVector EnemySpawnLocation(0.0f, 0.0f, 215.0f);
+			FVector EnemySpawnLocation = GetRandomLocation();
+			//FVector EnemySpawnLocation(0.0f, 0.0f, 215.0f);
 			GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
 		}
 	}
@@ -123,15 +123,20 @@ TSubclassOf<AEnemy> AGameManager::GetRandomEnemyClass() const
 	return EnemyClasses[FMath::RandRange(0, EnemyClasses.Num() - 1)];
 }
 
-FVector AGameManager::GetRandomLocationFromReferencePlane() const
+FVector AGameManager::GetRandomLocation() const
 {
-	FVector RandomLocation;
-	FVector Orgin;
+	
+	/*//FVector Orgin;
 	FVector BoundsExtent;
 	ReferencePlane->GetActorBounds(false, Orgin, BoundsExtent);
 
 	// Build a bounding box and get a random location.
-	RandomLocation = FMath::RandPointInBox(FBox::BuildAABB(Orgin, BoundsExtent));
-
+	RandomLocation = FMath::RandPointInBox(FBox::BuildAABB(Orgin, BoundsExtent));*/
+	float x;
+	float y;
+	float z = 215.0;
+	y = FMath::RandRange(-1950, 1950);
+	x = FMath::RandRange(2000, 2080);
+	FVector RandomLocation(x, y, z);
 	return RandomLocation;
 }

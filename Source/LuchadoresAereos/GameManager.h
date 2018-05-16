@@ -66,7 +66,7 @@ private:
 
 	TArray<TSubclassOf<AEnemy>> EnemyClasses;
 
-	FVector GetRandomLocationFromReferencePlane() const;
+	FVector GetRandomLocation() const;
 
 	TWeakObjectPtr<AActor> ReferencePlane;
 };
