@@ -48,7 +48,7 @@ public:
 
 	void UpdateLife(uint8 Damage);
 
-	void Move();
+	virtual void Move();
 	
-	
+	void RotateToPlayer();
 };
