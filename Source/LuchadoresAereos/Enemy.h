@@ -14,7 +14,6 @@ class LUCHADORESAEREOS_API AEnemy : public AActor
 {
 	GENERATED_BODY()
 	
-	
 
 public:	
 	// Sets default values for this actor's properties
@@ -50,5 +49,5 @@ public:
 
 	void UpdateLife(uint8 Damage);
 
-	//virtual void Shoot();
+	void Move();
 };

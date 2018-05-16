@@ -176,6 +176,7 @@ void ALuchadoresAereosPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAct
 {
 	if (!bInvulnerability && (OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
 	{
+
 		//INCLUIR AQUI OBSERVER PARA NOTIFICAR IMPACTO
 		SetNormalShotState();
 		SetInvulnerability();

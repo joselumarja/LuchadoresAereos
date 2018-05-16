@@ -21,19 +21,16 @@ void AEnemy::BeginPlay()
 void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	Move();
 }
 
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
 {
 	if (OtherActor) {
-
-		if (OtherActor->IsA(ProjectileClass)) {
-			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);
-			
+		//SelfActor->SetActorEnableCollision(false);
+		if (OtherActor->IsA(AStaticMeshActor::StaticClass())) {
+			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);	
 		}
-
-		
 	}
 }
 
@@ -46,4 +43,12 @@ void AEnemy::UpdateLife(uint8 Damage)
 		//INCLUIR OBSERVER PARA NOTIFICAR AQUI
 		Destroy();
 	}
+}
+
+void AEnemy::Move() {
+	FVector NewLocation = GetActorLocation();
+	NewLocation.X -= 2.0f;
+	SetActorLocation(NewLocation);
+
+
 }

@@ -135,8 +135,9 @@ FVector AGameManager::GetRandomLocation() const
 	float x;
 	float y;
 	float z = 215.0;
+
 	y = FMath::RandRange(-1950, 1950);
-	x = FMath::RandRange(2000, 2080);
+	x = FMath::RandRange(2900, 3000);
 	FVector RandomLocation(x, y, z);
 	return RandomLocation;
 }
