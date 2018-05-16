@@ -13,6 +13,7 @@ enum class PlayerShot : uint8
 	Heavy
 };
 
+
 UCLASS(Blueprintable)
 class ALuchadoresAereosPawn : public APawn
 {

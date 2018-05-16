@@ -117,6 +117,7 @@ void AGameManager::SpawnEnemies(int Enemies) {
 			
 			GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
 			EnemiesAlived++;
+
 		}
 	}
 	Spawn = false;

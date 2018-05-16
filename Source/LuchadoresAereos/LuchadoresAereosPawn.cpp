@@ -20,6 +20,7 @@ const FName ALuchadoresAereosPawn::MoveRightBinding("MoveRight");
 const FName ALuchadoresAereosPawn::FireForwardBinding("FireForward");
 const FName ALuchadoresAereosPawn::FireRightBinding("FireRight");
 
+
 ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 {	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
