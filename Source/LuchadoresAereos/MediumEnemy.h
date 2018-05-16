@@ -14,7 +14,10 @@ class LUCHADORESAEREOS_API AMediumEnemy : public AEnemy
 {
 	GENERATED_BODY()
 	
-	
+public:
+	AMediumEnemy();
+
+	virtual void Tick(float DeltaTime) override;
 	
 	
 };

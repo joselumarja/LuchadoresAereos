@@ -5,3 +5,22 @@
 
 
 
+ALightEnemy::ALightEnemy() {
+	Life = 10.0;
+	Time = 5.0;
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+	// Create the mesh component
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));
+	RootComponent = MeshComponent;
+	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
+	MeshComponent->SetStaticMesh(ShipMesh.Object);
+
+}
+
+
+void ALightEnemy::Tick(float DeltaTime) {
+	Super::Tick(DeltaTime);
+
+}
+

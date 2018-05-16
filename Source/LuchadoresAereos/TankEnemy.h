@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Enemy.h"
-#include "UObject/ConstructorHelpers.h"
+
 #include "TankEnemy.generated.h"
 
 /**
@@ -21,5 +21,7 @@ class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 		void UpdateState();
 
 		virtual void Tick(float DeltaTime) override;
+
+		//void Shoot() override;
 	
 };

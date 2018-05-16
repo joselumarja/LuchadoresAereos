@@ -26,4 +26,3 @@ void ATankEnemy::UpdateState() {
 	//PENSADO PARA CAMBIAR DE FASE
 
 }
-

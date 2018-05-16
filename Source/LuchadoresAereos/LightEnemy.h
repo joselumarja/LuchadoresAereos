@@ -11,7 +11,10 @@ class LUCHADORESAEREOS_API ALightEnemy : public AEnemy
 {
 	GENERATED_BODY()
 	
-	
-	
+public:
+
+	ALightEnemy();
+
+	virtual void Tick(float DeltaTime) override;
 	
 };

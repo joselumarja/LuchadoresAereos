@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "LuchadoresAereosPawn.h"
+#include "UObject/ConstructorHelpers.h"
 #include "Engine.h"
 #include "Enemy.generated.h"
 
@@ -48,5 +49,5 @@ public:
 
 	void UpdateLife(uint8 Damage);
 
-	
+	//virtual void Shoot();
 };
