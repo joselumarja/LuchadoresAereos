@@ -10,10 +10,11 @@
 #include "LightEnemy.h"
 #include "MediumEnemy.h"
 #include "TankEnemy.h"
+#include "Observer.h"
 #include "GameManager.generated.h"
 
 UCLASS()
-class LUCHADORESAEREOS_API AGameManager : public AActor
+class LUCHADORESAEREOS_API AGameManager : public AActor,public IObserver
 {
 	GENERATED_BODY()
 	
@@ -39,6 +40,7 @@ public:
 
 	TSubclassOf<AEnemy> GetRandomEnemyClass() const;
 
+	void OnNotify(EEvent Event) override;
 
 protected:
 	// Called when the game starts or when spawned

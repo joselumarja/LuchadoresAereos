@@ -150,3 +150,31 @@ FVector AGameManager::GetRandomLocation() const
 	FVector RandomLocation(x, y, z);
 	return RandomLocation;
 }
+
+void AGameManager::OnNotify(EEvent Event)
+{
+	switch (Event) {
+
+	case EEvent::EVENT_HIT:
+		UpdateLives();
+		break;
+
+	case EEvent::EVENT_LIGHTENEMY_KILLED:
+		UpdateEnemyKilled();
+		SumSeconds(2);
+		UpdateScore(1);
+		break;
+
+	case EEvent::EVENT_MEDIUMENEMY_KILLED:
+		UpdateEnemyKilled();
+		SumSeconds(5);
+		UpdateScore(3);
+		break;
+
+	case EEvent::EVENT_TANKENEMY_KILLED:
+		UpdateEnemyKilled();
+		SumSeconds(10);
+		UpdateScore(5);
+		break;
+	}
+}
