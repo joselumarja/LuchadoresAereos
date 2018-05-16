@@ -16,6 +16,8 @@ void AEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	World = GetWorld();
+
+	
 }
 // Called every frame
 void AEnemy::Tick(float DeltaTime)
@@ -27,7 +29,6 @@ void AEnemy::Tick(float DeltaTime)
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
 {
 	if (OtherActor) {
-		//SelfActor->SetActorEnableCollision(false);
 		if (OtherActor->IsA(AStaticMeshActor::StaticClass())) {
 			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);	
 		}
@@ -40,6 +41,10 @@ void AEnemy::UpdateLife(uint8 Damage)
 
 	if (Life <= 0)
 	{
+		/*Manager->UpdateEnemyKilled;
+		Manager->UpdateScore(Score);
+		Manager->SumSeconds(Time);*/
+
 		//INCLUIR OBSERVER PARA NOTIFICAR AQUI
 		Destroy();
 	}
@@ -49,6 +54,4 @@ void AEnemy::Move() {
 	FVector NewLocation = GetActorLocation();
 	NewLocation.X -= 2.0f;
 	SetActorLocation(NewLocation);
-
-
 }

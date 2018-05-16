@@ -4,7 +4,8 @@
 #include "Engine.h"
 
 // Sets default values
-AGameManager::AGameManager():Lives(3),Seconds(200)
+AGameManager::AGameManager():Lives(3), Seconds(200), Round(0), EnemiesAlived(0), EnemiesKilledPerRound(0),
+EnemiesKilled(0), Score(0)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -54,7 +55,13 @@ void AGameManager::BeginPlay()
 void AGameManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	SpawnEnemies(3);
+	if (EnemiesAlived == EnemiesKilledPerRound) {
+		EnemiesAlived = 0;
+		EnemiesKilledPerRound = 0;
+		Round++;
+		SpawnEnemies(Round);
+	}
+
 }
 
 void AGameManager::Clock()
@@ -91,6 +98,7 @@ void AGameManager::UpdateLives()
 
 void AGameManager::UpdateEnemyKilled() {
 
+	EnemiesKilledPerRound++;
 	HUD->UpdateEnemiesKilled(++EnemiesKilled);
 }
 
@@ -106,8 +114,9 @@ void AGameManager::SpawnEnemies(int Enemies) {
 		for (int i = 0; i < Enemies; i++) {
 			TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
 			FVector EnemySpawnLocation = GetRandomLocation();
-			//FVector EnemySpawnLocation(0.0f, 0.0f, 215.0f);
+			
 			GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
+			EnemiesAlived++;
 		}
 	}
 	Spawn = false;
