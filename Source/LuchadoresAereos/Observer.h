@@ -20,6 +20,6 @@ class LUCHADORESAEREOS_API IObserver
 	GENERATED_BODY()
 
 public:
-	virtual void OnNotify(UObject* Entity, EEvent Event) = 0;
+	virtual void OnNotify(EEvent Event) = 0;
 	
 };
