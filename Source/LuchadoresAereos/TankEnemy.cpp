@@ -48,12 +48,6 @@ void ATankEnemy::Shot() {
 	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, 5000);
 	bCanFire = true;
 	
-
-}
-
-	
-
->>>>>>> accd848f98566699dd70e45baea4f078ce843417
 }
 
 void ATankEnemy::Dodge()
