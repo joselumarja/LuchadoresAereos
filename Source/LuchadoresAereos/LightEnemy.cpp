@@ -30,7 +30,6 @@ void ALightEnemy::Tick(float DeltaTime) {
 void ALightEnemy::Shot() {
 	if (bCanFire)
 	{
-		
 		//PROPIEDADES DEL DISPARO
 		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
 		FRotator FireRotation = PlayerLocation.Rotation();
