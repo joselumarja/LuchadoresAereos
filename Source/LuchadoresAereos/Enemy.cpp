@@ -10,6 +10,8 @@ AEnemy::AEnemy()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
+	FireSound = FireAudio.Object;
 }
 
 // Called when the game starts or when spawned
@@ -45,7 +47,7 @@ void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	Shoot();
+	Move();
 }
 
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
@@ -70,15 +72,25 @@ void AEnemy::UpdateLife(uint8 Damage)
 
 void AEnemy::Move() {
 	FVector NewLocation = GetActorLocation();
-	NewLocation.X -= 2.0f;
+	FVector PlayerLocation = PlayerPawn->GetActorLocation();
+	FVector Distance = PlayerLocation - NewLocation;
+	float DistanceSize = Distance.Size();
+	//CAMBIAR EL CONTROL DE LA DISTANCIA AL TICK
+	if (DistanceSize < 50.0f) {
+		Shoot();
+	}
+	else {
+		NewLocation.X -= 10.0f;
+	}
 	SetActorLocation(NewLocation);
 }
 
 void AEnemy::Shoot() {
 	// CAMBIAR A HIJOS
 	// METER FIRE RATE
-	FVector PlayerLocation = PlayerPawn->GetActorLocation();
+	FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
 	const FRotator FireRotation = PlayerLocation.Rotation();
 	const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 	World->SpawnActor<ALuchadoresAereosProjectile>(SpawnLocation, FireRotation);
+	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 }
