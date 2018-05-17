@@ -10,6 +10,9 @@
 #include "Enemy.generated.h"
 
 class AGameManager;
+class ALuchadoresAereosProjectile;
+
+
 UCLASS(Abstract)
 class LUCHADORESAEREOS_API AEnemy : public AActor
 {
@@ -19,6 +22,9 @@ class LUCHADORESAEREOS_API AEnemy : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AEnemy();
+
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+		FVector GunOffset;
 
 protected:
 	// Called when the game starts or when spawned
@@ -51,5 +57,5 @@ public:
 
 	virtual void Move();
 	
-	void RotateToPlayer();
+	virtual void Shoot();
 };

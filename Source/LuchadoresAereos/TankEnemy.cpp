@@ -6,7 +6,7 @@
 ATankEnemy::ATankEnemy() {
 	Life = 100.0;
 	Time = 20.0;
-	
+	Score = 50;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
@@ -28,9 +28,14 @@ void ATankEnemy::UpdateState() {
 }
 
 void ATankEnemy::Move() {
-
 	FVector NewLocation = GetActorLocation();
 	NewLocation.X -= 5.0f;
 	SetActorLocation(NewLocation);
+
+}
+
+void ATankEnemy::Shoot() {
+
+
 
 }

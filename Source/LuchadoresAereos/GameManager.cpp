@@ -49,7 +49,10 @@ void AGameManager::Tick(float DeltaTime)
 		Round++;
 		SpawnEnemies(Round);
 	}
+<<<<<<< HEAD
 	//SpawnEnemies(10);
+=======
+>>>>>>> a098b47be65d94ff6b60cdb18ffaaf7da0716d1e
 }
 
 void AGameManager::Clock()
@@ -103,16 +106,27 @@ void AGameManager::UpdateScore(uint8 ExtraScore)
 }
 
 void AGameManager::SpawnEnemies(int Enemies) {
+<<<<<<< HEAD
 
 		for (int i = 0; i < Enemies; i++) 
 		{
 			TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
 			FVector EnemySpawnLocation = GetRandomLocation();
+=======
+	
+	for (int i = 0; i < Enemies; i++) {
+		TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
+		FVector EnemySpawnLocation = GetRandomLocation();
+>>>>>>> a098b47be65d94ff6b60cdb18ffaaf7da0716d1e
 
-			GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
-			EnemiesAlived++;
+		GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
+		EnemiesAlived++;
 
+<<<<<<< HEAD
 		}
+=======
+	}
+>>>>>>> a098b47be65d94ff6b60cdb18ffaaf7da0716d1e
 }
 
 void AGameManager::GameOver()
