@@ -2,6 +2,7 @@
 
 #include "Enemy.h"
 #include "GameManager.h"
+#include "LuchadoresAereosProjectile.h"
 
 // Sets default values
 AEnemy::AEnemy()
@@ -20,6 +21,15 @@ void AEnemy::BeginPlay()
 	World = GetWorld();
 	
 
+	for (TActorIterator<ALuchadoresAereosPawn>ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (FString(TEXT("TP_TwinStickPawn_1")).Equals(ActorItr->GetName()))
+		{
+			//finding manager
+			PlayerPawn = *ActorItr;
+		}
+	}
+	
 	for (TActorIterator<AGameManager>ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
 		if (FString(TEXT("GameManager_1")).Equals(ActorItr->GetName()))
@@ -34,8 +44,8 @@ void AEnemy::BeginPlay()
 void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	Move();
-	RotateToPlayer();
+	
+	Shoot();
 }
 
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
@@ -64,9 +74,11 @@ void AEnemy::Move() {
 	SetActorLocation(NewLocation);
 }
 
-void AEnemy::RotateToPlayer() {
-/*
-	FRotator EnemyRotation = FRotationMatrix::MakeFromX(PlayerPawn->GetActorLocation() - GetActorLocation()).Rotator();
-	MeshComponent->SetRelativeRotation(EnemyRotation, false, nullptr, ETeleportType::TeleportPhysics);
-*/
+void AEnemy::Shoot() {
+	// CAMBIAR A HIJOS
+	// METER FIRE RATE
+	FVector PlayerLocation = PlayerPawn->GetActorLocation();
+	const FRotator FireRotation = PlayerLocation.Rotation();
+	const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
+	World->SpawnActor<ALuchadoresAereosProjectile>(SpawnLocation, FireRotation);
 }

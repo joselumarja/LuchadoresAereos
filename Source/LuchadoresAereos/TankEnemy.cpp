@@ -28,9 +28,14 @@ void ATankEnemy::UpdateState() {
 }
 
 void ATankEnemy::Move() {
-
 	FVector NewLocation = GetActorLocation();
 	NewLocation.X -= 5.0f;
 	SetActorLocation(NewLocation);
+
+}
+
+void ATankEnemy::Shoot() {
+
+
 
 }
