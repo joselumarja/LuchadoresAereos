@@ -8,7 +8,7 @@ ATankEnemy::ATankEnemy() :Super()
 	Life = 100.0;
 	Time = 20.0;
 	Score = 50;
-	FireRate = 1.5;
+	FireRate = 3.0;
 	MoveSpeed = 500.0;
 	i = 0.0;
 
@@ -36,10 +36,13 @@ void ATankEnemy::Shot() {
 	{
 		if (i > (FireRate * 10.0)) {
 			i = 0.0;
-			FVector PlayerLocation = PlayerPawn->GetActorLocation();
+		/*	FVector PlayerLocation = PlayerPawn->GetActorLocation();
 			FRotator FireRotation = GetActorRotation() - PlayerLocation.Rotation();
-			FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
+			FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);*/
 
+			FVector PlayerLocation = PlayerPawn->GetActorLocation()+ GetActorForwardVector() * 250.0f;
+			FRotator FireRotation = PlayerLocation.Rotation() ;
+			FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 			World->SpawnActor<AHeavyAmo>(SpawnLocation, FireRotation);
 			UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 		}
