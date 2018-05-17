@@ -121,7 +121,7 @@ void AEnemy::FindPlayer()
 	FVector ActualLocation = GetActorLocation();
 	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
 	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + ActualLocation;
-	SetActorLocation(NewLocation, false, nullptr, ETeleportType::None);
+	this->SetActorLocation(NewLocation, false, nullptr, ETeleportType::None);
 }
 
 
