@@ -14,6 +14,7 @@
 #include "Engine/StaticMesh.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundBase.h"
+#include "GameManager.h"
 
 const FName ALuchadoresAereosPawn::MoveForwardBinding("MoveForward");
 const FName ALuchadoresAereosPawn::MoveRightBinding("MoveRight");
@@ -178,7 +179,7 @@ void ALuchadoresAereosPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAct
 	if (!bInvulnerability && (OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
 	{
 
-		//INCLUIR AQUI OBSERVER PARA NOTIFICAR IMPACTO
+		Manager->UpdateLives();
 		SetNormalShotState();
 		SetInvulnerability();
 	}

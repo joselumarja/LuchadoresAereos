@@ -84,6 +84,12 @@ void AGameManager::UpdateLives()
 	HUD->UpdateLives(Lives);
 }
 
+void AGameManager::EnemyKilled(uint8 Score, uint8 ExtraTime)
+{
+	UpdateEnemyKilled();
+	UpdateScore(Score);
+	SumSeconds(ExtraTime);
+}
 void AGameManager::UpdateEnemyKilled() {
 
 	EnemiesKilledPerRound++;
@@ -137,32 +143,4 @@ FVector AGameManager::GetRandomLocation() const
 	x = FMath::RandRange(2900, 3000);
 	FVector RandomLocation(x, y, z);
 	return RandomLocation;
-}
-
-void AGameManager::OnNotify(EEvent Event)
-{
-	switch (Event) {
-
-	case EEvent::EVENT_HIT:
-		UpdateLives();
-		break;
-
-	case EEvent::EVENT_LIGHTENEMY_KILLED:
-		UpdateEnemyKilled();
-		SumSeconds(2);
-		UpdateScore(1);
-		break;
-
-	case EEvent::EVENT_MEDIUMENEMY_KILLED:
-		UpdateEnemyKilled();
-		SumSeconds(5);
-		UpdateScore(3);
-		break;
-
-	case EEvent::EVENT_TANKENEMY_KILLED:
-		UpdateEnemyKilled();
-		SumSeconds(10);
-		UpdateScore(5);
-		break;
-	}
 }

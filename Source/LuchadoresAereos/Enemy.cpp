@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Enemy.h"
+#include "GameManager.h"
 
 // Sets default values
 AEnemy::AEnemy()
@@ -53,11 +54,7 @@ void AEnemy::UpdateLife(uint8 Damage)
 
 	if (Life <= 0)
 	{
-		/*Manager->UpdateEnemyKilled;
-		Manager->UpdateScore(Score);
-		Manager->SumSeconds(Time);*/
-
-		//INCLUIR OBSERVER PARA NOTIFICAR AQUI
+		Manager->EnemyKilled(Score,Time);
 		Destroy();
 	}
 }

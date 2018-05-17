@@ -9,6 +9,7 @@
 #include "Engine.h"
 #include "Enemy.generated.h"
 
+class AGameManager;
 UCLASS(Abstract)
 class LUCHADORESAEREOS_API AEnemy : public AActor
 {
@@ -40,7 +41,7 @@ protected:
 
 	class UStaticMeshComponent* MeshComponent;
 
-
+	AGameManager* Manager;
 
 public:	
 	// Called every frame
