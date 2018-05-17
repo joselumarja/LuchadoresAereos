@@ -11,7 +11,7 @@ AMediumEnemy::AMediumEnemy() :Super()
 	Score = 15;
 	bCanFire = true;
 	FireRate = 0.5;
-	MoveSpeed = 600.0;
+	MoveSpeed = 800.0;
 	FIELD_OF_VIEW = 4000.0;
 	GunOffset = FVector(90.f, 0.f, 0.f);
 
