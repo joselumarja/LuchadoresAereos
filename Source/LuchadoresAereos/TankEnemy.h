@@ -4,12 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Enemy.h"
-
 #include "TankEnemy.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 {
@@ -18,12 +15,11 @@ class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 	public:
 		ATankEnemy();
 
-		void UpdateState();
-
 		virtual void Tick(float DeltaTime) override;
 
-		void Move();
+		void Dodge() override;
 
-		void Shoot();
-	
+		void Shot() override;
+
+		void FindPlayer() override;
 };

@@ -6,9 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "ShotState.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class LUCHADORESAEREOS_API UShotState : public UObject
 {

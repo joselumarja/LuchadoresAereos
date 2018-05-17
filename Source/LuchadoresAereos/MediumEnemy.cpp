@@ -22,3 +22,19 @@ void AMediumEnemy::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 
 }
+
+void AMediumEnemy::Shot() {
+
+
+
+}
+
+void AMediumEnemy::Dodge()
+{
+
+}
+
+void AMediumEnemy::FindPlayer()
+{
+
+}

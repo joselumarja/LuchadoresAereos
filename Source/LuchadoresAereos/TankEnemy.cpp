@@ -22,20 +22,18 @@ void ATankEnemy::Tick(float DeltaTime){
 
 }
 
-void ATankEnemy::UpdateState() {
-	//PENSADO PARA CAMBIAR DE FASE
+void ATankEnemy::Shot() {
+
+
 
 }
 
-void ATankEnemy::Move() {
-	FVector NewLocation = GetActorLocation();
-	NewLocation.X -= 5.0f;
-	SetActorLocation(NewLocation);
+void ATankEnemy::Dodge()
+{
 
 }
 
-void ATankEnemy::Shoot() {
-
-
+void ATankEnemy::FindPlayer()
+{
 
 }

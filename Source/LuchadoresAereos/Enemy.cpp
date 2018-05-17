@@ -3,6 +3,10 @@
 #include "Enemy.h"
 #include "GameManager.h"
 #include "LuchadoresAereosProjectile.h"
+#include "EnemyState.h"
+#include "DodgeState.h"
+#include "FindPlayerState.h"
+#include "ShotState.h"
 
 // Sets default values
 AEnemy::AEnemy()
@@ -18,11 +22,11 @@ AEnemy::AEnemy()
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
 	FRotator NewRotation(0.0f, 180.0f, 0.0f);
 	SetActorRotation(NewRotation);
 	World = GetWorld();
 	
-
 	for (TActorIterator<ALuchadoresAereosPawn>ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
 		if (FString(TEXT("TP_TwinStickPawn_1")).Equals(ActorItr->GetName()))
@@ -41,13 +45,19 @@ void AEnemy::BeginPlay()
 		}
 	}
 	
+	DodgeState = NewObject<UDodgeState>();
+	FindPlayerState = NewObject<UFindPlayerState>();
+	ShotState = NewObject<UShotState>();
+
+	ChangeState(FindPlayerState);
+
 }
 // Called every frame
 void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	Move();
+	CurrentState->Update(*this);
 }
 
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
@@ -68,9 +78,22 @@ void AEnemy::UpdateLife(uint8 Damage)
 		Manager->EnemyKilled(Score,Time);
 		Destroy();
 	}
+
+	ChangeState(DodgeState);
 }
 
-void AEnemy::Move() {
+void AEnemy::ChangeState(const TScriptInterface<IEnemyState>& State)
+{
+	if (!CurrentState) {
+		CurrentState = Cast<IEnemyState>(FindPlayerState);
+	}
+
+	OldState = CurrentState;
+	CurrentState = (IEnemyState*)State.GetInterface();
+	CurrentState->Enter(*OldState, *this);
+}
+
+/*void AEnemy::Move() {
 	FVector NewLocation = GetActorLocation();
 	FVector PlayerLocation = PlayerPawn->GetActorLocation();
 	FVector Distance = PlayerLocation - NewLocation;
@@ -84,8 +107,8 @@ void AEnemy::Move() {
 	}
 	SetActorLocation(NewLocation);
 }
-
-void AEnemy::Shoot() {
+*/
+/*void AEnemy::Shoot() {
 	// CAMBIAR A HIJOS
 	// METER FIRE RATE
 	FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
@@ -93,4 +116,4 @@ void AEnemy::Shoot() {
 	const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 	World->SpawnActor<ALuchadoresAereosProjectile>(SpawnLocation, FireRotation);
 	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-}
+}*/

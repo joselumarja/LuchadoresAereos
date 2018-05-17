@@ -19,5 +19,9 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 	
-	
+	void Dodge() override;
+
+	void Shot() override;
+
+	void FindPlayer() override;
 };

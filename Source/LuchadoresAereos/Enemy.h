@@ -9,6 +9,7 @@
 #include "Engine.h"
 #include "Enemy.generated.h"
 
+class IEnemyState;
 class AGameManager;
 class ALuchadoresAereosProjectile;
 
@@ -44,7 +45,7 @@ protected:
 
 	UWorld* World;
 
-	TSubclassOf<AActor> ProjectileClass;
+	TSubclassOf<ALuchadoresAereosProjectile> ProjectileClass;
 
 	TWeakObjectPtr<ALuchadoresAereosPawn> PlayerPawn;
 
@@ -52,13 +53,39 @@ protected:
 
 	AGameManager* Manager;
 
+	// The previous state this class comes from
+	IEnemyState* OldState;
+
+	// The current state this class is
+	IEnemyState* CurrentState;
+
+	// The field of view of the enemy used in the Idle and Watch states mainly
+	float FIELD_OF_VIEW;
+
+	// Forward-declare state classes and makes them friends of this class
+	friend class UDodgeState;
+	friend class UFindPlayerState;
+	friend class UShotState;
+
+	// Actual states
+	UPROPERTY()
+		UDodgeState* DodgeState;
+	UPROPERTY()
+		UFindPlayerState* FindPlayerState;
+	UPROPERTY()
+		UShotState* ShotState;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void UpdateLife(uint8 Damage);
 
-	virtual void Move();
-	
-	virtual void Shoot();
+	virtual void Dodge() PURE_VIRTUAL(AEnemy::Dodge, );
+
+	virtual void Shot() PURE_VIRTUAL(AEnemy::Shot, );
+
+	virtual void FindPlayer() PURE_VIRTUAL(AEnemy::FindPlayer, );
+
+	virtual void ChangeState(const TScriptInterface<IEnemyState>& State);
 };

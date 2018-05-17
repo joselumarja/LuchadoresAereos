@@ -24,3 +24,19 @@ void ALightEnemy::Tick(float DeltaTime) {
 
 }
 
+void ALightEnemy::Shot() {
+
+
+
+}
+
+void ALightEnemy::Dodge()
+{
+
+}
+
+void ALightEnemy::FindPlayer()
+{
+
+}
+
