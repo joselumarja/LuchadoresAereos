@@ -22,6 +22,4 @@ public:
 	void Dodge() override;
 
 	void Shot() override;
-
-	void FindPlayer() override;
 };

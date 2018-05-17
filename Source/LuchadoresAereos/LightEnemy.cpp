@@ -42,8 +42,4 @@ void ALightEnemy::Dodge()
 
 }
 
-void ALightEnemy::FindPlayer()
-{
-
-}
 

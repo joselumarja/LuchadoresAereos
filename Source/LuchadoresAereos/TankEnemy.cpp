@@ -44,7 +44,3 @@ void ATankEnemy::Dodge()
 
 }
 
-void ATankEnemy::FindPlayer()
-{
-
-}
