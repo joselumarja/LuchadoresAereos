@@ -12,7 +12,7 @@ AMediumEnemy::AMediumEnemy() :Super()
 	bCanFire = true;
 	FireRate = 0.5;
 	MoveSpeed = 800.0;
-	FIELD_OF_VIEW = 4000.0;
+	FIELD_OF_VIEW = 500.0;
 	GunOffset = FVector(90.f, 0.f, 0.f);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
@@ -39,6 +39,8 @@ void AMediumEnemy::Shot() {
 		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 		World->SpawnActor<ABullet>(SpawnLocation, FireRotation);
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+		bCanFire = false;
+		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 	}
 
 	bCanFire = false;
