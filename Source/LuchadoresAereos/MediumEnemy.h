@@ -6,9 +6,7 @@
 #include "Enemy.h"
 #include "MediumEnemy.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class LUCHADORESAEREOS_API AMediumEnemy : public AEnemy
 {

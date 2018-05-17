@@ -30,9 +30,6 @@ void ALightEnemy::Tick(float DeltaTime) {
 void ALightEnemy::Shot() {
 	if (bCanFire)
 	{
-		FRotator ShotRotation = FRotationMatrix::MakeFromX(PlayerPawn->GetActorLocation() - GetActorLocation()).Rotator();
-		FVector SpawnLocation = GetActorLocation() + GunOffset;
-		World->SpawnActor<ALightBullet>(SpawnLocation, ShotRotation);
 		//PROPIEDADES DEL DISPARO
 		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
 		const FRotator FireRotation = PlayerLocation.Rotation();

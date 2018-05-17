@@ -43,8 +43,6 @@ protected:
 
 	int Score;
 
-	FVector GunOffset;
-
 	UWorld* World;
 
 	TSubclassOf<ALuchadoresAereosProjectile> ProjectileClass;
