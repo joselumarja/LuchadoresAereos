@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankEnemy.h"
-
+#include "HeavyAmo.h"
 
 ATankEnemy::ATankEnemy() :Super()
 {
@@ -12,6 +12,7 @@ ATankEnemy::ATankEnemy() :Super()
 	FireRate = 1.5;
 	MoveSpeed = 300.0;
 	FIELD_OF_VIEW = 6000.0;
+	GunOffset = FVector(90.f, 0.f, 0.f);
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
@@ -31,6 +32,9 @@ void ATankEnemy::Shot() {
 
 	if (bCanFire)
 	{
+		FRotator ShotRotation = FRotationMatrix::MakeFromX(PlayerPawn->GetActorLocation() - GetActorLocation()).Rotator();
+		FVector SpawnLocation = GetActorLocation() + GunOffset;
+		World->SpawnActor<AHeavyAmo>(SpawnLocation, ShotRotation);
 		//PROPIEDADES DEL DISPARO
 	}
 

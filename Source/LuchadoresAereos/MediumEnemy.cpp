@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MediumEnemy.h"
-
+#include "Bullet.h"
 
 
 AMediumEnemy::AMediumEnemy() :Super()
@@ -13,6 +13,8 @@ AMediumEnemy::AMediumEnemy() :Super()
 	FireRate = 0.5;
 	MoveSpeed = 600.0;
 	FIELD_OF_VIEW = 4000.0;
+	GunOffset = FVector(90.f, 0.f, 0.f);
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MediumMesh"));
@@ -32,6 +34,9 @@ void AMediumEnemy::Shot() {
 
 	if (bCanFire)
 	{
+		FRotator ShotRotation = FRotationMatrix::MakeFromX(PlayerPawn->GetActorLocation() - GetActorLocation()).Rotator();
+		FVector SpawnLocation = GetActorLocation() + GunOffset;
+		World->SpawnActor<ABullet>(SpawnLocation, ShotRotation);
 		//PROPIEDADES DEL DISPARO
 	}
 
