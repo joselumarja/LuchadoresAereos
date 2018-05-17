@@ -32,10 +32,14 @@ void ATankEnemy::Shot() {
 
 	if (bCanFire)
 	{
-		FRotator ShotRotation = FRotationMatrix::MakeFromX(PlayerPawn->GetActorLocation() - GetActorLocation()).Rotator();
-		FVector SpawnLocation = GetActorLocation() + GunOffset;
-		World->SpawnActor<AHeavyAmo>(SpawnLocation, ShotRotation);
 		//PROPIEDADES DEL DISPARO
+		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
+		FRotator FireRotation = PlayerLocation.Rotation();
+		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
+		World->SpawnActor<AHeavyAmo>(SpawnLocation, FireRotation);
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+
+		
 	}
 
 	bCanFire = false;

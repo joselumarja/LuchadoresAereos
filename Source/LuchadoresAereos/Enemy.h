@@ -43,7 +43,7 @@ protected:
 
 	int Score;
 
-	FVector GunOffset;
+	//FVector GunOffset;
 
 	UWorld* World;
 
