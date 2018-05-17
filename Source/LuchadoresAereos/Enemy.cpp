@@ -29,6 +29,15 @@ void AEnemy::BeginPlay()
 			PlayerPawn = *ActorItr;
 		}
 	}*/
+
+	for (TActorIterator<AGameManager>ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (FString(TEXT("GameManager_1")).Equals(ActorItr->GetName()))
+		{
+			//finding manager
+			Manager = *ActorItr;
+		}
+	}
 	
 }
 // Called every frame

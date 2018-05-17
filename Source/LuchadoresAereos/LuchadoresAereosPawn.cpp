@@ -61,6 +61,15 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 void ALuchadoresAereosPawn::BeginPlay()
 {
 	Super::BeginPlay();
+
+	for (TActorIterator<AGameManager>ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (FString(TEXT("GameManager_1")).Equals(ActorItr->GetName()))
+		{
+			//finding manager
+			Manager = *ActorItr;
+		}
+	}
 	
 	World = GetWorld();
 }
