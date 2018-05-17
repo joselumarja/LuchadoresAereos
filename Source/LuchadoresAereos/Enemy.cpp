@@ -67,6 +67,7 @@ float AEnemy::DistanceToPlayer()
 	FVector Distance = GetActorLocation()-PlayerPawn->GetActorLocation();
 	return Distance.Size();
 }
+
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
 {
 	if (OtherActor) {
@@ -104,6 +105,7 @@ void AEnemy::ChangeState(const TScriptInterface<IEnemyState>& State)
 	CurrentState = (IEnemyState*)State.GetInterface();
 	CurrentState->Enter(*OldState, *this);
 }
+
 
 /*void AEnemy::Move() {
 	FVector NewLocation = GetActorLocation();

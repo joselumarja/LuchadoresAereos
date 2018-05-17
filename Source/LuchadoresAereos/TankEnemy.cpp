@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankEnemy.h"
-
+#include "TankBullet.h"
 
 ATankEnemy::ATankEnemy() :Super()
 {
@@ -31,7 +31,30 @@ void ATankEnemy::Shot() {
 
 	if (bCanFire)
 	{
-		//PROPIEDADES DEL DISPARO
+		// DISPAROS POR CUADRAR
+
+		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
+		const FRotator FireRotation = PlayerLocation.Rotation();
+		const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
+		World->SpawnActor<ATankBullet>(SpawnLocation, FireRotation);
+
+		FVector SpawnLocation2 = GetActorLocation() + GetActorForwardVector() * 500.0f;
+		FRotator SpawnRotation2 = GetActorRotation().Add(0.0f, 15.0f, 0.0f);
+		World->SpawnActor<ATankBullet>(SpawnLocation2, SpawnRotation2);
+
+		FVector SpawnLocation3 = GetActorLocation() + GetActorForwardVector() * 500.0f;
+		FRotator SpawnRotation3 = GetActorRotation().Add(0.0f, 30.0f, 0.0f);
+		World->SpawnActor<ATankBullet>(SpawnLocation3, SpawnRotation3);
+
+		FVector SpawnLocation4 = GetActorLocation() + GetActorForwardVector() * 500.0f;
+		FRotator SpawnRotation4 = GetActorRotation().Add(0.0f, 30.0f, 0.0f);
+		World->SpawnActor<ATankBullet>(SpawnLocation4, SpawnRotation4);
+
+		FVector SpawnLocation5 = GetActorLocation() + GetActorForwardVector() * 500.0f;
+		FRotator SpawnRotation5 = GetActorRotation().Add(0.0f, 30.0f, 0.0f);
+		World->SpawnActor<ATankBullet>(SpawnLocation5, SpawnRotation5);
+
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 	}
 
 	bCanFire = false;

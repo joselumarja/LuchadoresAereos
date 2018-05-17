@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "LightEnemy.h"
-
+#include "LightBullet.h"
 
 ALightEnemy::ALightEnemy() :Super()
 {
@@ -30,6 +30,12 @@ void ALightEnemy::Shot() {
 	if (bCanFire)
 	{
 		//PROPIEDADES DEL DISPARO
+		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
+		const FRotator FireRotation = PlayerLocation.Rotation();
+		const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
+		World->SpawnActor<ALightBullet>(SpawnLocation, FireRotation);
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+
 	}
 
 	bCanFire = false;
@@ -40,10 +46,13 @@ void ALightEnemy::Shot() {
 void ALightEnemy::Dodge()
 {
 
+
 }
 
 void ALightEnemy::FindPlayer()
 {
+	
+
 
 }
 
