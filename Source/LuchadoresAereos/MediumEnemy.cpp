@@ -9,7 +9,6 @@ AMediumEnemy::AMediumEnemy() :Super()
 	Life = 50.0;
 	Time = 12.0;
 	Score = 15;
-	bCanFire = true;
 	FireRate = 0.5;
 	MoveSpeed = 800.0;
 	FIELD_OF_VIEW = 500.0;
@@ -41,10 +40,8 @@ void AMediumEnemy::Shot() {
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 		bCanFire = false;
 		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-	}
 
-	bCanFire = false;
-	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
+	}
 
 }
 

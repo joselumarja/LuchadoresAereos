@@ -8,7 +8,6 @@ ALightEnemy::ALightEnemy() :Super()
 	Life = 10.0;
 	Time = 5.0;
 	Score = 7;
-	bCanFire = true;
 	FireRate = 0.1;
 	MoveSpeed = 1200.0;
 	FIELD_OF_VIEW = 500.0;
