@@ -10,7 +10,14 @@ void UShotState::Enter(IEnemyState& From, AEnemy& Enemy)
 
 void UShotState::Update(AEnemy& Enemy)
 {
-	Enemy.Dodge();
+	if (Enemy.DistanceToPlayer() > Enemy.FIELD_OF_VIEW)
+	{
+		Enemy.ChangeState(Enemy.FindPlayerState);
+	}
+	else
+	{
+		Enemy.Shot();
+	}
 }
 
 

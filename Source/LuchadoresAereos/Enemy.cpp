@@ -62,6 +62,11 @@ void AEnemy::Tick(float DeltaTime)
 	CurrentState->Update(*this);
 }
 
+float AEnemy::DistanceToPlayer()
+{
+	FVector Distance = GetActorLocation()-PlayerPawn->GetActorLocation();
+	return Distance.Size();
+}
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
 {
 	if (OtherActor) {

@@ -10,7 +10,15 @@ void UFindPlayerState::Enter(IEnemyState& From, AEnemy& Enemy)
 
 void UFindPlayerState::Update(AEnemy& Enemy)
 {
-	Enemy.FindPlayer();
+	if (Enemy.DistanceToPlayer() > Enemy.FIELD_OF_VIEW)
+	{
+		Enemy.FindPlayer();
+	}
+	else
+	{
+		Enemy.ChangeState(Enemy.ShotState);
+	}
+	
 }
 
 

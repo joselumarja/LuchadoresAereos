@@ -101,4 +101,6 @@ public:
 	virtual void FindPlayer() PURE_VIRTUAL(AEnemy::FindPlayer, );
 
 	virtual void ChangeState(const TScriptInterface<IEnemyState>& State);
+
+	float DistanceToPlayer();
 };
