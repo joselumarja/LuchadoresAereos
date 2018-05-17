@@ -16,6 +16,8 @@ AEnemy::AEnemy()
 
 	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
 	FireSound = FireAudio.Object;
+
+	bCanFire = true;
 }
 
 // Called when the game starts or when spawned
@@ -121,7 +123,7 @@ void AEnemy::FindPlayer()
 	FVector ActualLocation = GetActorLocation();
 	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
 	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + ActualLocation;
-	this->SetActorLocation(NewLocation, false, nullptr, ETeleportType::None);
+	SetActorLocation(NewLocation);
 }
 
 

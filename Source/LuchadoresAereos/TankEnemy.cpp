@@ -8,7 +8,6 @@ ATankEnemy::ATankEnemy() :Super()
 	Life = 100.0;
 	Time = 20.0;
 	Score = 50;
-	bCanFire = true;
 	FireRate = 1.5;
 	MoveSpeed = 500.0;
 	FIELD_OF_VIEW = 500.0;
