@@ -8,7 +8,7 @@
 ALightEnemy::ALightEnemy() {
 	Life = 10.0;
 	Time = 5.0;
-
+	Score = 7;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));

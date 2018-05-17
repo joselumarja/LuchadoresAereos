@@ -43,13 +43,12 @@ void AGameManager::BeginPlay()
 void AGameManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	/*if (EnemiesAlived == EnemiesKilledPerRound) {
+	if (EnemiesAlived == EnemiesKilledPerRound) {
 		EnemiesAlived = 0;
 		EnemiesKilledPerRound = 0;
 		Round++;
 		SpawnEnemies(Round);
-	}*/
-	SpawnEnemies(10);
+	}
 }
 
 void AGameManager::Clock()
@@ -103,16 +102,14 @@ void AGameManager::UpdateScore(uint8 ExtraScore)
 }
 
 void AGameManager::SpawnEnemies(int Enemies) {
-	if (Spawn == true) {
-		for (int i = 0; i < Enemies; i++) {
-			TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
-			FVector EnemySpawnLocation = GetRandomLocation();
+	
+	for (int i = 0; i < Enemies; i++) {
+		TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
+		FVector EnemySpawnLocation = GetRandomLocation();
 
-			GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
-			EnemiesAlived++;
+		GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
+		EnemiesAlived++;
 
-		}
-		Spawn = false;
 	}
 }
 

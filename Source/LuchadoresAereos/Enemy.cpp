@@ -19,16 +19,6 @@ void AEnemy::BeginPlay()
 	SetActorRotation(NewRotation);
 	World = GetWorld();
 	
-	//OBTENER PLAYERPAWN PARA PODER IR ROTANDO HACIA EL PLAYER
-
-	/*for (TActorIterator<ALuchadoresAereosPawn>ActorItr(GetWorld()); ActorItr; ++ActorItr)
-	{
-		if (FString(TEXT("TP_TwinStickPawn")).Equals(ActorItr->GetName()))
-		{
-			//finding archievement manager
-			PlayerPawn = *ActorItr;
-		}
-	}*/
 
 	for (TActorIterator<AGameManager>ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
