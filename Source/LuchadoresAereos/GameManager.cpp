@@ -107,6 +107,7 @@ void AGameManager::SpawnEnemies(int Enemies) {
 	for (int i = 0; i < Enemies; i++) {
 		TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
 		FVector EnemySpawnLocation = GetRandomLocation();
+
 		GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
 		EnemiesAlived++;
 	}
