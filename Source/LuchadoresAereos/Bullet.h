@@ -6,6 +6,7 @@
 #include "LuchadoresAereosProjectile.h"
 #include "Bullet.generated.h"
 
+class ABullet;
 UCLASS()
 class LUCHADORESAEREOS_API ABullet : public ALuchadoresAereosProjectile
 {

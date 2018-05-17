@@ -10,9 +10,9 @@ AMediumEnemy::AMediumEnemy() :Super()
 	Time = 12.0;
 	Score = 15;
 	bCanFire = true;
-	FireRate = 0.5;
-	MoveSpeed = 800.0;
-	FIELD_OF_VIEW = 4000.0;
+	FireRate = 1.5;
+	MoveSpeed = 300.0;
+	FIELD_OF_VIEW = 700.0;
 	GunOffset = FVector(90.f, 0.f, 0.f);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
@@ -31,19 +31,20 @@ void AMediumEnemy::Tick(float DeltaTime) {
 }
 
 void AMediumEnemy::Shot() {
-
 	if (bCanFire)
 	{
+		//PROPIEDADES DEL DISPARO
 		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
 		FRotator FireRotation = PlayerLocation.Rotation();
 		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 		World->SpawnActor<ABullet>(SpawnLocation, FireRotation);
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+
 	}
 
 	bCanFire = false;
 	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-
+	bCanFire = true;
 }
 
 void AMediumEnemy::Dodge()

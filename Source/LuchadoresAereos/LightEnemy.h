@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "LightEnemy.generated.h"
 
+class ALightBullet;
 UCLASS()
 class LUCHADORESAEREOS_API ALightEnemy : public AEnemy
 {

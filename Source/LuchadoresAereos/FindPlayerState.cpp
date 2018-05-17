@@ -19,6 +19,7 @@ void UFindPlayerState::Update(AEnemy& Enemy)
 	else
 	{
 		Enemy.ChangeState(Enemy.ShotState);
+		
 	}
 	
 }

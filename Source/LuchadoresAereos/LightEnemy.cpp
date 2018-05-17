@@ -9,8 +9,8 @@ ALightEnemy::ALightEnemy() :Super()
 	Time = 5.0;
 	Score = 7;
 	bCanFire = true;
-	FireRate = 0.1;
-	MoveSpeed = 1200.0;
+	FireRate = 0.5;
+	MoveSpeed = 500.0;
 	FIELD_OF_VIEW = 700.0;
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
@@ -36,12 +36,11 @@ void ALightEnemy::Shot() {
 		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 		World->SpawnActor<ALightBullet>(SpawnLocation, FireRotation);
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-
+		
 	}
-
 	bCanFire = false;
 	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-
+	bCanFire = true;
 }
 
 void ALightEnemy::Dodge()
