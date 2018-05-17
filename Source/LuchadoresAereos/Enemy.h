@@ -43,6 +43,7 @@ protected:
 
 	int Score;
 
+
 	UWorld* World;
 
 	TSubclassOf<ALuchadoresAereosProjectile> ProjectileClass;

@@ -32,8 +32,8 @@ void ALightEnemy::Shot() {
 	{
 		//PROPIEDADES DEL DISPARO
 		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
-		const FRotator FireRotation = PlayerLocation.Rotation();
-		const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
+		FRotator FireRotation = PlayerLocation.Rotation();
+		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 		World->SpawnActor<ALightBullet>(SpawnLocation, FireRotation);
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 
