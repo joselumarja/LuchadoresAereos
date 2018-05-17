@@ -110,8 +110,8 @@ void AGameManager::SpawnEnemies(int Enemies) {
 
 		GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
 		EnemiesAlived++;
+	}
 
-		}
 }
 
 void AGameManager::GameOver()

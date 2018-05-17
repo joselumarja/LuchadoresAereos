@@ -26,6 +26,9 @@ public:
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
 		FVector GunOffset;
 
+	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
+		class USoundBase* FireSound;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
