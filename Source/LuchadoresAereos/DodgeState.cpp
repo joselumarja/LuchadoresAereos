@@ -10,7 +10,7 @@ void UDodgeState::Enter(IEnemyState& From, AEnemy& Enemy)
 
 void UDodgeState::Update(AEnemy& Enemy)
 {
-
+	Enemy.Dodge();
 }
 
 

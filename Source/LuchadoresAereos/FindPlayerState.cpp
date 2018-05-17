@@ -10,7 +10,7 @@ void UFindPlayerState::Enter(IEnemyState& From, AEnemy& Enemy)
 
 void UFindPlayerState::Update(AEnemy& Enemy)
 {
-
+	Enemy.FindPlayer();
 }
 
 

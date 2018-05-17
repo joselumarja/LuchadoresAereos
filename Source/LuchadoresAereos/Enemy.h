@@ -62,6 +62,17 @@ protected:
 	// The field of view of the enemy used in the Idle and Watch states mainly
 	float FIELD_OF_VIEW;
 
+	float DeltaSeconds;
+
+	float FireRate;
+
+	float MoveSpeed;
+
+	bool bCanFire;
+
+	/** Handle for efficient management of ShotTimerExpired timer */
+	FTimerHandle TimerHandle_ShotTimerExpired;
+
 	// Forward-declare state classes and makes them friends of this class
 	friend class UDodgeState;
 	friend class UFindPlayerState;
@@ -78,6 +89,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void ShotTimerExpired();
 
 	void UpdateLife(uint8 Damage);
 

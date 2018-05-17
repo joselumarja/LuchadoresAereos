@@ -56,7 +56,9 @@ void AEnemy::BeginPlay()
 void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
+	DeltaSeconds = DeltaTime;
+
 	CurrentState->Update(*this);
 }
 
@@ -67,6 +69,11 @@ void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpuls
 			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);	
 		}
 	}
+}
+
+void AEnemy::ShotTimerExpired()
+{
+	bCanFire = true;
 }
 
 void AEnemy::UpdateLife(uint8 Damage)

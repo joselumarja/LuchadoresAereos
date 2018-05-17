@@ -3,10 +3,15 @@
 #include "TankEnemy.h"
 
 
-ATankEnemy::ATankEnemy() {
+ATankEnemy::ATankEnemy() :Super()
+{
 	Life = 100.0;
 	Time = 20.0;
 	Score = 50;
+	bCanFire = true;
+	FireRate = 1.5;
+	MoveSpeed = 300.0;
+	FIELD_OF_VIEW = 6000.0;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
@@ -24,7 +29,13 @@ void ATankEnemy::Tick(float DeltaTime){
 
 void ATankEnemy::Shot() {
 
+	if (bCanFire)
+	{
+		//PROPIEDADES DEL DISPARO
+	}
 
+	bCanFire = false;
+	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 
 }
 
