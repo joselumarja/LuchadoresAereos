@@ -64,8 +64,17 @@ void AEnemy::Tick(float DeltaTime)
 
 float AEnemy::DistanceToPlayer()
 {
-	FVector Distance = GetActorLocation()-PlayerPawn->GetActorLocation();
-	return Distance.Size();
+	FVector PlayerPoint = PlayerPawn->GetActorLocation();
+	FVector EnemyPoint = GetActorLocation();
+	float x, y, z;
+	x = PlayerPoint.X - EnemyPoint.X;
+	x = x * x;
+	y = PlayerPoint.Y - EnemyPoint.Y;
+	y = y * y;
+	z = PlayerPoint.Z - EnemyPoint.Z;
+	z = z * z;
+
+	return FMath::Sqrt(x + y + z);
 }
 
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
