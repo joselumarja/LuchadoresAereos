@@ -6,7 +6,7 @@
 #include "Enemy.h"
 #include "TankEnemy.generated.h"
 
-class ATankBullet;
+class AHeavyAmo;
 UCLASS()
 class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 {
