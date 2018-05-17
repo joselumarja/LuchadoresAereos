@@ -60,7 +60,6 @@ void AEnemy::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	DeltaSeconds = DeltaTime;
-
 	CurrentState->Update(*this);
 }
 

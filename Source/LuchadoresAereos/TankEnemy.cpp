@@ -10,6 +10,7 @@ ATankEnemy::ATankEnemy() :Super()
 	Score = 50;
 	FireRate = 1.5;
 	MoveSpeed = 500.0;
+	i = 0.0;
 
 	FIELD_OF_VIEW = 700.0;
 
@@ -26,22 +27,22 @@ ATankEnemy::ATankEnemy() :Super()
 
 void ATankEnemy::Tick(float DeltaTime){
 	Super::Tick(DeltaTime);
-
+	i++;
 }
 
 void ATankEnemy::Shot() {
 
 	if (bCanFire)
 	{
-		//PROPIEDADES DEL DISPARO
+		if (i > 10.0) {
+			i = 0.0;
+			FVector PlayerLocation = PlayerPawn->GetActorLocation();
+			FRotator FireRotation = GetActorRotation() - PlayerLocation.Rotation();
+			FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 
-		FVector PlayerLocation = PlayerPawn->GetActorLocation();
-		FRotator FireRotation = GetActorRotation() - PlayerLocation.Rotation();
-		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
-
-		World->SpawnActor<AHeavyAmo>(SpawnLocation, FireRotation);
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-
+			World->SpawnActor<AHeavyAmo>(SpawnLocation, FireRotation);
+			UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+		}
 	}
 	bCanFire = false;
 	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, 5000);
