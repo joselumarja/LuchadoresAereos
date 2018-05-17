@@ -23,5 +23,4 @@ public:
 
 	void Shot() override;
 
-	void FindPlayer() override;
 };

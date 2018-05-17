@@ -98,7 +98,7 @@ public:
 
 	virtual void Shot() PURE_VIRTUAL(AEnemy::Shot, );
 
-	virtual void FindPlayer() PURE_VIRTUAL(AEnemy::FindPlayer, );
+	void FindPlayer();
 
 	virtual void ChangeState(const TScriptInterface<IEnemyState>& State);
 

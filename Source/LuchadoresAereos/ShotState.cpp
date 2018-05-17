@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ShotState.h"
+#include "DodgeState.h"
+#include "FindPlayerState.h"
 #include "Enemy.h"
 
 void UShotState::Enter(IEnemyState& From, AEnemy& Enemy)

@@ -21,5 +21,4 @@ class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 
 		void Shot() override;
 
-		void FindPlayer() override;
 };

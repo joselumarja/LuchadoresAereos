@@ -91,8 +91,8 @@ void AEnemy::UpdateLife(uint8 Damage)
 		Manager->EnemyKilled(Score,Time);
 		Destroy();
 	}
-
-	ChangeState(DodgeState);
+	//DESACTIVADO HASTA IMPLEMENTAR EL ESQUIVAR
+	//ChangeState(DodgeState);
 }
 
 void AEnemy::ChangeState(const TScriptInterface<IEnemyState>& State)
@@ -104,6 +104,15 @@ void AEnemy::ChangeState(const TScriptInterface<IEnemyState>& State)
 	OldState = CurrentState;
 	CurrentState = (IEnemyState*)State.GetInterface();
 	CurrentState->Enter(*OldState, *this);
+}
+
+
+void AEnemy::FindPlayer()
+{
+	FVector ActualLocation = GetActorLocation();
+	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
+	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + ActualLocation;
+	SetActorLocation(NewLocation, false, nullptr, ETeleportType::None);
 }
 
 

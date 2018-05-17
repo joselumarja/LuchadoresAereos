@@ -45,7 +45,4 @@ void AMediumEnemy::Dodge()
 
 }
 
-void AMediumEnemy::FindPlayer()
-{
 
-}
