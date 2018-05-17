@@ -34,7 +34,7 @@ void ATankEnemy::Shot() {
 
 	if (bCanFire)
 	{
-		if (i > 10.0) {
+		if (i > (FireRate * 10.0)) {
 			i = 0.0;
 			FVector PlayerLocation = PlayerPawn->GetActorLocation();
 			FRotator FireRotation = GetActorRotation() - PlayerLocation.Rotation();
@@ -45,7 +45,7 @@ void ATankEnemy::Shot() {
 		}
 	}
 	bCanFire = false;
-	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, 5000);
+	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 	bCanFire = true;
 	
 }

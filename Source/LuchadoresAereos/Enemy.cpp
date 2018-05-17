@@ -16,7 +16,6 @@ AEnemy::AEnemy()
 
 	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
 	FireSound = FireAudio.Object;
-
 	bCanFire = true;
 }
 
