@@ -10,7 +10,9 @@ ATankEnemy::ATankEnemy() :Super()
 	Score = 50;
 	FireRate = 1.5;
 	MoveSpeed = 500.0;
-	FIELD_OF_VIEW = 500.0;
+
+	FIELD_OF_VIEW = 700.0;
+
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
@@ -32,18 +34,25 @@ void ATankEnemy::Shot() {
 	if (bCanFire)
 	{
 		//PROPIEDADES DEL DISPARO
-		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
-		FRotator FireRotation = PlayerLocation.Rotation();
+
+		FVector PlayerLocation = PlayerPawn->GetActorLocation();
+		FRotator FireRotation = GetActorRotation() - PlayerLocation.Rotation();
 		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
+
 		World->SpawnActor<AHeavyAmo>(SpawnLocation, FireRotation);
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		bCanFire = false;
-		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-		
+
 	}
+	bCanFire = false;
+	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, 5000);
+	bCanFire = true;
+	
+
+}
 
 	
 
+>>>>>>> accd848f98566699dd70e45baea4f078ce843417
 }
 
 void ATankEnemy::Dodge()
