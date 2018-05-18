@@ -20,6 +20,7 @@ ATankEnemy::ATankEnemy() :Super()
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
 	RootComponent = MeshComponent;
 	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
+	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
 
 }
