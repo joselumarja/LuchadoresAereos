@@ -80,9 +80,7 @@ float AEnemy::DistanceToPlayer()
 void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
 {
 	if (OtherActor) {
-		if (OtherActor->IsA(AStaticMeshActor::StaticClass())) {
-			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);	
-		}
+		
 	}
 }
 

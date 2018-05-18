@@ -56,7 +56,7 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	bCanFire = true;
 	bInvulnerability = false;
-	InvulnerabilityTime = 3.0f;
+	InvulnerabilityTime = 20.0f;
 	SetNormalShotState();
 }
 
@@ -190,7 +190,10 @@ void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector
 	// PAWN NO GENERA EVENTOS ONHIT
 	if (!bInvulnerability && (OtherActor != NULL) && (OtherActor->IsA(AHeavyAmo::StaticClass())) || (OtherActor->IsA(AEnemy::StaticClass())))
 	{
-
+		if (OtherActor->IsA(AEnemy::StaticClass())) {
+			OtherActor->Destroy();
+			Manager->UpdateEnemyKilled();
+		}
 		Manager->UpdateLives();
 		SetNormalShotState();
 		SetInvulnerability();

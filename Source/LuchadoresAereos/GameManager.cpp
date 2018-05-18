@@ -77,8 +77,9 @@ void AGameManager::InitializeSpawnEnemies() {
 
 void AGameManager::UpdateLives()
 {
-	if (--Lives == 0)
+	if (--Lives <= 0)
 	{
+		Lives = 0;
 		GameOver();
 	}
 	HUD->UpdateLives(Lives);
