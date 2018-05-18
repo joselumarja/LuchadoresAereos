@@ -16,7 +16,7 @@ ALightEnemy::ALightEnemy() :Super()
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));
 	RootComponent = MeshComponent;
-	MeshComponent->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);
+	//MeshComponent->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);
 	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);

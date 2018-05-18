@@ -10,7 +10,6 @@ ATankEnemy::ATankEnemy() :Super()
 	Score = 50;
 	FireRate = 3.0;
 	MoveSpeed = 500.0;
-	i = 0.0;
 
 	FIELD_OF_VIEW = 700.0;
 
@@ -23,34 +22,31 @@ ATankEnemy::ATankEnemy() :Super()
 	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
 
+
+
 }
 
 
 void ATankEnemy::Tick(float DeltaTime){
 	Super::Tick(DeltaTime);
-	i++;
 }
 
 void ATankEnemy::Shot() {
 
 	if (bCanFire)
 	{
-		if (i > (FireRate * 10.0)) {
-			i = 0.0;
-		/*	FVector PlayerLocation = PlayerPawn->GetActorLocation();
-			FRotator FireRotation = GetActorRotation() - PlayerLocation.Rotation();
-			FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);*/
+		FVector EnemyLocation = GetActorLocation();
+		FVector PlayerLocation = PlayerPawn->GetActorLocation();
+		FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
+		FRotator Rotation = DirectionVector.Rotation();
+		EnemyLocation = EnemyLocation + (DirectionVector * 100);
+		World->SpawnActor<AHeavyAmo>(EnemyLocation, Rotation);
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 
-			FVector PlayerLocation = PlayerPawn->GetActorLocation()+ GetActorForwardVector() * 250.0f;
-			FRotator FireRotation = PlayerLocation.Rotation() ;
-			FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
-			World->SpawnActor<AHeavyAmo>(SpawnLocation, FireRotation);
-			UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		}
+		bCanFire = false;
+		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 	}
-	bCanFire = false;
-	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-	bCanFire = true;
+	
 	
 }
 
