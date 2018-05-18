@@ -187,7 +187,8 @@ void ALuchadoresAereosPawn::SetInvulnerability()
 
 void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (!bInvulnerability && (OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
+	// PAWN NO GENERA EVENTOS ONHIT
+	if (!bInvulnerability && (OtherActor != NULL) && (OtherActor->IsA(AHeavyAmo::StaticClass())) || (OtherActor->IsA(AEnemy::StaticClass())))
 	{
 
 		Manager->UpdateLives();
