@@ -16,7 +16,9 @@ ALightEnemy::ALightEnemy() :Super()
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));
 	RootComponent = MeshComponent;
+	MeshComponent->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);
 	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
+	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
 
 }
@@ -27,20 +29,12 @@ void ALightEnemy::Tick(float DeltaTime) {
 }
 
 void ALightEnemy::Shot() {
-	if (bCanFire)
-	{
-		//PROPIEDADES DEL DISPARO
-		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
-		FRotator FireRotation = PlayerLocation.Rotation();
-		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
-		World->SpawnActor<ALightBullet>(SpawnLocation, FireRotation);
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		bCanFire = false;
-		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-	}
 
+	FVector ActualLocation = GetActorLocation();
+	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
+	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + ActualLocation;
+	SetActorLocation(NewLocation);
 	
-
 }
 
 void ALightEnemy::Dodge()
@@ -48,6 +42,5 @@ void ALightEnemy::Dodge()
 
 
 }
-
 
 
