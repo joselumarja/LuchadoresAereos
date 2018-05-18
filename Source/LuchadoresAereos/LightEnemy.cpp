@@ -35,7 +35,7 @@ void ALightEnemy::Shot() {
 	FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
 	FRotator Rotation = DirectionVector.Rotation();
 	EnemyLocation = EnemyLocation + (DirectionVector * 100);
-	World->SpawnActor<AHeavyAmo>(EnemyLocation, Rotation);
+	World->SpawnActor<ALightBullet>(EnemyLocation, Rotation);
 	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 
 	bCanFire = false;
