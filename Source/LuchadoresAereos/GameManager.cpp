@@ -75,7 +75,7 @@ void AGameManager::InitializeSpawnEnemies() {
 	//EnemyClasses.AddUnique(ATankEnemy::StaticClass());
 
 	//EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
-	EnemyClasses.AddUnique(ATankEnemy::StaticClass());
+	//EnemyClasses.AddUnique(ATankEnemy::StaticClass());
 
 	
 }
@@ -132,12 +132,6 @@ TSubclassOf<AEnemy> AGameManager::GetRandomEnemyClass() const
 FVector AGameManager::GetRandomLocation() const
 {
 	
-	/*//FVector Orgin;
-	FVector BoundsExtent;
-	ReferencePlane->GetActorBounds(false, Orgin, BoundsExtent);
-
-	// Build a bounding box and get a random location.
-	RandomLocation = FMath::RandPointInBox(FBox::BuildAABB(Orgin, BoundsExtent));*/
 	float x;
 	float y;
 	float z = 215.0;

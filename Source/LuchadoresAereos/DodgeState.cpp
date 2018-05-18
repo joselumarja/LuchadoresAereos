@@ -12,9 +12,14 @@ void UDodgeState::Enter(IEnemyState& From, AEnemy& Enemy)
 
 void UDodgeState::Update(AEnemy& Enemy)
 {
-	if (Enemy.Life < 15.0) {
+	if (Enemy.DistanceToPlayer() > 1.5 *(Enemy.FIELD_OF_VIEW))
+	{
+		Enemy.ChangeState(Enemy.FindPlayerState);
+	}
+	else {
 		Enemy.Dodge();
 	}
+	
 }
 
 

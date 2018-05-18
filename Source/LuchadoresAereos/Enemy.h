@@ -101,4 +101,8 @@ public:
 	virtual void ChangeState(const TScriptInterface<IEnemyState>& State);
 
 	float DistanceToPlayer();
+
+	bool CalculateDropProbability();
+
+	void DropPowerUp();
 };

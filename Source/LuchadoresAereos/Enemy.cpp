@@ -96,10 +96,12 @@ void AEnemy::UpdateLife(uint8 Damage)
 	if (Life <= 0)
 	{
 		Manager->EnemyKilled(Score,Time);
+		DropPowerUp();
 		Destroy();
 	}
-	//DESACTIVADO HASTA IMPLEMENTAR EL ESQUIVAR
-	//ChangeState(DodgeState);
+	else if (Life < 45.0) {
+		ChangeState(DodgeState);
+	}
 }
 
 void AEnemy::ChangeState(const TScriptInterface<IEnemyState>& State)
@@ -123,3 +125,13 @@ void AEnemy::FindPlayer()
 }
 
 
+void AEnemy::DropPowerUp() {
+	if (CalculateDropProbability()) {
+
+
+	}
+}
+
+bool AEnemy::CalculateDropProbability() {
+	return (FMath::RandRange(1, 100 / 10) == 1 ? true : false);
+}
