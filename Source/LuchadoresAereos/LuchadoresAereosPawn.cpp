@@ -182,7 +182,7 @@ void ALuchadoresAereosPawn::SetInvulnerability()
 {
 	bInvulnerability = true;
 	//añadir aqui un cambio de texturas o algo asi
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityExpired, this, &ALuchadoresAereosPawn::InvulnerabilityTimerExpired, InvulnerabilityTime);
+	World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityExpired, this, &ALuchadoresAereosPawn::InvulnerabilityTimerExpired, InvulnerabilityTime);
 }
 
 void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
