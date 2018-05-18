@@ -104,7 +104,5 @@ public:
 
 	float DistanceToPlayer();
 
-	bool CalculateDropProbability();
-
-	void DropPowerUp();
+	
 };

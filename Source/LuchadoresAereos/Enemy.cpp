@@ -96,7 +96,7 @@ void AEnemy::UpdateLife(uint8 Damage)
 	if (Life <= 0)
 	{
 		Manager->EnemyKilled(Score,Time);
-		DropPowerUp();
+		Manager->DropPowerUp(GetActorLocation());
 		Destroy();
 	}
 	else if (Life < 45.0) {
@@ -122,16 +122,4 @@ void AEnemy::FindPlayer()
 	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
 	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + ActualLocation;
 	SetActorLocation(NewLocation);
-}
-
-
-void AEnemy::DropPowerUp() {
-	if (CalculateDropProbability()) {
-
-
-	}
-}
-
-bool AEnemy::CalculateDropProbability() {
-	return (FMath::RandRange(1, 100 / 10) == 1 ? true : false);
 }

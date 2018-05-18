@@ -141,3 +141,23 @@ FVector AGameManager::GetRandomLocation() const
 	FVector RandomLocation(x, y, z);
 	return RandomLocation;
 }
+
+void AGameManager::InitializePerks() {
+	PerkArray.AddUnique(ALifePerk::StaticClass());
+	PerkArray.AddUnique(ALightShotPerk::StaticClass());
+	PerkArray.AddUnique(AHeavyShotPerk::StaticClass());
+}
+
+
+
+TSubclassOf<APerk> AGameManager::GetRandomPerk(){
+	return PerkArray[FMath::RandRange(0, PerkArray.Num() - 1)];
+}
+
+void AGameManager::DropPowerUp(FVector SpawnLocation) {
+	// sets the drop spanws probability in 10%
+	if (FMath::RandRange(1, 100 / 10) == 1 ? true : false) {
+		TSubclassOf<APerk> Perk = GetRandomPerk();
+		GetWorld()->SpawnActor(Perk, &SpawnLocation);
+	}
+}

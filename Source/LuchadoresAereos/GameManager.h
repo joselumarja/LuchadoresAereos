@@ -7,6 +7,10 @@
 #include "HUDManager.h"
 #include "TimerManager.h"
 #include "Enemy.h"
+#include "Perk.h"
+#include "LifePerk.h"
+#include "HeavyShotPerk.h"
+#include "LightShotPerk.h"
 #include "LightEnemy.h"
 #include "MediumEnemy.h"
 #include "TankEnemy.h"
@@ -37,7 +41,13 @@ public:
 
 	void InitializeSpawnEnemies();
 
+	void InitializePerks();
+
 	TSubclassOf<AEnemy> GetRandomEnemyClass() const;
+
+	TSubclassOf<APerk> GetRandomPerk();
+
+	void DropPowerUp(FVector SpawnLocation);
 
 	void EnemyKilled(uint8 Score, uint8 ExtraTime);
 
@@ -73,6 +83,8 @@ private:
 	UWorld* World;
 
 	TArray<TSubclassOf<AEnemy>> EnemyClasses;
+
+	TArray<TSubclassOf<APerk>> PerkArray;
 
 	FVector GetRandomLocation() const;
 
