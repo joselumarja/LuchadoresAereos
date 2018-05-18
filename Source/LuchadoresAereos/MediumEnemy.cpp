@@ -49,8 +49,6 @@ void AMediumEnemy::Shot() {
 
 	}
 	
-	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-
 }
 
 void AMediumEnemy::Dodge()
