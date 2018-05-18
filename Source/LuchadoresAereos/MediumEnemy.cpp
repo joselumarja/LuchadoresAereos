@@ -66,5 +66,5 @@ void AMediumEnemy::Dodge()
 	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) - EnemyLocation;
 	SetActorLocation(NewLocation);
 
-
+	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 }
