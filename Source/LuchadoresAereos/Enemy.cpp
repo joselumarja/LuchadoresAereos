@@ -123,27 +123,3 @@ void AEnemy::FindPlayer()
 }
 
 
-/*void AEnemy::Move() {
-	FVector NewLocation = GetActorLocation();
-	FVector PlayerLocation = PlayerPawn->GetActorLocation();
-	FVector Distance = PlayerLocation - NewLocation;
-	float DistanceSize = Distance.Size();
-	//CAMBIAR EL CONTROL DE LA DISTANCIA AL TICK
-	if (DistanceSize < 50.0f) {
-		Shoot();
-	}
-	else {
-		NewLocation.X -= 10.0f;
-	}
-	SetActorLocation(NewLocation);
-}
-*/
-/*void AEnemy::Shoot() {
-	// CAMBIAR A HIJOS
-	// METER FIRE RATE
-	FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
-	const FRotator FireRotation = PlayerLocation.Rotation();
-	const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
-	World->SpawnActor<ALuchadoresAereosProjectile>(SpawnLocation, FireRotation);
-	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-}*/

@@ -24,9 +24,6 @@ public:
 	// Sets default values for this actor's properties
 	AEnemy();
 
-	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
-		FVector GunOffset;
-
 	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
 		class USoundBase* FireSound;
 

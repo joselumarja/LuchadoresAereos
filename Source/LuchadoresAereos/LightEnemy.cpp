@@ -11,12 +11,11 @@ ALightEnemy::ALightEnemy() :Super()
 	FireRate = 0.1;
 	MoveSpeed = 1200.0;
 	FIELD_OF_VIEW = 500.0;
-	GunOffset = FVector(90.f, 0.f, 0.f);
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));
 	RootComponent = MeshComponent;
-	//MeshComponent->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);
 	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);

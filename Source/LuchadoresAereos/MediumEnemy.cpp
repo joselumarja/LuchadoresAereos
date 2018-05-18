@@ -12,7 +12,6 @@ AMediumEnemy::AMediumEnemy() :Super()
 	FireRate = 0.5;
 	MoveSpeed = 800.0;
 	FIELD_OF_VIEW = 700.0;
-	GunOffset = FVector(90.f, 0.f, 0.f);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
