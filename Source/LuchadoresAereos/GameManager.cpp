@@ -70,16 +70,20 @@ void AGameManager::SumSeconds(uint8 ExtraSeconds)
 void AGameManager::InitializeSpawnEnemies() {
 
 	//EnemyClasses.AddUnique(ALightEnemy::StaticClass());
+
 	EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
 	//EnemyClasses.AddUnique(ATankEnemy::StaticClass());
+
+	//EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
+	EnemyClasses.AddUnique(ATankEnemy::StaticClass());
+
 	
 }
 
 void AGameManager::UpdateLives()
 {
-	if (--Lives <= 0)
+	if (--Lives == 0)
 	{
-		Lives = 0;
 		GameOver();
 	}
 	HUD->UpdateLives(Lives);

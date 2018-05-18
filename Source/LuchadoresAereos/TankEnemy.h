@@ -20,6 +20,4 @@ class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 		void Dodge() override;
 
 		void Shot() override;
-		
-		float i;
 };

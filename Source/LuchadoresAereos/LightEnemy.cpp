@@ -16,10 +16,10 @@ ALightEnemy::ALightEnemy() :Super()
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));
 	RootComponent = MeshComponent;
+	//MeshComponent->OnComponentHit.AddDynamic(this, &ALuchadoresAereosProjectile::OnHit);
 	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
-	MeshComponent->SetNotifyRigidBodyCollision(true);
 
 }
 
@@ -30,10 +30,16 @@ void ALightEnemy::Tick(float DeltaTime) {
 
 void ALightEnemy::Shot() {
 
-	FVector ActualLocation = GetActorLocation();
-	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
-	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + ActualLocation;
-	SetActorLocation(NewLocation);
+	FVector EnemyLocation = GetActorLocation();
+	FVector PlayerLocation = PlayerPawn->GetActorLocation();
+	FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
+	FRotator Rotation = DirectionVector.Rotation();
+	EnemyLocation = EnemyLocation + (DirectionVector * 100);
+	World->SpawnActor<ALightBullet>(EnemyLocation, Rotation);
+	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+
+	bCanFire = false;
+	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 	
 }
 
