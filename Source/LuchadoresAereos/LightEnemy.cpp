@@ -30,10 +30,16 @@ void ALightEnemy::Tick(float DeltaTime) {
 
 void ALightEnemy::Shot() {
 
-	FVector ActualLocation = GetActorLocation();
-	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
-	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + ActualLocation;
-	SetActorLocation(NewLocation);
+	FVector EnemyLocation = GetActorLocation();
+	FVector PlayerLocation = PlayerPawn->GetActorLocation();
+	FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
+	FRotator Rotation = DirectionVector.Rotation();
+	EnemyLocation = EnemyLocation + (DirectionVector * 100);
+	World->SpawnActor<AHeavyAmo>(EnemyLocation, Rotation);
+	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+
+	bCanFire = false;
+	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 	
 }
 

@@ -34,11 +34,14 @@ void AMediumEnemy::Shot() {
 
 	if (bCanFire)
 	{
-		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
-		FRotator FireRotation = PlayerLocation.Rotation();
-		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
-		World->SpawnActor<ABullet>(SpawnLocation, FireRotation);
+		FVector EnemyLocation = GetActorLocation();
+		FVector PlayerLocation = PlayerPawn->GetActorLocation();
+		FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
+		FRotator Rotation = DirectionVector.Rotation();
+		EnemyLocation = EnemyLocation + (DirectionVector * 100);
+		World->SpawnActor<ABullet>(EnemyLocation, Rotation);
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+
 		bCanFire = false;
 		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 
