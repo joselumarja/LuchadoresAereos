@@ -12,7 +12,9 @@ void UDodgeState::Enter(IEnemyState& From, AEnemy& Enemy)
 
 void UDodgeState::Update(AEnemy& Enemy)
 {
-	Enemy.Dodge();
+	if (Enemy.Life < (Enemy.Life / 3)) {
+		Enemy.Dodge();
+	}
 }
 
 

@@ -11,7 +11,7 @@ AMediumEnemy::AMediumEnemy() :Super()
 	Score = 15;
 	FireRate = 0.5;
 	MoveSpeed = 800.0;
-	FIELD_OF_VIEW = 500.0;
+	FIELD_OF_VIEW = 700.0;
 	GunOffset = FVector(90.f, 0.f, 0.f);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
@@ -21,33 +21,35 @@ AMediumEnemy::AMediumEnemy() :Super()
 	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
+	MeshComponent->SetNotifyRigidBodyCollision(true);
 
 }
 
 
 void AMediumEnemy::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
-
+	i++;
 }
 
 void AMediumEnemy::Shot() {
 
-	if (bCanFire)
-	{
-		FVector PlayerLocation = PlayerPawn->GetActorLocation() + GetActorForwardVector() * 250.0f;
+	if (i > (FireRate * 10.0)) {
+		i = 0.0;
+
+		FVector PlayerLocation = PlayerPawn->GetActorLocation();
 		FRotator FireRotation = PlayerLocation.Rotation();
 		FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
 		World->SpawnActor<ABullet>(SpawnLocation, FireRotation);
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		bCanFire = false;
-		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-
 	}
+	
+	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
 
 }
 
 void AMediumEnemy::Dodge()
 {
+
 
 }
 

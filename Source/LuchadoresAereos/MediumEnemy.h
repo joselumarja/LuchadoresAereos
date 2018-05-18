@@ -20,4 +20,6 @@ public:
 	void Dodge() override;
 
 	void Shot() override;
+
+	float i;
 };
