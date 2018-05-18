@@ -48,6 +48,8 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	CameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	CameraComponent->bUsePawnControlRotation = false;	// Camera does not rotate relative to arm
 	
+	OnActorHit.AddDynamic(this, &ALuchadoresAereosPawn::OnHit);
+
 	// Movement
 	MoveSpeed = 1000.0f;
 	// Weapon
@@ -183,7 +185,7 @@ void ALuchadoresAereosPawn::SetInvulnerability()
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityExpired, this, &ALuchadoresAereosPawn::InvulnerabilityTimerExpired, InvulnerabilityTime);
 }
 
-void ALuchadoresAereosPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (!bInvulnerability && (OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass()))
 	{
