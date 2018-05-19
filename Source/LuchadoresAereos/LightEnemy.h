@@ -20,4 +20,7 @@ public:
 
 	void Shot() override;
 
+private:
+	uint8 RafagaNumber;
+
 };

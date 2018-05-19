@@ -209,13 +209,13 @@ void ALuchadoresAereosPawn::SetNormalShotState()
 void ALuchadoresAereosPawn::SetHeavyShotState()
 {
 	ShotMode = PlayerShot::Heavy;
-	FireRate = 0.7f;
+	FireRate = 0.5f;
 }
 
 void ALuchadoresAereosPawn::SetLightShotState()
 {
 	ShotMode = PlayerShot::Light;
-	FireRate = 0.1f;
+	FireRate = 0.2f;
 }
 
 

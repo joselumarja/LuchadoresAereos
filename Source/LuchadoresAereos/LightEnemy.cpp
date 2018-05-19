@@ -3,12 +3,12 @@
 #include "LightEnemy.h"
 #include "LightBullet.h"
 
-ALightEnemy::ALightEnemy() :Super()
+ALightEnemy::ALightEnemy() :Super(),RafagaNumber(0)
 {
 	Life = 10.0;
 	Time = 5.0;
 	Score = 7;
-	FireRate = 0.1;
+	FireRate = 0.2;
 	MoveSpeed = 1200.0;
 	FIELD_OF_VIEW = 500.0;
 	DodgeTime = 0.02f;
@@ -32,17 +32,30 @@ void ALightEnemy::Tick(float DeltaTime) {
 }
 
 void ALightEnemy::Shot() {
+	if (bCanFire)
+	{
+		FVector EnemyLocation = GetActorLocation();
+		FVector PlayerLocation = PlayerPawn->GetActorLocation();
+		FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
+		FRotator Rotation = DirectionVector.Rotation();
+		EnemyLocation = EnemyLocation + (DirectionVector * 100);
+		World->SpawnActor<ALightBullet>(EnemyLocation, Rotation);
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 
-	FVector EnemyLocation = GetActorLocation();
-	FVector PlayerLocation = PlayerPawn->GetActorLocation();
-	FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
-	FRotator Rotation = DirectionVector.Rotation();
-	EnemyLocation = EnemyLocation + (DirectionVector * 100);
-	World->SpawnActor<ALightBullet>(EnemyLocation, Rotation);
-	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-
-	bCanFire = false;
-	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
+		bCanFire = false;
+		if (RafagaNumber < 3)
+		{
+			World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
+			RafagaNumber++;
+		}
+		else
+		{
+			RafagaNumber = 0;
+			World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, 0.4f);
+		}
+		
+	}
+	
 	
 }
 
