@@ -7,9 +7,6 @@
 #include "GameFramework/SaveGame.h"
 #include "MySaveGame.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class LUCHADORESAEREOS_API UMySaveGame : public USaveGame
 {
