@@ -15,10 +15,13 @@ ALightEnemy::ALightEnemy() :Super()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));
-	RootComponent = MeshComponent;
-	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
-	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
+	MeshComponent->SetupAttachment(RootComponent);
+	RootComponent = MeshComponent;
+	MeshComponent->BodyInstance.SetCollisionProfileName("LightEnemy");
+	MeshComponent->bGenerateOverlapEvents = true;
+	MeshComponent->SetNotifyRigidBodyCollision(true);
+	MeshComponent->OnComponentHit.AddDynamic(this, &AEnemy::OnHit);
 
 }
 

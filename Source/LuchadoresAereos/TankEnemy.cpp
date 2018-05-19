@@ -15,10 +15,13 @@ ATankEnemy::ATankEnemy() :Super()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
-	RootComponent = MeshComponent;
-	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
-	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
+	MeshComponent->SetupAttachment(RootComponent);
+	RootComponent = MeshComponent;
+	MeshComponent->BodyInstance.SetCollisionProfileName("TankEnemy");
+	MeshComponent->bGenerateOverlapEvents = true;
+	MeshComponent->SetNotifyRigidBodyCollision(true);
+	MeshComponent->OnComponentHit.AddDynamic(this, &AEnemy::OnHit);
 }
 
 
@@ -49,15 +52,14 @@ void ATankEnemy::Dodge()
 {
 	float x;
 	float y;
-	float z = 215.0;
 
+	FVector Location = GetActorLocation();
 	x = FMath::RandRange(2000, 3000);
 	y = FMath::RandRange(-1950, 1950);
-	FVector RandomLocation(x, y, z);
+	FVector RandomLocation(x, y, Location.Z);
 
-	FVector EnemyLocation = GetActorLocation();
-	FVector DirectionVector = RandomLocation - EnemyLocation;
-	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) - EnemyLocation;
+	FVector DirectionVector = RandomLocation - Location;
+	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + Location;
 	SetActorLocation(NewLocation);
 
 }

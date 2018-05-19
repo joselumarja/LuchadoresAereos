@@ -77,10 +77,10 @@ float AEnemy::DistanceToPlayer()
 	return FMath::Sqrt(x + y + z);
 }
 
-void AEnemy::OnHit(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
+void AEnemy::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor) {
-		
+		DodgeDirection = NormalImpulse.Reciprocal();
 	}
 }
 
