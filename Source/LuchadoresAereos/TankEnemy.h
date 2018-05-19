@@ -17,7 +17,5 @@ class LUCHADORESAEREOS_API ATankEnemy : public AEnemy
 
 		virtual void Tick(float DeltaTime) override;
 
-		void Dodge() override;
-
 		void Shot() override;
 };
