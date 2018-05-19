@@ -11,6 +11,7 @@ ALightEnemy::ALightEnemy() :Super()
 	FireRate = 0.1;
 	MoveSpeed = 1200.0;
 	FIELD_OF_VIEW = 500.0;
+	DodgeTime = 0.02f;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
@@ -45,10 +46,5 @@ void ALightEnemy::Shot() {
 	
 }
 
-void ALightEnemy::Dodge()
-{
-
-
-}
 
 

@@ -7,19 +7,21 @@
 
 void UDodgeState::Enter(IEnemyState& From, AEnemy& Enemy)
 {
-
+	Enemy.bCanDodge = true;
+	Enemy.SetTimerDodge();
 }
 
 void UDodgeState::Update(AEnemy& Enemy)
 {
-	if (Enemy.DistanceToPlayer() > 1.5 *(Enemy.FIELD_OF_VIEW))
+	if (!Enemy.bCanDodge)
 	{
 		Enemy.ChangeState(Enemy.FindPlayerState);
 	}
-	else {
+	else
+	{
 		Enemy.Dodge();
 	}
-	
+
 }
 
 

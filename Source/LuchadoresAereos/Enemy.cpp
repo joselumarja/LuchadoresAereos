@@ -17,6 +17,7 @@ AEnemy::AEnemy()
 	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
 	FireSound = FireAudio.Object;
 	bCanFire = true;
+	bCanDodge = false;
 }
 
 // Called when the game starts or when spawned
@@ -80,7 +81,9 @@ float AEnemy::DistanceToPlayer()
 void AEnemy::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor) {
-		DodgeDirection = NormalImpulse.Reciprocal();
+		DodgeDirection = (GetActorLocation() - OtherActor->GetActorLocation());
+		DodgeDirection.Z = 0.f;
+		ChangeState(DodgeState);
 	}
 }
 
@@ -98,9 +101,6 @@ void AEnemy::UpdateLife(uint8 Damage)
 		Manager->EnemyKilled(Score,Time);
 		Manager->DropPowerUp(GetActorLocation());
 		Destroy();
-	}
-	else if (Life < 45.0) {
-		ChangeState(DodgeState);
 	}
 }
 
@@ -120,6 +120,26 @@ void AEnemy::FindPlayer()
 {
 	FVector ActualLocation = GetActorLocation();
 	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
-	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + ActualLocation;
+	MoveTo(DirectionVector, ActualLocation, MoveSpeed);
+}
+
+void AEnemy::MoveTo(FVector DirectionVector,FVector ActualLocation,float Velocity)
+{
+	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*Velocity)) + ActualLocation;
 	SetActorLocation(NewLocation);
+}
+
+void AEnemy::DodgeFinish()
+{
+	bCanDodge = false;
+}
+
+void AEnemy::SetTimerDodge()
+{
+	World->GetTimerManager().SetTimer(TimerHandle_DodgeFinish, this, &AEnemy::DodgeFinish, DodgeTime);
+}
+
+void AEnemy::Dodge()
+{
+	MoveTo(DodgeDirection, GetActorLocation(), MoveSpeed * 2);
 }

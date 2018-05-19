@@ -10,6 +10,7 @@ ATankEnemy::ATankEnemy() :Super()
 	Score = 50;
 	FireRate = 3.0;
 	MoveSpeed = 500.0;
+	DodgeTime = 0.5f;
 	FIELD_OF_VIEW = 700.0;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
@@ -48,19 +49,4 @@ void ATankEnemy::Shot() {
 	
 }
 
-void ATankEnemy::Dodge()
-{
-	float x;
-	float y;
-
-	FVector Location = GetActorLocation();
-	x = FMath::RandRange(2000, 3000);
-	y = FMath::RandRange(-1950, 1950);
-	FVector RandomLocation(x, y, Location.Z);
-
-	FVector DirectionVector = RandomLocation - Location;
-	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + Location;
-	SetActorLocation(NewLocation);
-
-}
 
