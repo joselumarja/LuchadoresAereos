@@ -48,19 +48,4 @@ void ATankEnemy::Shot() {
 	
 }
 
-void ATankEnemy::Dodge()
-{
-	float x;
-	float y;
-
-	FVector Location = GetActorLocation();
-	x = FMath::RandRange(2000, 3000);
-	y = FMath::RandRange(-1950, 1950);
-	FVector RandomLocation(x, y, Location.Z);
-
-	FVector DirectionVector = RandomLocation - Location;
-	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) + Location;
-	SetActorLocation(NewLocation);
-
-}
 

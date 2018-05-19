@@ -45,10 +45,5 @@ void ALightEnemy::Shot() {
 	
 }
 
-void ALightEnemy::Dodge()
-{
-
-
-}
 
 

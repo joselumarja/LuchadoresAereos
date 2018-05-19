@@ -63,14 +63,28 @@ protected:
 
 	float FireRate;
 
+	float DodgeTime;
+
 	float MoveSpeed;
 
 	bool bCanFire;
 
+	bool bCanDodge;
+
 	FVector DodgeDirection;
+
+	void Dodge();
+
+	void FindPlayer();
+
+	virtual void Shot() PURE_VIRTUAL(AEnemy::Shot, );
+
+	void MoveTo(FVector DirectionVector, FVector ActualLocation, float Velocity);
 
 	/** Handle for efficient management of ShotTimerExpired timer */
 	FTimerHandle TimerHandle_ShotTimerExpired;
+
+	FTimerHandle TimerHandle_DodgeFinish;
 
 	// Forward-declare state classes and makes them friends of this class
 	friend class UDodgeState;
@@ -91,13 +105,11 @@ public:
 
 	void ShotTimerExpired();
 
+	void SetTimerDodge();
+
+	void DodgeFinish();
+
 	void UpdateLife(uint8 Damage);
-
-	virtual void Dodge() PURE_VIRTUAL(AEnemy::Dodge, );
-
-	virtual void Shot() PURE_VIRTUAL(AEnemy::Shot, );
-
-	void FindPlayer();
 
 	virtual void ChangeState(const TScriptInterface<IEnemyState>& State);
 

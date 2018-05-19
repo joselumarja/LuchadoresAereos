@@ -52,21 +52,4 @@ void AMediumEnemy::Shot() {
 	
 }
 
-void AMediumEnemy::Dodge()
-{
 
-	float x;
-	float y;
-	float z = 215.0;
-
-	x = FMath::RandRange(2000, 3000);
-	y = FMath::RandRange(-1950, 1950);
-	FVector RandomLocation(x, y, z);
-
-	FVector EnemyLocation = GetActorLocation();
-	FVector DirectionVector = RandomLocation - EnemyLocation;
-	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*MoveSpeed)) - EnemyLocation;
-	SetActorLocation(NewLocation);
-
-	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemy::ShotTimerExpired, FireRate);
-}
