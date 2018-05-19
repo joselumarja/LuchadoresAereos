@@ -16,11 +16,13 @@ AMediumEnemy::AMediumEnemy() :Super()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MediumMesh"));
-	RootComponent = MeshComponent;
-	MeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
-	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
+	MeshComponent->SetupAttachment(RootComponent);
+	RootComponent = MeshComponent;
+	MeshComponent->BodyInstance.SetCollisionProfileName("MediumEnemy");
+	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetNotifyRigidBodyCollision(true);
+	MeshComponent->OnComponentHit.AddDynamic(this, &AEnemy::OnHit);
 
 }
 
