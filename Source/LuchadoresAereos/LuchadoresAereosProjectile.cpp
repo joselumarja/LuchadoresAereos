@@ -10,7 +10,7 @@
 
 ALuchadoresAereosProjectile::ALuchadoresAereosProjectile() 
 {
-	auto ParticleSystemAsset = ConstructorHelpers::FObjectFinder<UParticleSystem>(TEXT("ParticleSystem'/Game/StarterContent/Particles/P_Explosion.P_Explosion'"));//hay que incluir las particulas en el proyecto todavia
+	auto ParticleSystemAsset = ConstructorHelpers::FObjectFinder<UParticleSystem>(TEXT("ParticleSystem'/Game/Particles/P_Explosion.P_Explosion'"));
 	if (ParticleSystemAsset.Succeeded())
 	{
 		ExplosionParticleSystem = ParticleSystemAsset.Object;
