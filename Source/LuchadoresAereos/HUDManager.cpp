@@ -2,6 +2,8 @@
 #include "HUDManager.h"
 #include "Blueprint/UserWidget.h"
 #include "TextWidgetTypes.h"
+#include "GameManager.h"
+#include "LuchadoresAereosGameMode.h"
 #include "TextBlock.h"
 
 
@@ -70,5 +72,6 @@ void AHUDManager::UpdateEnemiesKilled(int Enemies) {
 
 	pKilledEnemies->SetText(FText::AsNumber(Enemies));
 }
+
 
 #undef LOCTEXT_NAMESPACE

@@ -39,11 +39,13 @@ void ATankEnemy::Shot() {
 		FVector PlayerLocation = PlayerPawn->GetActorLocation();
 		FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
 		FRotator Rotation = DirectionVector.Rotation();
-		EnemyLocation = EnemyLocation + (DirectionVector * 100);
+
+		EnemyLocation = EnemyLocation + (DirectionVector * 300);
 		FVector EnemyLocation1, EnemyLocation2, EnemyLocation3;
 		EnemyLocation1 = EnemyLocation;
 		EnemyLocation2 = EnemyLocation + EnemyFordwardVector * 100;
 		EnemyLocation3 = EnemyLocation - EnemyFordwardVector * 100;
+
 		World->SpawnActor<AHeavyAmo>(EnemyLocation1, Rotation);
 		World->SpawnActor<AHeavyAmo>(EnemyLocation2, Rotation);
 		World->SpawnActor<AHeavyAmo>(EnemyLocation3, Rotation);

@@ -7,5 +7,6 @@ ALuchadoresAereosGameMode::ALuchadoresAereosGameMode()
 {
 	// set default pawn class to our character class
 	DefaultPawnClass = ALuchadoresAereosPawn::StaticClass();
+	
 }
 

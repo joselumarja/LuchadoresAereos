@@ -50,6 +50,13 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	
 	OnActorHit.AddDynamic(this, &ALuchadoresAereosPawn::OnHit);
 
+	auto ParticleSystemAsset = ConstructorHelpers::FObjectFinder<UParticleSystem>(TEXT("ParticleSystem'/Game/Particles/P_Explosion.P_Explosion'"));
+	if (ParticleSystemAsset.Succeeded())
+	{
+		ExplosionParticleSystem = ParticleSystemAsset.Object;
+	}
+
+
 	// Movement
 	MoveSpeed = 1000.0f;
 	// Weapon
@@ -190,13 +197,12 @@ void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector
 	
 	if (!bInvulnerability && (OtherActor != NULL) && (OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass())) || (OtherActor->IsA(AEnemy::StaticClass())))
 	{
-		if (OtherActor->IsA(AEnemy::StaticClass())) {
-		OtherActor->Destroy();
-		Manager->UpdateEnemyKilled();
-	}
-		Manager->UpdateLives();
-		SetNormalShotState();
-		SetInvulnerability();
+		if (bInvulnerability == false) {
+			Manager->UpdateLives();
+			SetNormalShotState();
+			SetInvulnerability();
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
+		}
 	}
 }
 

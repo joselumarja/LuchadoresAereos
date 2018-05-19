@@ -51,6 +51,7 @@ public:
 
 	void EnemyKilled(uint8 Score, uint8 ExtraTime);
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -89,4 +90,5 @@ private:
 	FVector GetRandomLocation() const;
 
 	TWeakObjectPtr<AActor> ReferencePlane;
+
 };

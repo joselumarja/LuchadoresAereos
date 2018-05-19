@@ -7,6 +7,9 @@
 #include "TimerManager.h"
 #include "HUDManager.generated.h"
 
+class ALuchadoresAereosGameMode;
+class AGameManager;
+
 UCLASS()
 class LUCHADORESAEREOS_API AHUDManager : public AActor
 {
@@ -27,6 +30,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 		TSubclassOf<class UUserWidget> HUDWidget;
 
+
 	void UpdateSeconds(int Seconds);
 
 	void UpdateLives(int Lives);
@@ -34,6 +38,12 @@ public:
 	void UpdateScore(int Score);
 
 	void UpdateEnemiesKilled(int Enemies);
+
+	
+	
+	ALuchadoresAereosGameMode* GameMode;
+
+	AGameManager* GameManager;
 
 private:
 
