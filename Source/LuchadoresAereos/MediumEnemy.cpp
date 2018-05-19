@@ -11,6 +11,7 @@ AMediumEnemy::AMediumEnemy() :Super()
 	Score = 15;
 	FireRate = 0.5;
 	MoveSpeed = 800.0;
+	DodgeTime = 0.3f;
 	FIELD_OF_VIEW = 700.0;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));

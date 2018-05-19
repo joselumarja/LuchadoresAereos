@@ -10,6 +10,7 @@ ATankEnemy::ATankEnemy() :Super()
 	Score = 50;
 	FireRate = 3.0;
 	MoveSpeed = 500.0;
+	DodgeTime = 0.5f;
 	FIELD_OF_VIEW = 700.0;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));

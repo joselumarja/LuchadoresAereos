@@ -17,7 +17,6 @@ AEnemy::AEnemy()
 	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
 	FireSound = FireAudio.Object;
 	bCanFire = true;
-	DodgeTime = 0.5f;
 	bCanDodge = false;
 }
 
@@ -83,6 +82,7 @@ void AEnemy::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveC
 {
 	if (OtherActor) {
 		DodgeDirection = (GetActorLocation() - OtherActor->GetActorLocation());
+		DodgeDirection.Z = 0.f;
 		ChangeState(DodgeState);
 	}
 }
