@@ -2,8 +2,6 @@
 #include "HUDManager.h"
 #include "Blueprint/UserWidget.h"
 #include "TextWidgetTypes.h"
-#include "GameManager.h"
-#include "LuchadoresAereosGameMode.h"
 #include "TextBlock.h"
 
 

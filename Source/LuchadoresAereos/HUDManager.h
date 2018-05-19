@@ -7,9 +7,6 @@
 #include "TimerManager.h"
 #include "HUDManager.generated.h"
 
-class ALuchadoresAereosGameMode;
-class AGameManager;
-
 UCLASS()
 class LUCHADORESAEREOS_API AHUDManager : public AActor
 {
@@ -39,11 +36,6 @@ public:
 
 	void UpdateEnemiesKilled(int Enemies);
 
-	
-	
-	ALuchadoresAereosGameMode* GameMode;
-
-	AGameManager* GameManager;
 
 private:
 

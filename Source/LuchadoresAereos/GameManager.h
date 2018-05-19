@@ -16,6 +16,8 @@
 #include "TankEnemy.h"
 #include "GameManager.generated.h"
 
+class ALuchadoresAereosPawn;
+
 UCLASS()
 class LUCHADORESAEREOS_API AGameManager : public AActor
 {
@@ -90,5 +92,7 @@ private:
 	FVector GetRandomLocation() const;
 
 	TWeakObjectPtr<AActor> ReferencePlane;
+
+	TWeakObjectPtr<ALuchadoresAereosPawn> PlayerPawn;
 
 };

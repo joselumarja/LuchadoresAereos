@@ -33,7 +33,7 @@ void AEnemy::BeginPlay()
 	{
 		if (FString(TEXT("TP_TwinStickPawn_1")).Equals(ActorItr->GetName()))
 		{
-			//finding manager
+			//finding pawn
 			PlayerPawn = *ActorItr;
 		}
 	}
@@ -78,7 +78,7 @@ float AEnemy::DistanceToPlayer()
 	return FMath::Sqrt(x + y + z);
 }
 
-void AEnemy::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void AEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor) {
 		DodgeDirection = (GetActorLocation() - OtherActor->GetActorLocation());

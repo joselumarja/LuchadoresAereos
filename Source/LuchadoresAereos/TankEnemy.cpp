@@ -22,7 +22,7 @@ ATankEnemy::ATankEnemy() :Super()
 	MeshComponent->BodyInstance.SetCollisionProfileName("TankEnemy");
 	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetNotifyRigidBodyCollision(true);
-	MeshComponent->OnComponentHit.AddDynamic(this, &AEnemy::OnHit);
+	OnActorHit.AddDynamic(this, &AEnemy::OnHit);
 }
 
 
@@ -37,7 +37,7 @@ void ATankEnemy::Shot() {
 		FVector EnemyLocation = GetActorLocation();
 		FVector EnemyFordwardVector = GetActorForwardVector();
 		FVector PlayerLocation = PlayerPawn->GetActorLocation();
-		FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
+		FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, .0f).GetSafeNormal();
 		FRotator Rotation = DirectionVector.Rotation();
 
 		EnemyLocation = EnemyLocation + (DirectionVector * 300);

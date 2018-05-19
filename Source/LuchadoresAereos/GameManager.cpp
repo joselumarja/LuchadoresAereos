@@ -2,6 +2,7 @@
 
 #include "GameManager.h"
 #include "MySaveGame.h"
+#include "LuchadoresAereosPawn.h"
 #include "Engine.h"
 
 // Sets default values
@@ -26,6 +27,15 @@ void AGameManager::BeginPlay()
 		{
 			//finding archievement manager
 			HUD = *ActorItr;
+		}
+	}
+
+	for (TActorIterator<ALuchadoresAereosPawn>ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (FString(TEXT("TP_TwinStickPawn_1")).Equals(ActorItr->GetName()))
+		{
+			//finding manager
+			PlayerPawn = *ActorItr;
 		}
 	}
 
@@ -132,7 +142,7 @@ FVector AGameManager::GetRandomLocation() const
 	
 	float x;
 	float y;
-	float z = 215.0;
+	float z = PlayerPawn->GetActorLocation().Z;
 
 	y = FMath::RandRange(-1950, 1950);
 	x = FMath::RandRange(2900, 3000);

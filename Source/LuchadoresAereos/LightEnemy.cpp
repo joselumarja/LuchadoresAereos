@@ -22,7 +22,7 @@ ALightEnemy::ALightEnemy() :Super(),RafagaNumber(0)
 	MeshComponent->BodyInstance.SetCollisionProfileName("LightEnemy");
 	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetNotifyRigidBodyCollision(true);
-	MeshComponent->OnComponentHit.AddDynamic(this, &AEnemy::OnHit);
+	OnActorHit.AddDynamic(this, &AEnemy::OnHit);
 
 }
 
@@ -36,7 +36,7 @@ void ALightEnemy::Shot() {
 	{
 		FVector EnemyLocation = GetActorLocation();
 		FVector PlayerLocation = PlayerPawn->GetActorLocation();
-		FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, PlayerLocation.Z - EnemyLocation.Z).GetSafeNormal();
+		FVector DirectionVector = FVector(PlayerLocation.X - EnemyLocation.X, PlayerLocation.Y - EnemyLocation.Y, .0f).GetSafeNormal();
 		FRotator Rotation = DirectionVector.Rotation();
 		EnemyLocation = EnemyLocation + (DirectionVector * 100);
 		World->SpawnActor<ALightBullet>(EnemyLocation, Rotation);
