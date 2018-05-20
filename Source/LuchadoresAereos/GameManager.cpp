@@ -165,7 +165,8 @@ TSubclassOf<APerk> AGameManager::GetRandomPerk(){
 
 void AGameManager::DropPowerUp(FVector SpawnLocation) {
 	// sets the drop spanws probability in 10%
-	if (FMath::RandRange(1, 100 / 10) == 1 ? true : false) {
+	if (FMath::RandRange(1, 100)<=10) 
+	{
 		TSubclassOf<APerk> Perk = GetRandomPerk();
 		GetWorld()->SpawnActor(Perk, &SpawnLocation);
 	}
