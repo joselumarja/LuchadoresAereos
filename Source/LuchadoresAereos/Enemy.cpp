@@ -80,7 +80,7 @@ float AEnemy::DistanceToPlayer()
 
 void AEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (OtherActor) {
+	if (OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass())||OtherActor->IsA(AEnemy::StaticClass())||OtherActor->IsA(ALuchadoresAereosPawn::StaticClass())) {
 		DodgeDirection = (GetActorLocation() - OtherActor->GetActorLocation());
 		DodgeDirection.Z = 0.f;
 		ChangeState(DodgeState);
@@ -125,8 +125,17 @@ void AEnemy::FindPlayer()
 
 void AEnemy::MoveTo(FVector DirectionVector,FVector ActualLocation,float Velocity)
 {
-	FVector NewLocation = (DirectionVector.GetSafeNormal()*(DeltaSeconds*Velocity)) + ActualLocation;
-	SetActorLocation(NewLocation);
+	FVector Movement = (DirectionVector.GetSafeNormal()*(DeltaSeconds*Velocity)) ;
+	const FRotator NewRotation(0, 0, 0);
+	FHitResult Hit(1.f);
+	RootComponent->MoveComponent(Movement, NewRotation, true);
+
+	if (Hit.IsValidBlockingHit())
+	{
+		const FVector Normal2D = Hit.Normal.GetSafeNormal2D();
+		const FVector Deflection = FVector::VectorPlaneProject(Movement, Normal2D) * (1.f - Hit.Time);
+		RootComponent->MoveComponent(Deflection, NewRotation, true);
+	}
 }
 
 void AEnemy::DodgeFinish()

@@ -19,7 +19,7 @@
 const FName ALuchadoresAereosPawn::MoveForwardBinding("MoveForward");
 const FName ALuchadoresAereosPawn::MoveRightBinding("MoveRight");
 const FName ALuchadoresAereosPawn::FireForwardBinding("FireForward");
-const FName ALuchadoresAereosPawn::FireRightBinding("FireRight");
+//const FName ALuchadoresAereosPawn::FireRightBinding("FireRight");
 
 
 ALuchadoresAereosPawn::ALuchadoresAereosPawn()
@@ -122,11 +122,13 @@ void ALuchadoresAereosPawn::Tick(float DeltaSeconds)
 			RootComponent->MoveComponent(Deflection, NewRotation, true);
 		}
 	}
+
+	CheckPosition();
 	
 	// Create fire direction vector
 	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);
-	const float FireRightValue = GetInputAxisValue(FireRightBinding);
-	const FVector FireDirection = FVector(FireForwardValue, FireRightValue, 0.f);
+	//const float FireRightValue = GetInputAxisValue(FireRightBinding);
+	const FVector FireDirection = FVector(FireForwardValue, 0.f, 0.f);
 
 	// Try and fire a shot
 	FireShot(FireDirection);
@@ -203,6 +205,15 @@ void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector
 			SetInvulnerability();
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
 		}
+	}
+}
+
+void ALuchadoresAereosPawn::CheckPosition()
+{
+	if (GetActorLocation().X > 2090.f)
+	{
+		Manager->UpdateLives();
+		SetActorLocation(InitialPosition);
 	}
 }
 

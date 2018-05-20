@@ -95,6 +95,10 @@ protected:
 
 private:
 
+	const FVector InitialPosition=FVector(-790.f,10.f,215.f);
+
+	void CheckPosition();
+
 	/* Flag to control firing  */
 	uint32 bCanFire : 1;
 
