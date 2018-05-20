@@ -80,7 +80,7 @@ float AEnemy::DistanceToPlayer()
 
 void AEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass())||OtherActor->IsA(AEnemy::StaticClass())||OtherActor->IsA(ALuchadoresAereosPawn::StaticClass())) {
+	if (OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass())||OtherActor->IsA(AEnemy::StaticClass())) {
 		DodgeDirection = (GetActorLocation() - OtherActor->GetActorLocation());
 		DodgeDirection.Z = 0.f;
 		ChangeState(DodgeState);

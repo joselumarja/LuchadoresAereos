@@ -197,14 +197,16 @@ void ALuchadoresAereosPawn::SetInvulnerability()
 void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	
-	if (!bInvulnerability && (OtherActor != NULL) && (OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass())) || (OtherActor->IsA(AEnemy::StaticClass())))
+	if ((OtherActor != NULL) && (OtherActor->IsA(ALuchadoresAereosProjectile::StaticClass())) || (OtherActor->IsA(AEnemy::StaticClass())))
 	{
-		if (bInvulnerability == false) {
+		if (!bInvulnerability) 
+		{
 			Manager->UpdateLives();
 			SetNormalShotState();
 			SetInvulnerability();
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
 		}
+		OtherActor->Destroy();
 	}
 }
 
