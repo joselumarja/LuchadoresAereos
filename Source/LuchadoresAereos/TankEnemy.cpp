@@ -13,7 +13,7 @@ ATankEnemy::ATankEnemy() :Super()
 	DodgeTime = 0.5f;
 	FIELD_OF_VIEW = 700.0;
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Enemigo_Pesado/UFO_2"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
 	MeshComponent->SetStaticMesh(ShipMesh.Object);

@@ -6,8 +6,8 @@ ALightBullet::ALightBullet():Super()
 {
 
 	// Static reference to the mesh to use for the projectile
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
-
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Disparo_Ligero/projektil_FBX.projektil_FBX"));
+	FVector Scale = FVector(1.0f);
 	// Create mesh component for the projectile sphere
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Bullet"));
 	ProjectileMesh->SetStaticMesh(ProjectileMeshAsset.Object);
