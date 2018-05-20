@@ -44,6 +44,7 @@ void AGameManager::BeginPlay()
 	HUD->UpdateLives(Lives);
 	HUD->UpdateScore(Score);
 	InitializeSpawnEnemies();
+	InitializePerks();
 	World->GetTimerManager().SetTimer(ClockTimer, this, &AGameManager::Clock, 1.0f);	
 }
 
