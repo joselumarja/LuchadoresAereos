@@ -33,7 +33,6 @@ public:
 
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) PURE_VIRTUAL(APerk::OnHit, );
-
-	
+		
 	
 };

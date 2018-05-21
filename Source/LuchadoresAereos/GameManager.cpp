@@ -45,6 +45,7 @@ void AGameManager::BeginPlay()
 	HUD->UpdateScore(Score);
 	InitializeSpawnEnemies();
 	InitializePerks();
+	SpawnEnemies(1);
 	World->GetTimerManager().SetTimer(ClockTimer, this, &AGameManager::Clock, 1.0f);	
 }
 
@@ -57,7 +58,7 @@ void AGameManager::Tick(float DeltaTime)
 		EnemiesAlived = 0;
 		EnemiesKilledPerRound = 0;
 		Round++;
-		SpawnEnemies(Round);
+		//SpawnEnemies(Round);
 	}
 
 }
@@ -166,7 +167,7 @@ TSubclassOf<APerk> AGameManager::GetRandomPerk(){
 
 void AGameManager::DropPowerUp(FVector SpawnLocation) {
 	// sets the drop spanws probability in 10%
-	if (FMath::RandRange(1, 100)<=10) 
+	if (FMath::RandRange(1, 100)<=100) 
 	{
 		TSubclassOf<APerk> Perk = GetRandomPerk();
 		GetWorld()->SpawnActor(Perk, &SpawnLocation);

@@ -21,7 +21,7 @@ ALightShotPerk::ALightShotPerk():Super()
 
 void ALightShotPerk::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (OtherActor == PlayerPawn)
+	if ((OtherActor != NULL) && OtherActor == PlayerPawn)
 	{
 		PlayerPawn->SetLightShotState();
 		Destroy();
