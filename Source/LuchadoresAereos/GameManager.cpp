@@ -72,6 +72,7 @@ void AGameManager::Clock()
 	World->GetTimerManager().SetTimer(ClockTimer, this, &AGameManager::Clock, 1.0f);
 }
 
+// Called to add the extra seconds from enemies killed 
 void AGameManager::SumSeconds(uint8 ExtraSeconds)
 {
 	Seconds += ExtraSeconds;
@@ -125,6 +126,7 @@ void AGameManager::SpawnEnemies(int Enemies) {
 
 }
 
+// Called when finish the game, saves the score and the enemies killed
 void AGameManager::GameOver()
 {
 	UMySaveGame* SaveGameInstance = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
@@ -139,9 +141,9 @@ TSubclassOf<AEnemy> AGameManager::GetRandomEnemyClass() const
 	return EnemyClasses[FMath::RandRange(0, EnemyClasses.Num() - 1)];
 }
 
+// Gets a random place to spawn an enemy
 FVector AGameManager::GetRandomLocation() const
 {
-	
 	float x;
 	float y;
 	float z = PlayerPawn->GetActorLocation().Z;
@@ -159,10 +161,10 @@ void AGameManager::InitializePerks() {
 }
 
 
-
 TSubclassOf<APerk> AGameManager::GetRandomPerk(){
 	return PerkArray[FMath::RandRange(0, PerkArray.Num() - 1)];
 }
+
 
 void AGameManager::DropPowerUp(FVector SpawnLocation) {
 	// sets the drop spanws probability in 10%
@@ -173,10 +175,3 @@ void AGameManager::DropPowerUp(FVector SpawnLocation) {
 	}
 }
 
-void AGameManager::UpdatePerkText(FString text) {
-	HUD->SetPerk(text);
-}
-
-void AGameManager::HidePerkText() {
-	HUD->HidePerkText();
-}

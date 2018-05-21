@@ -20,7 +20,6 @@
 const FName ALuchadoresAereosPawn::MoveForwardBinding("MoveForward");
 const FName ALuchadoresAereosPawn::MoveRightBinding("MoveRight");
 const FName ALuchadoresAereosPawn::FireForwardBinding("FireForward");
-//const FName ALuchadoresAereosPawn::FireRightBinding("FireRight");
 
 
 ALuchadoresAereosPawn::ALuchadoresAereosPawn()
@@ -83,6 +82,7 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	MoveSpeed = 1000.0f;
 	// Weapon
 	GunOffset = FVector(90.f, 0.f, 0.f);
+
 	bCanFire = true;
 	bInvulnerability = false;
 	InvulnerabilityTime = 14.0f;
@@ -114,7 +114,7 @@ void ALuchadoresAereosPawn::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAxis(MoveForwardBinding);
 	PlayerInputComponent->BindAxis(MoveRightBinding);
 	PlayerInputComponent->BindAxis(FireForwardBinding);
-	//PlayerInputComponent->BindAxis(FireRightBinding);
+	
 
 }
 
@@ -150,7 +150,6 @@ void ALuchadoresAereosPawn::Tick(float DeltaSeconds)
 	
 	// Create fire direction vector
 	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);
-	//const float FireRightValue = GetInputAxisValue(FireRightBinding);
 	const FVector FireDirection = FVector(FireForwardValue, 0.f, 0.f);
 
 	// Try and fire a shot
@@ -186,6 +185,7 @@ void ALuchadoresAereosPawn::FireShot(FVector FireDirection)
 			}
 
 			bCanFire = false;
+			// Setting a timer with the fire rate of the shoot
 			World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &ALuchadoresAereosPawn::ShotTimerExpired, FireRate);
 
 			// try and play the sound if specified
@@ -208,16 +208,16 @@ void ALuchadoresAereosPawn::InvulnerabilityTimerExpired()
 {
 	bInvulnerability = false;
 	ShipMeshComponent->SetMaterial(0, BaseMaterial);
-	//quitar las texturas de la invulnerabilidad
 }
 
+// Changes the material of the player when takes a bullet hit
 void ALuchadoresAereosPawn::HitInvulnerabilityExpired()
 {
 	ShipMeshComponent->SetMaterial(0, BaseMaterial);
 	World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityHitExpired, this, &ALuchadoresAereosPawn::SetHitInvulnerability, 0.5f);
 }
 
-
+// Changes the material of the player when takes a bullet hit
 void ALuchadoresAereosPawn::SetHitInvulnerability()
 {
 	bInvulnerability = true;
@@ -233,11 +233,11 @@ void ALuchadoresAereosPawn::SetHitInvulnerability()
 	}
 }
 
+// Invulnerability method with music 
 void ALuchadoresAereosPawn::SetInvulnerability()
 {
 	bInvulnerability = true;
 	ShipMeshComponent->SetMaterial(0, GoldMaterial);
-	//Manager->UpdatePerkText("INVULNERABILITY!");
 	UGameplayStatics::PlaySoundAtLocation(this, InvulnerabilitySound, GetActorLocation());
 	World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityExpired, this, &ALuchadoresAereosPawn::InvulnerabilityTimerExpired, InvulnerabilityTime);
 }
@@ -259,6 +259,7 @@ void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector
 	}
 }
 
+// Changes the position of the player if he is to far from game field
 void ALuchadoresAereosPawn::CheckPosition()
 {
 	if (GetActorLocation().X > 2090.f)
@@ -268,24 +269,22 @@ void ALuchadoresAereosPawn::CheckPosition()
 	}
 }
 
+// Methods to change the type of player´s shoot
 void ALuchadoresAereosPawn::SetNormalShotState()
 {
 	ShotMode = PlayerShot::Standar;
-	//Manager->HidePerkText();
 	FireRate = 0.3f;
 }
 
 void ALuchadoresAereosPawn::SetHeavyShotState()
 {
 	ShotMode = PlayerShot::Heavy;
-	//Manager->UpdatePerkText("HEAVY SHOOT!");
 	FireRate = 0.5f;
 }
 
 void ALuchadoresAereosPawn::SetLightShotState()
 {
 	ShotMode = PlayerShot::Light;
-	//Manager->UpdatePerkText("LIGHT SHOOT!");
 	FireRate = 0.2f;
 }
 

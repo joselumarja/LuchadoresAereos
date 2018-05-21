@@ -52,8 +52,6 @@ private:
 
 	TWeakObjectPtr<class UTextBlock> pLives;
 
-	TWeakObjectPtr<class UTextBlock> pPerk;
-
 
 
 };

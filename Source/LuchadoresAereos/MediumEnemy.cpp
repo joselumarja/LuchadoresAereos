@@ -15,6 +15,7 @@ AMediumEnemy::AMediumEnemy() :Super()
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	ConstructorHelpers::FObjectFinder<UMaterialInstance> BaseMaterial(TEXT("/Game/TwinStick/Meshes/BlueMaterial.BlueMaterial"));
+
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MediumMesh"));
 	MeshComponent->SetStaticMesh(ShipMesh.Object);

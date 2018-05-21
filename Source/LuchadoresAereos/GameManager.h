@@ -53,9 +53,7 @@ public:
 
 	void EnemyKilled(uint8 Score, uint8 ExtraTime);
 
-	void UpdatePerkText(FString text);
-
-	void HidePerkText();
+	
 
 protected:
 	// Called when the game starts or when spawned

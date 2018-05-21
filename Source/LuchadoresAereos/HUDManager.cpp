@@ -38,7 +38,6 @@ void AHUDManager::BeginPlay()
 			pLives = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxVidas");
 			pTimeInRound = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxSeconds");
 			
-			pPerk = (UTextBlock*)pHUDWidget->GetWidgetFromName("TextBoxPerk");
 
 		}
 	}
@@ -70,19 +69,5 @@ void AHUDManager::UpdateScore(int Score)
 void AHUDManager::UpdateEnemiesKilled(int Enemies) {
 
 	pKilledEnemies->SetText(FText::AsNumber(Enemies));
-}
-
-
-void AHUDManager::SetPerk(FString text) {
-	///pPerk->SetVisibility(ESlateVisibility::Visible);
-	
-	pPerk->SetText(FText::FromString(text));
-	
-}
-void AHUDManager::HidePerkText() {
-	//pPerk->SetVisibility(ESlateVisibility::Hidden);
-	
-	pPerk->SetText(FText::FromString(" "));
-	
 }
 #undef LOCTEXT_NAMESPACE
