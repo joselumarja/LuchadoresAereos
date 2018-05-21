@@ -237,7 +237,7 @@ void ALuchadoresAereosPawn::SetInvulnerability()
 {
 	bInvulnerability = true;
 	ShipMeshComponent->SetMaterial(0, GoldMaterial);
-	Manager->UpdatePerkText("INVULNERABILITY!");
+	//Manager->UpdatePerkText("INVULNERABILITY!");
 	UGameplayStatics::PlaySoundAtLocation(this, InvulnerabilitySound, GetActorLocation());
 	World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityExpired, this, &ALuchadoresAereosPawn::InvulnerabilityTimerExpired, InvulnerabilityTime);
 }

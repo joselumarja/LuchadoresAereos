@@ -6,14 +6,14 @@ ALightShotPerk::ALightShotPerk():Super()
 {
 
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Testeo/SM_MERGED_health_pack_Cube2_33.SM_MERGED_health_pack_Cube2_33"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
-
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/Geometry/Meshes/1M_Cube.1M_Cube"));
+	ConstructorHelpers::FObjectFinder<UMaterialInstance> BaseMaterial(TEXT("/Game/TwinStick/Meshes/GreenMaterial.GreenMaterial"));
 	FVector Scale = FVector(1.0f);
 	// Create mesh component for the projectile sphere
 	PerkMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightShotPerk"));
 	PerkMesh->SetStaticMesh(ProjectileMeshAsset.Object);
 	PerkMesh->SetupAttachment(RootComponent);
-	PerkMesh->SetWorldScale3D(Scale * 0.2f);
+	PerkMesh->SetMaterial(0, BaseMaterial.Object);
 	PerkMesh->BodyInstance.SetCollisionProfileName("LightShotPerk");
 	OnActorHit.AddDynamic(this, &APerk::OnHit);	// set up a notification for when this component hits something
 	RootComponent = PerkMesh;

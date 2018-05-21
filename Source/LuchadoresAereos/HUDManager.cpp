@@ -74,10 +74,15 @@ void AHUDManager::UpdateEnemiesKilled(int Enemies) {
 
 
 void AHUDManager::SetPerk(FString text) {
-	pPerk->SetVisibility(ESlateVisibility::Visible);
+	///pPerk->SetVisibility(ESlateVisibility::Visible);
+	
 	pPerk->SetText(FText::FromString(text));
+	
 }
 void AHUDManager::HidePerkText() {
-	pPerk->SetVisibility(ESlateVisibility::Hidden);
+	//pPerk->SetVisibility(ESlateVisibility::Hidden);
+	
+	pPerk->SetText(FText::FromString(" "));
+	
 }
 #undef LOCTEXT_NAMESPACE

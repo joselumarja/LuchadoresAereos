@@ -32,8 +32,9 @@ void APerk::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector Movement = FVector(0.f,0.f,0.f);
-	const FRotator NewRotation(0, DeltaTime, 0);
+	this->AddActorLocalRotation(FRotator(0.0f, 1.0f, 0.0f), false, nullptr, ETeleportType::TeleportPhysics);
+	/*FVector Movement = FVector(0.f,0.f,0.f);
+	const FRotator NewRotation(0, (DeltaTime * 100.0f), 0);
 	FHitResult Hit(1.f);
 	RootComponent->MoveComponent(Movement, NewRotation, true);
 
@@ -42,7 +43,7 @@ void APerk::Tick(float DeltaTime)
 		const FVector Normal2D = Hit.Normal.GetSafeNormal2D();
 		const FVector Deflection = FVector::VectorPlaneProject(Movement, Normal2D) * (1.f - Hit.Time);
 		RootComponent->MoveComponent(Deflection, NewRotation, true);
-	}
+	}*/
 }
 
 void APerk::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
