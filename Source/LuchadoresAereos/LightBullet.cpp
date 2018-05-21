@@ -30,8 +30,6 @@ ALightBullet::ALightBullet():Super()
 													  // Die after 0.1 seconds by default
 	InitialLifeSpan = 0.5f;
 
-	Energy = 10;
-
 	Damage = 1;
 }
 

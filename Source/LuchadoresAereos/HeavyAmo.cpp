@@ -30,8 +30,6 @@ AHeavyAmo::AHeavyAmo():Super()
 													  // Die after 4 seconds by default
 	InitialLifeSpan = 4.0f;
 
-	Energy = 30;
-
 	Damage = 50;
 }
 

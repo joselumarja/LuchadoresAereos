@@ -213,7 +213,6 @@ void ALuchadoresAereosPawn::InvulnerabilityTimerExpired()
 
 void ALuchadoresAereosPawn::HitInvulnerabilityExpired()
 {
-	//bInvulnerability = false;
 	ShipMeshComponent->SetMaterial(0, BaseMaterial);
 	World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityHitExpired, this, &ALuchadoresAereosPawn::SetHitInvulnerability, 0.5f);
 }
@@ -231,15 +230,14 @@ void ALuchadoresAereosPawn::SetHitInvulnerability()
 	else {
 		ShipMeshComponent->SetMaterial(0, GoldMaterial);
 		World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityHitExpired, this, &ALuchadoresAereosPawn::HitInvulnerabilityExpired, 0.5f);
-
 	}
-	
 }
 
 void ALuchadoresAereosPawn::SetInvulnerability()
 {
 	bInvulnerability = true;
 	ShipMeshComponent->SetMaterial(0, GoldMaterial);
+	Manager->UpdatePerkText("INVULNERABILITY!");
 	UGameplayStatics::PlaySoundAtLocation(this, InvulnerabilitySound, GetActorLocation());
 	World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityExpired, this, &ALuchadoresAereosPawn::InvulnerabilityTimerExpired, InvulnerabilityTime);
 }
@@ -258,7 +256,6 @@ void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
 		}
 		OtherActor->Destroy();
-		
 	}
 }
 
@@ -274,18 +271,21 @@ void ALuchadoresAereosPawn::CheckPosition()
 void ALuchadoresAereosPawn::SetNormalShotState()
 {
 	ShotMode = PlayerShot::Standar;
+	//Manager->HidePerkText();
 	FireRate = 0.3f;
 }
 
 void ALuchadoresAereosPawn::SetHeavyShotState()
 {
 	ShotMode = PlayerShot::Heavy;
+	//Manager->UpdatePerkText("HEAVY SHOOT!");
 	FireRate = 0.5f;
 }
 
 void ALuchadoresAereosPawn::SetLightShotState()
 {
 	ShotMode = PlayerShot::Light;
+	//Manager->UpdatePerkText("LIGHT SHOOT!");
 	FireRate = 0.2f;
 }
 

@@ -27,9 +27,6 @@ public:
 
 	FORCEINLINE uint8 GetDamage() const { return Damage; }
 
-	FORCEINLINE uint8 GetEnergy() const { return Energy; }
-
-	void UpdateEnergy(uint8 HitEnergy);
 
 protected:
 
@@ -47,8 +44,7 @@ protected:
 	UPROPERTY()
 		uint8 Damage;
 
-	UPROPERTY()
-		uint8 Energy;
+	
 
 };
 

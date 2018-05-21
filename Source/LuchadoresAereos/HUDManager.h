@@ -35,11 +35,9 @@ public:
 
 	void UpdateEnemiesKilled(int Enemies);
 
-	void SetInvencibility(bool value);
+	void SetPerk(FString text);
 
-	void SetLightShot(bool value);
-	
-	void SetHeavyShot(bool value);
+	void HidePerkText();
 
 private:
 
@@ -54,12 +52,8 @@ private:
 
 	TWeakObjectPtr<class UTextBlock> pLives;
 
+	TWeakObjectPtr<class UTextBlock> pPerk;
 
-	TWeakObjectPtr<class UImage> pInvPerk;
-
-	TWeakObjectPtr<class UImage> pLightPerk;
-
-	TWeakObjectPtr<class UImage> pHeavyPerk;
 
 
 };

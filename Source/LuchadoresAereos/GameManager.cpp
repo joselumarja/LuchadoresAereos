@@ -156,7 +156,7 @@ FVector AGameManager::GetRandomLocation() const
 void AGameManager::InitializePerks() {
 	PerkArray.AddUnique(ALifePerk::StaticClass());
 	PerkArray.AddUnique(ALightShotPerk::StaticClass());
-	PerkArray.AddUnique(AHeavyShotPerk::StaticClass());
+	//PerkArray.AddUnique(AHeavyShotPerk::StaticClass());
 }
 
 
@@ -172,4 +172,12 @@ void AGameManager::DropPowerUp(FVector SpawnLocation) {
 		TSubclassOf<APerk> Perk = GetRandomPerk();
 		GetWorld()->SpawnActor(Perk, &SpawnLocation);
 	}
+}
+
+void AGameManager::UpdatePerkText(FString text) {
+	HUD->SetPerk(text);
+}
+
+void AGameManager::HidePerkText() {
+	HUD->HidePerkText();
 }

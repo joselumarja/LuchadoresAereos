@@ -68,7 +68,6 @@ public:
 	UPROPERTY()
 		TWeakObjectPtr<UParticleSystem> ExplosionParticleSystem;
 
-	///////////////////////////
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
 		float HitInvulnerabilityTime;
 
@@ -102,6 +101,8 @@ public:
 	void SetHeavyShotState();
 
 	void SetLightShotState();
+
+
 
 	// Static names for axis bindings
 	static const FName MoveForwardBinding;

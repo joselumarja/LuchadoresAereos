@@ -13,7 +13,7 @@ AHeavyShotPerk::AHeavyShotPerk():Super()
 	PerkMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HeavyShotPerk"));
 	PerkMesh->SetStaticMesh(ProjectileMeshAsset.Object);
 	PerkMesh->SetupAttachment(RootComponent);
-	PerkMesh->SetWorldScale3D(Scale * 0.3f);
+	PerkMesh->SetWorldScale3D(Scale * 0.2f);
 	PerkMesh->BodyInstance.SetCollisionProfileName("HeavyShotPerk");
 	PerkMesh->OnComponentHit.AddDynamic(this, &APerk::OnHit);		// set up a notification for when this component hits something
 	RootComponent = PerkMesh;
