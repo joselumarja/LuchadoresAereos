@@ -15,17 +15,13 @@ ALifePerk::ALifePerk():Super()
 	PerkMesh->SetupAttachment(RootComponent);
 	PerkMesh->SetWorldScale3D(Scale * 0.2f);
 	PerkMesh->BodyInstance.SetCollisionProfileName("InvulnerabilityPerk");
-	PerkMesh->OnComponentHit.AddDynamic(this, &APerk::OnHit);		// set up a notification for when this component hits something
+	OnActorHit.AddDynamic(this, &APerk::OnHit);	// set up a notification for when this component hits something
 	RootComponent = PerkMesh;
 }
 
-void ALifePerk::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void ALifePerk::ApplyPerk()
 {
-	if ((OtherActor != NULL) && OtherActor == PlayerPawn)
-	{
 		PlayerPawn->SetInvulnerability();
-		Destroy();
-	}
 }
 
 

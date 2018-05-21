@@ -14,8 +14,6 @@ class LUCHADORESAEREOS_API ALifePerk : public APerk
 public:
 
 	ALifePerk();
-
-	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	
-	
+	void ApplyPerk() override;
 };

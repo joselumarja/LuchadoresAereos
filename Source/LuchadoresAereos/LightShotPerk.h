@@ -14,8 +14,6 @@ class LUCHADORESAEREOS_API ALightShotPerk : public APerk
 public:
 
 	ALightShotPerk();
-
-	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	
-	
+	void ApplyPerk() override;
 };

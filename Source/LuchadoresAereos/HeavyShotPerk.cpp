@@ -15,15 +15,12 @@ AHeavyShotPerk::AHeavyShotPerk():Super()
 	PerkMesh->SetupAttachment(RootComponent);
 	PerkMesh->SetWorldScale3D(Scale * 0.2f);
 	PerkMesh->BodyInstance.SetCollisionProfileName("HeavyShotPerk");
-	PerkMesh->OnComponentHit.AddDynamic(this, &APerk::OnHit);		// set up a notification for when this component hits something
+	OnActorHit.AddDynamic(this, &APerk::OnHit);		// set up a notification for when this component hits something
 	RootComponent = PerkMesh;
 }
 
-void AHeavyShotPerk::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void AHeavyShotPerk::ApplyPerk()
 {
-	if ((OtherActor != NULL) && OtherActor == PlayerPawn)
-	{
 		PlayerPawn->SetHeavyShotState();
-		Destroy();
-	}
 }
+

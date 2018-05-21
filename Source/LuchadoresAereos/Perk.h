@@ -25,14 +25,17 @@ protected:
 	UStaticMeshComponent* PerkMesh;
 
 	UPROPERTY()
-	ALuchadoresAereosPawn* PlayerPawn;
+	TWeakObjectPtr<ALuchadoresAereosPawn> PlayerPawn;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	UFUNCTION()
+	void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 
 	UFUNCTION()
-		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) PURE_VIRTUAL(APerk::OnHit, );
+	virtual void ApplyPerk() PURE_VIRTUAL(APerk::ApplyPerk, );
 		
 	
 };

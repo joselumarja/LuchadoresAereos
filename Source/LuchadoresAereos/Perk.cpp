@@ -17,13 +17,39 @@ APerk::APerk()
 void APerk::BeginPlay()
 {
 	Super::BeginPlay();
-	PlayerPawn = Cast<ALuchadoresAereosPawn>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	for (TActorIterator<ALuchadoresAereosPawn>ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (FString(TEXT("TP_TwinStickPawn_1")).Equals(ActorItr->GetName()))
+		{
+			//finding pawn
+			PlayerPawn = *ActorItr;
+		}
+	}
 }
 
 // Called every frame
 void APerk::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	this->AddActorLocalRotation(FRotator(0.0f, 1.0f, 0.0f), false, nullptr,ETeleportType::TeleportPhysics);
+
+	FVector Movement = FVector(0.f,0.f,0.f);
+	const FRotator NewRotation(0, DeltaTime, 0);
+	FHitResult Hit(1.f);
+	RootComponent->MoveComponent(Movement, NewRotation, true);
+
+	if (Hit.IsValidBlockingHit())
+	{
+		const FVector Normal2D = Hit.Normal.GetSafeNormal2D();
+		const FVector Deflection = FVector::VectorPlaneProject(Movement, Normal2D) * (1.f - Hit.Time);
+		RootComponent->MoveComponent(Deflection, NewRotation, true);
+	}
 }
 
+void APerk::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if ((OtherActor != NULL) && OtherActor->IsA(ALuchadoresAereosPawn::StaticClass()))
+	{
+		ApplyPerk();
+		Destroy();
+	}
+}
