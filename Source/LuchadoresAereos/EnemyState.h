@@ -22,6 +22,9 @@ class LUCHADORESAEREOS_API IEnemyState
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	virtual void Enter(IEnemyState& From, AEnemy& Enemy) = 0;
+
 	virtual void Update(AEnemy& Enemy) = 0;
+
+	
 	
 };

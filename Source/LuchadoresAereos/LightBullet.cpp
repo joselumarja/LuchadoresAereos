@@ -6,8 +6,8 @@ ALightBullet::ALightBullet():Super()
 {
 
 	// Static reference to the mesh to use for the projectile
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Disparo_Ligero/projektil_FBX.projektil_FBX"));
-	FVector Scale = FVector(1.0f);
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
+	;
 	// Create mesh component for the projectile sphere
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Bullet"));
 	ProjectileMesh->SetStaticMesh(ProjectileMeshAsset.Object);
@@ -28,7 +28,7 @@ ALightBullet::ALightBullet():Super()
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
 
 													  // Die after 0.1 seconds by default
-	InitialLifeSpan = 0.1f;
+	InitialLifeSpan = 0.5f;
 
 	Energy = 10;
 

@@ -27,7 +27,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 		TSubclassOf<class UUserWidget> HUDWidget;
 
-
 	void UpdateSeconds(int Seconds);
 
 	void UpdateLives(int Lives);
@@ -36,6 +35,11 @@ public:
 
 	void UpdateEnemiesKilled(int Enemies);
 
+	void SetInvencibility(bool value);
+
+	void SetLightShot(bool value);
+	
+	void SetHeavyShot(bool value);
 
 private:
 
@@ -49,5 +53,13 @@ private:
 	TWeakObjectPtr<class UTextBlock> pTimeInRound;
 
 	TWeakObjectPtr<class UTextBlock> pLives;
+
+
+	TWeakObjectPtr<class UImage> pInvPerk;
+
+	TWeakObjectPtr<class UImage> pLightPerk;
+
+	TWeakObjectPtr<class UImage> pHeavyPerk;
+
 
 };

@@ -3,7 +3,6 @@
 #include "MediumEnemy.h"
 #include "Bullet.h"
 
-
 AMediumEnemy::AMediumEnemy() :Super()
 {
 	Life = 50.0;
@@ -15,11 +14,13 @@ AMediumEnemy::AMediumEnemy() :Super()
 	FIELD_OF_VIEW = 700.0;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+	ConstructorHelpers::FObjectFinder<UMaterialInstance> BaseMaterial(TEXT("/Game/TwinStick/Meshes/BlueMaterial.BlueMaterial"));
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MediumMesh"));
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
 	MeshComponent->SetupAttachment(RootComponent);
 	RootComponent = MeshComponent;
+	MeshComponent->SetMaterial(0, BaseMaterial.Object);
 	MeshComponent->BodyInstance.SetCollisionProfileName("MediumEnemy");
 	MeshComponent->bGenerateOverlapEvents = true;
 	MeshComponent->SetNotifyRigidBodyCollision(true);

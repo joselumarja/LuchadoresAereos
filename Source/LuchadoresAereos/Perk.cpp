@@ -24,6 +24,6 @@ void APerk::BeginPlay()
 void APerk::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	this->AddActorLocalRotation(FRotator(0.0f, 1.0f, 0.0f), false, nullptr,ETeleportType::TeleportPhysics);
 }
 

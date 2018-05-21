@@ -100,6 +100,7 @@ protected:
 		UFindPlayerState* FindPlayerState;
 	UPROPERTY()
 		UShotState* ShotState;
+	
 
 public:	
 	// Called every frame
@@ -117,5 +118,7 @@ public:
 
 	float DistanceToPlayer();
 
+	UPROPERTY()
+		class UMaterialInstance* BaseMaterial;
 	
 };

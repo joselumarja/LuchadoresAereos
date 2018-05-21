@@ -6,7 +6,8 @@ ALightShotPerk::ALightShotPerk():Super()
 {
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Testeo/SM_MERGED_health_pack_Cube2_33.SM_MERGED_health_pack_Cube2_33"));
-	
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
+
 	FVector Scale = FVector(1.0f);
 	// Create mesh component for the projectile sphere
 	PerkMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightShotPerk"));

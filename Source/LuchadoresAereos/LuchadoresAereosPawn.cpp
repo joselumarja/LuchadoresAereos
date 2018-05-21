@@ -10,6 +10,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Materials/MaterialInstance.h"
 #include "Engine/CollisionProfile.h"
 #include "Engine/StaticMesh.h"
 #include "Kismet/GameplayStatics.h"
@@ -24,19 +25,38 @@ const FName ALuchadoresAereosPawn::FireForwardBinding("FireForward");
 
 ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 {	
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Testeo/SM_MERGED_ju-87_body_2.SM_MERGED_ju-87_body_2"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+	struct FConstructorStatics
+	{
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> BaseMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> GoldMaterial;
+		FConstructorStatics()
+			: BaseMaterial(TEXT("/Game/TwinStick/Meshes/RedMaterial.RedMaterial"))
+			, GoldMaterial(TEXT("/Game/TwinStick/Meshes/GoldMaterial.GoldMaterial"))
+		{
+		}
+	};
+	static FConstructorStatics ConstructorStatics;
+
 	// Create the mesh component
 	ShipMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
 	RootComponent = ShipMeshComponent;
 	ShipMeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	ShipMeshComponent->SetStaticMesh(ShipMesh.Object);
-	
+	BaseMaterial = ConstructorStatics.BaseMaterial.Get();
+	GoldMaterial = ConstructorStatics.GoldMaterial.Get();
+	ShipMeshComponent->SetMaterial(0, BaseMaterial);
 
 	
 	// Cache our sound effect
 	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
 	FireSound = FireAudio.Object;
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> InvAudio(TEXT("/Game/TwinStick/Audio/Chimo_Bayo_-_Extasy_extano__1080p_-_AudioTrimmer_com___3_.Chimo_Bayo_-_Extasy_extano__1080p_-_AudioTrimmer_com___3_"));
+	InvulnerabilitySound = InvAudio.Object;
 	
+	static ConstructorHelpers::FObjectFinder<USoundBase> HitAudio(TEXT("/Game/TwinStick/Audio/mario-bros_tuberia.mario-bros_tuberia"));
+	HitSound = HitAudio.Object;
 	// Create a camera boom...
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
@@ -65,7 +85,8 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	bCanFire = true;
 	bInvulnerability = false;
-	InvulnerabilityTime = 20.0f;
+	InvulnerabilityTime = 14.0f;
+	HitInvulnerabilityTime = 0.0f;
 	SetNormalShotState();
 }
 
@@ -186,13 +207,40 @@ void ALuchadoresAereosPawn::ShotTimerExpired()
 void ALuchadoresAereosPawn::InvulnerabilityTimerExpired()
 {
 	bInvulnerability = false;
+	ShipMeshComponent->SetMaterial(0, BaseMaterial);
 	//quitar las texturas de la invulnerabilidad
+}
+
+void ALuchadoresAereosPawn::HitInvulnerabilityExpired()
+{
+	//bInvulnerability = false;
+	ShipMeshComponent->SetMaterial(0, BaseMaterial);
+	World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityHitExpired, this, &ALuchadoresAereosPawn::SetHitInvulnerability, 0.5f);
+}
+
+
+void ALuchadoresAereosPawn::SetHitInvulnerability()
+{
+	bInvulnerability = true;
+	HitInvulnerabilityTime++;
+	if (HitInvulnerabilityTime == 4.0) {
+		bInvulnerability = false;
+		HitInvulnerabilityTime = 0.0f;
+		ShipMeshComponent->SetMaterial(0, BaseMaterial);
+	}
+	else {
+		ShipMeshComponent->SetMaterial(0, GoldMaterial);
+		World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityHitExpired, this, &ALuchadoresAereosPawn::HitInvulnerabilityExpired, 0.5f);
+
+	}
+	
 }
 
 void ALuchadoresAereosPawn::SetInvulnerability()
 {
 	bInvulnerability = true;
-	//añadir aqui un cambio de texturas o algo asi
+	ShipMeshComponent->SetMaterial(0, GoldMaterial);
+	UGameplayStatics::PlaySoundAtLocation(this, InvulnerabilitySound, GetActorLocation());
 	World->GetTimerManager().SetTimer(TimerHandle_InvulnerabilityExpired, this, &ALuchadoresAereosPawn::InvulnerabilityTimerExpired, InvulnerabilityTime);
 }
 
@@ -205,10 +253,12 @@ void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector
 		{
 			Manager->UpdateLives();
 			SetNormalShotState();
-			SetInvulnerability();
+			SetHitInvulnerability();
+			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
 		}
 		OtherActor->Destroy();
+		
 	}
 }
 

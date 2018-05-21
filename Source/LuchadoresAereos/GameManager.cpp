@@ -57,7 +57,7 @@ void AGameManager::Tick(float DeltaTime)
 		EnemiesAlived = 0;
 		EnemiesKilledPerRound = 0;
 		Round++;
-		SpawnEnemies(1);
+		SpawnEnemies(Round);
 	}
 
 }
@@ -80,8 +80,8 @@ void AGameManager::SumSeconds(uint8 ExtraSeconds)
 void AGameManager::InitializeSpawnEnemies() {
 
 	EnemyClasses.AddUnique(ALightEnemy::StaticClass());
-//	EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
-//	EnemyClasses.AddUnique(ATankEnemy::StaticClass());
+	EnemyClasses.AddUnique(AMediumEnemy::StaticClass());
+	EnemyClasses.AddUnique(ATankEnemy::StaticClass());
 
 	
 }
@@ -131,7 +131,7 @@ void AGameManager::GameOver()
 	SaveGameInstance = Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot(SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex));
 	SaveGameInstance->UpdateRecords((int32)EnemiesKilled, FText::FromString("NameText"), (int32)Score);
 	UGameplayStatics::SaveGameToSlot(SaveGameInstance, SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex);
-	UGameplayStatics::OpenLevel(GetWorld(), TEXT("/Game/TwinStickCPP/Maps/MainMenuMap"), TRAVEL_Absolute);
+	UGameplayStatics::OpenLevel(GetWorld(), TEXT("/Game/TwinStickCPP/Maps/GameOverMap.GameOverMap"), TRAVEL_Absolute);
 }
 
 TSubclassOf<AEnemy> AGameManager::GetRandomEnemyClass() const
@@ -153,9 +153,9 @@ FVector AGameManager::GetRandomLocation() const
 }
 
 void AGameManager::InitializePerks() {
-	//PerkArray.AddUnique(ALifePerk::StaticClass());
+	PerkArray.AddUnique(ALifePerk::StaticClass());
 	PerkArray.AddUnique(ALightShotPerk::StaticClass());
-	//PerkArray.AddUnique(AHeavyShotPerk::StaticClass());
+	PerkArray.AddUnique(AHeavyShotPerk::StaticClass());
 }
 
 
@@ -166,7 +166,7 @@ TSubclassOf<APerk> AGameManager::GetRandomPerk(){
 
 void AGameManager::DropPowerUp(FVector SpawnLocation) {
 	// sets the drop spanws probability in 10%
-	if (FMath::RandRange(1, 100)<=100) 
+	if (FMath::RandRange(1, 100)<=10) 
 	{
 		TSubclassOf<APerk> Perk = GetRandomPerk();
 		GetWorld()->SpawnActor(Perk, &SpawnLocation);

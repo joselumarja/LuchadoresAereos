@@ -85,6 +85,7 @@ void AEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse,
 		DodgeDirection.Z = 0.f;
 		ChangeState(DodgeState);
 	}
+
 }
 
 void AEnemy::ShotTimerExpired()

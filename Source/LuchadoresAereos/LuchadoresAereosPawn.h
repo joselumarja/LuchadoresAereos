@@ -59,8 +59,24 @@ public:
 	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
 	class USoundBase* FireSound;
 
+	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
+	class USoundBase* InvulnerabilitySound;
+
+	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
+		class USoundBase* HitSound;
+
 	UPROPERTY()
 		TWeakObjectPtr<UParticleSystem> ExplosionParticleSystem;
+
+	///////////////////////////
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+		float HitInvulnerabilityTime;
+
+	UPROPERTY()
+	class UMaterialInstance* BaseMaterial;
+
+	UPROPERTY()
+	class UMaterial* GoldMaterial;
 
 	// Begin Actor Interface
 	virtual void Tick(float DeltaSeconds) override;
@@ -76,6 +92,10 @@ public:
 	void InvulnerabilityTimerExpired();
 
 	void SetInvulnerability();
+
+	void SetHitInvulnerability();
+
+	void HitInvulnerabilityExpired();
 
 	void SetNormalShotState();
 
@@ -108,6 +128,8 @@ private:
 	FTimerHandle TimerHandle_ShotTimerExpired;
 
 	FTimerHandle TimerHandle_InvulnerabilityExpired;
+
+	FTimerHandle TimerHandle_InvulnerabilityHitExpired;
 
 	PlayerShot ShotMode;
 
