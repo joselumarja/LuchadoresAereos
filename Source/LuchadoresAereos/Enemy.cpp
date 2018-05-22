@@ -99,10 +99,15 @@ void AEnemy::UpdateLife(uint8 Damage)
 
 	if (Life <= 0)
 	{
-		Manager->EnemyKilled(Score,Time);
-		Manager->DropPowerUp(GetActorLocation());
+		NotifyManager(Score, Time);
 		Destroy();
 	}
+}
+
+void AEnemy::NotifyManager(uint8 Score, uint8 Time)
+{
+	Manager->EnemyKilled(Score, Time);
+	Manager->DropPowerUp(GetActorLocation());
 }
 
 void AEnemy::ChangeState(const TScriptInterface<IEnemyState>& State)

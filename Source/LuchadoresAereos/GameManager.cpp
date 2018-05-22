@@ -7,7 +7,7 @@
 
 // Sets default values
 AGameManager::AGameManager():Lives(3), Seconds(200), Round(0), EnemiesAlived(0), EnemiesKilledPerRound(0),
-EnemiesKilled(0), Score(0)
+EnemiesKilled(0), Score(0), DropRatio(10)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -168,10 +168,10 @@ TSubclassOf<APerk> AGameManager::GetRandomPerk(){
 
 void AGameManager::DropPowerUp(FVector SpawnLocation) {
 	// sets the drop spanws probability in 10%
-	if (FMath::RandRange(1, 100)<=10) 
-	{
+	//if (FMath::RandRange(1, 100)<=DropRatio) 
+	//{
 		TSubclassOf<APerk> Perk = GetRandomPerk();
 		GetWorld()->SpawnActor(Perk, &SpawnLocation);
-	}
+	//}
 }
 

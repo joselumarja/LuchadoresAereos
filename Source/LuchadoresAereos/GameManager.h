@@ -64,6 +64,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	int DropRatio;
+
 	int Score;
 
 	int Seconds;

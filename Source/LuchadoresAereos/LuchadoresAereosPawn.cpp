@@ -255,6 +255,10 @@ void ALuchadoresAereosPawn::OnHit(AActor* SelfActor, AActor* OtherActor, FVector
 			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), GetActorLocation());
 		}
+		if (OtherActor->IsA(AEnemy::StaticClass()))
+		{
+			(Cast<AEnemy>(OtherActor))->NotifyManager(0, 0);
+		}
 		OtherActor->Destroy();
 	}
 }
