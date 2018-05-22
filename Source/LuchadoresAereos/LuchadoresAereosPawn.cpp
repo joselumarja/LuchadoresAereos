@@ -24,7 +24,8 @@ const FName ALuchadoresAereosPawn::FireForwardBinding("FireForward");
 
 ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 {	
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Testeo/SM_MERGED_ju-87_body_2.SM_MERGED_ju-87_body_2"));
 	struct FConstructorStatics
 	{
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> BaseMaterial;
@@ -42,9 +43,11 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	RootComponent = ShipMeshComponent;
 	ShipMeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	ShipMeshComponent->SetStaticMesh(ShipMesh.Object);
+	ShipMeshComponent->SetWorldScale3D(FVector(0.07f, 0.07f, 0.07f));
+	ShipMeshComponent->SetWorldRotation(FRotator(0.f, -90.f, 0.f));
 	BaseMaterial = ConstructorStatics.BaseMaterial.Get();
 	GoldMaterial = ConstructorStatics.GoldMaterial.Get();
-	ShipMeshComponent->SetMaterial(0, BaseMaterial);
+	//ShipMeshComponent->SetMaterial(0, BaseMaterial);
 
 	
 	// Cache our sound effect
@@ -81,7 +84,7 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	// Movement
 	MoveSpeed = 1000.0f;
 	// Weapon
-	GunOffset = FVector(90.f, 0.f, 0.f);
+	GunOffset = FVector(140.f, 0.f, 0.f);
 
 	bCanFire = true;
 	bInvulnerability = false;
@@ -134,7 +137,7 @@ void ALuchadoresAereosPawn::Tick(float DeltaSeconds)
 	if (Movement.SizeSquared() > 0.0f)
 	{
 		// No rotation on Z axis
-		const FRotator NewRotation(0,0,0);
+		FRotator NewRotation=GetActorRotation();
 		FHitResult Hit(1.f);
 		RootComponent->MoveComponent(Movement, NewRotation, true, &Hit);
 		
