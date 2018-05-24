@@ -72,7 +72,7 @@ public:
 		float HitInvulnerabilityTime;
 
 	UPROPERTY()
-	class UMaterialInstance* BaseMaterial;
+	class UMaterial* BaseMaterial;
 
 	UPROPERTY()
 	class UMaterial* GoldMaterial;

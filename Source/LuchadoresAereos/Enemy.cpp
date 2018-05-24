@@ -24,9 +24,6 @@ AEnemy::AEnemy()
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-
-	FRotator NewRotation(0.0f, 180.0f, 0.0f);
-	SetActorRotation(NewRotation);
 	World = GetWorld();
 	
 	for (TActorIterator<ALuchadoresAereosPawn>ActorItr(GetWorld()); ActorItr; ++ActorItr)
@@ -126,13 +123,13 @@ void AEnemy::FindPlayer()
 {
 	FVector ActualLocation = GetActorLocation();
 	FVector DirectionVector = PlayerPawn->GetActorLocation() - ActualLocation;
-	MoveTo(DirectionVector, ActualLocation, MoveSpeed);
+	MoveTo(DirectionVector, MoveSpeed);
 }
 
-void AEnemy::MoveTo(FVector DirectionVector,FVector ActualLocation,float Velocity)
+void AEnemy::MoveTo(FVector DirectionVector, float Velocity)
 {
 	FVector Movement = (DirectionVector.GetSafeNormal()*(DeltaSeconds*Velocity)) ;
-	const FRotator NewRotation(0, 0, 0);
+	FRotator NewRotation=GetActorRotation();
 	FHitResult Hit(1.f);
 	RootComponent->MoveComponent(Movement, NewRotation, true);
 

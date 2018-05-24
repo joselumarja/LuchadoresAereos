@@ -81,7 +81,7 @@ protected:
 
 	virtual void Shot() PURE_VIRTUAL(AEnemy::Shot, );
 
-	void MoveTo(FVector DirectionVector, FVector ActualLocation, float Velocity);
+	void MoveTo(FVector DirectionVector, float Velocity);
 
 	/** Handle for efficient management of ShotTimerExpired timer */
 	FTimerHandle TimerHandle_ShotTimerExpired;

@@ -19,7 +19,8 @@ ALightEnemy::ALightEnemy() :Super(),RafagaNumber(0)
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
-	MeshComponent->SetWorldScale3D(FVector(0.3f, 0.3f, 0.3f));
+	MeshComponent->SetWorldScale3D(FVector(0.2f, 0.2f, 0.2f));
+	MeshComponent->SetWorldRotation(FRotator(0.f, 90.f, 0.f));
 	MeshComponent->SetupAttachment(RootComponent);
 	//MeshComponent->SetMaterial(0, BaseMaterial.Object);
 	RootComponent = MeshComponent;

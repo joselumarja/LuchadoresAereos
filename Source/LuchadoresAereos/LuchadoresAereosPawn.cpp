@@ -24,14 +24,14 @@ const FName ALuchadoresAereosPawn::FireForwardBinding("FireForward");
 
 ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 {	
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Testeo/SM_MERGED_ju-87_body_2.SM_MERGED_ju-87_body_2"));
 	struct FConstructorStatics
 	{
-		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> BaseMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> BaseMaterial;
 		ConstructorHelpers::FObjectFinderOptional<UMaterial> GoldMaterial;
 		FConstructorStatics()
-			: BaseMaterial(TEXT("/Game/TwinStick/Meshes/RedMaterial.RedMaterial"))
+			: BaseMaterial(TEXT("/Game/TwinStick/PersonajePrincipal/body_material.body_material"))
 			, GoldMaterial(TEXT("/Game/TwinStick/Meshes/GoldMaterial.GoldMaterial"))
 		{
 		}
@@ -47,7 +47,6 @@ ALuchadoresAereosPawn::ALuchadoresAereosPawn()
 	ShipMeshComponent->SetWorldRotation(FRotator(0.f, -90.f, 0.f));
 	BaseMaterial = ConstructorStatics.BaseMaterial.Get();
 	GoldMaterial = ConstructorStatics.GoldMaterial.Get();
-	//ShipMeshComponent->SetMaterial(0, BaseMaterial);
 
 	
 	// Cache our sound effect

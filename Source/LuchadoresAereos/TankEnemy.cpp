@@ -9,20 +9,18 @@ ATankEnemy::ATankEnemy() :Super()
 	Time = 20.0;
 	Score = 50;
 	FireRate = 3.0;
-	MoveSpeed = 500.0;
+	MoveSpeed = 550.0;
 	DodgeTime = 0.5f;
 	FIELD_OF_VIEW = 700.0;
 
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Enemigo_Pesado/UFO_2.UFO_2"));
-	//ConstructorHelpers::FObjectFinder<UMaterialInstance> BaseMaterial(TEXT("/Game/TwinStick/Meshes/BlackMaterial.BlackMaterial"));
 
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh"));
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
+	MeshComponent->SetWorldRotation(FRotator(0.f, 90.f, 0.f));
 	MeshComponent->SetWorldScale3D(FVector(0.1f, 0.1f, 0.1f));
 	MeshComponent->SetupAttachment(RootComponent);
-	//MeshComponent->SetMaterial(0, BaseMaterial.Object);
 	RootComponent = MeshComponent;
 	MeshComponent->BodyInstance.SetCollisionProfileName("TankEnemy");
 	MeshComponent->bGenerateOverlapEvents = true;
