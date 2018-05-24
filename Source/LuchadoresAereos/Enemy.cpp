@@ -153,5 +153,5 @@ void AEnemy::SetTimerDodge()
 
 void AEnemy::Dodge()
 {
-	MoveTo(DodgeDirection, GetActorLocation(), MoveSpeed * 2);
+	MoveTo(DodgeDirection, MoveSpeed * 2);
 }

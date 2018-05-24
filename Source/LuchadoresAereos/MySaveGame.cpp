@@ -58,7 +58,7 @@ FText UMySaveGame::GetRecordKilledEnemies()const
 }
 void UMySaveGame::UpdateRecords(int32 KilledEnemies, FText name, int32 Score)
 {
-	FSaveGameStruct NewSave= FSaveGameStruct(name, KilledEnemies, Score);
+	FSaveGameStruct NewSave= FSaveGameStruct(name, Score, KilledEnemies);
 	Records.Add(NewSave);
 	Records.Sort();
 }
