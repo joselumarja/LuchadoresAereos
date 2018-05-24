@@ -7,7 +7,7 @@ ALightBullet::ALightBullet():Super()
 
 	// Static reference to the mesh to use for the projectile
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
-	;
+	
 	ConstructorHelpers::FObjectFinder<UMaterialInstance> BaseMaterial(TEXT("/Game/TwinStick/Meshes/GreenMaterial.GreenMaterial"));
 	// Create mesh component for the projectile sphere
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Bullet"));
@@ -32,7 +32,7 @@ ALightBullet::ALightBullet():Super()
 													  // Die after 0.1 seconds by default
 	InitialLifeSpan = 0.5f;
 
-	Damage = 1;
+	Damage = 7.5;
 }
 
 

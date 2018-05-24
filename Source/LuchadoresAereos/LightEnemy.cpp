@@ -9,20 +9,19 @@ ALightEnemy::ALightEnemy() :Super(),RafagaNumber(0)
 	Time = 5.0;
 	Score = 7;
 	FireRate = 0.2;
-	MoveSpeed = 1200.0;
+	MoveSpeed = 1000.0;
 	FIELD_OF_VIEW = 500.0;
 	DodgeTime = 0.02f;
 
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Testeo/SM_MERGED_unibike_sharky_tire_8.SM_MERGED_unibike_sharky_tire_8"));
-	//ConstructorHelpers::FObjectFinder<UMaterialInstance> BaseMaterial(TEXT("/Game/TwinStick/Meshes/GreenMaterial.GreenMaterial"));
+
 	// Create the mesh component
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LightMesh"));
 	MeshComponent->SetStaticMesh(ShipMesh.Object);
 	MeshComponent->SetWorldScale3D(FVector(0.2f, 0.2f, 0.2f));
 	MeshComponent->SetWorldRotation(FRotator(0.f, 90.f, 0.f));
 	MeshComponent->SetupAttachment(RootComponent);
-	//MeshComponent->SetMaterial(0, BaseMaterial.Object);
 	RootComponent = MeshComponent;
 	MeshComponent->BodyInstance.SetCollisionProfileName("LightEnemy");
 	MeshComponent->bGenerateOverlapEvents = true;

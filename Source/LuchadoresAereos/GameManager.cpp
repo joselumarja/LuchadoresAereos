@@ -130,7 +130,11 @@ void AGameManager::SpawnEnemies(int Enemies) {
 void AGameManager::GameOver()
 {
 	UMySaveGame* SaveGameInstance = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
-	SaveGameInstance = Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot(SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex));
+	UMySaveGame* CheckSaveGameInstance=Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot(SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex));
+	if (CheckSaveGameInstance != NULL)
+	{
+		SaveGameInstance = CheckSaveGameInstance;
+	}
 	SaveGameInstance->UpdateRecords((int32)EnemiesKilled, FText::FromString("NameText"), (int32)Score);
 	UGameplayStatics::SaveGameToSlot(SaveGameInstance, SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex);
 	UGameplayStatics::OpenLevel(GetWorld(), TEXT("/Game/TwinStickCPP/Maps/GameOverMap.GameOverMap"), TRAVEL_Absolute);

@@ -35,10 +35,6 @@ public:
 
 	void UpdateEnemiesKilled(int Enemies);
 
-	void SetPerk(FString text);
-
-	void HidePerkText();
-
 private:
 
 	// Variable to hold the widget after creating it

@@ -6,7 +6,6 @@ AHeavyAmo::AHeavyAmo():Super()
 {
 
 	// Static reference to the mesh to use for the projectile
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Testeo/SM_MERGED_health_pack_Cube3_54.SM_MERGED_health_pack_Cube3_54'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Meshes/TwinStickProjectile.TwinStickProjectile"));
 	ConstructorHelpers::FObjectFinder<UMaterialInstance> BaseMaterial(TEXT("/Game/TwinStick/Meshes/BlackMaterial.BlackMaterial"));
 
@@ -24,8 +23,8 @@ AHeavyAmo::AHeavyAmo():Super()
 	// Use a ProjectileMovementComponent to govern this projectile's movement
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("HeavyAmoMovement"));
 	ProjectileMovement->UpdatedComponent = ProjectileMesh;
-	ProjectileMovement->InitialSpeed = 500.f;
-	ProjectileMovement->MaxSpeed = 500.f;
+	ProjectileMovement->InitialSpeed = 600.f;
+	ProjectileMovement->MaxSpeed = 600.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
@@ -33,7 +32,7 @@ AHeavyAmo::AHeavyAmo():Super()
 													  // Die after 4 seconds by default
 	InitialLifeSpan = 4.0f;
 
-	Damage = 50;
+	Damage = 30;
 }
 
 

@@ -30,7 +30,7 @@ ABullet::ABullet():Super()
 													  // Die after 0.1 seconds by default
 	InitialLifeSpan = 1.0f;
 
-	Damage = 7;
+	Damage = 10;
 }
 
 

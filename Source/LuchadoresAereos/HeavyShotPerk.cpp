@@ -6,14 +6,12 @@ AHeavyShotPerk::AHeavyShotPerk():Super()
 {
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ProjectileMeshAsset(TEXT("/Game/TwinStick/Testeo/SM_MERGED_health_pack_Cube3_54.SM_MERGED_health_pack_Cube3_54"));
-	//ConstructorHelpers::FObjectFinder<UMaterialInstance> BaseMaterial(TEXT("/Game/TwinStick/Meshes/BlackMaterial.BlackMaterial"));
 
 	// Create mesh component for the projectile sphere
 	PerkMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HeavyShotPerk"));
 	PerkMesh->SetStaticMesh(ProjectileMeshAsset.Object);
 	PerkMesh->SetWorldScale3D(FVector(0.3, 0.3, 0.3));
 	PerkMesh->SetupAttachment(RootComponent);
-	//PerkMesh->SetMaterial(0, BaseMaterial.Object);
 	PerkMesh->BodyInstance.SetCollisionProfileName("HeavyShotPerk");
 	OnActorHit.AddDynamic(this, &APerk::OnHit);		// set up a notification for when this component hits something
 	RootComponent = PerkMesh;
