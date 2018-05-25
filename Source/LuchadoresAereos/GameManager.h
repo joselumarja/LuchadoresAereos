@@ -22,7 +22,8 @@ UCLASS()
 class LUCHADORESAEREOS_API AGameManager : public AActor
 {
 	GENERATED_BODY()
-	
+
+
 public:	
 	// Sets default values for this actor's properties
 	AGameManager();
@@ -44,6 +45,8 @@ public:
 	void InitializeSpawnEnemies();
 
 	void InitializePerks();
+
+	FVector GetRandomLocationFromReferencePlane() const;
 
 	TSubclassOf<AEnemy> GetRandomEnemyClass() const;
 
@@ -92,10 +95,11 @@ private:
 
 	TArray<TSubclassOf<APerk>> PerkArray;
 
-	FVector GetRandomLocation() const;
+	FVector GetRandomLocation(FVector PreviousSpawn) const;
 
-	TWeakObjectPtr<AActor> ReferencePlane;
+	float CalcDistance(FVector Position1, FVector Position2) const;
 
 	TWeakObjectPtr<ALuchadoresAereosPawn> PlayerPawn;
 
+	TWeakObjectPtr<AActor> ReferencePlane;
 };

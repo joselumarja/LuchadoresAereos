@@ -27,6 +27,17 @@ void AGameManager::BeginPlay()
 		{
 			//finding archievement manager
 			HUD = *ActorItr;
+			break;
+		}
+	}
+
+	for (TActorIterator<AActor>ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (FString(TEXT("SpawnPlane")).Equals(ActorItr->GetName()))
+		{
+			//finding archievement manager
+			ReferencePlane = *ActorItr;
+			break;
 		}
 	}
 
@@ -36,6 +47,7 @@ void AGameManager::BeginPlay()
 		{
 			//finding manager
 			PlayerPawn = *ActorItr;
+			break;
 		}
 	}
 
@@ -116,11 +128,13 @@ void AGameManager::UpdateScore(uint8 ExtraScore)
 
 void AGameManager::SpawnEnemies(int Enemies) {
 
+	FVector PreviousSpawn = FVector(0, 0, 0);
 	for (int i = 0; i < Enemies; i++) {
 		TSubclassOf<AEnemy> EnemyType = GetRandomEnemyClass();
-		FVector EnemySpawnLocation = GetRandomLocation();
+		FVector EnemySpawnLocation = GetRandomLocation(PreviousSpawn);
 
 		GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
+		PreviousSpawn = EnemySpawnLocation;
 		EnemiesAlived++;
 	}
 
@@ -135,7 +149,8 @@ void AGameManager::GameOver()
 	{
 		SaveGameInstance = CheckSaveGameInstance;
 	}
-	SaveGameInstance->UpdateRecords((int32)EnemiesKilled, FText::FromString("NameText"), (int32)Score);
+	FText Name = FText::FromString(FDateTime::Now().ToString());
+	SaveGameInstance->UpdateRecords((int32)EnemiesKilled, Name, (int32)Score);
 	UGameplayStatics::SaveGameToSlot(SaveGameInstance, SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex);
 	UGameplayStatics::OpenLevel(GetWorld(), TEXT("/Game/TwinStickCPP/Maps/GameOverMap.GameOverMap"), TRAVEL_Absolute);
 }
@@ -146,15 +161,51 @@ TSubclassOf<AEnemy> AGameManager::GetRandomEnemyClass() const
 }
 
 // Gets a random place to spawn an enemy
-FVector AGameManager::GetRandomLocation() const
+FVector AGameManager::GetRandomLocation(FVector PreviousSpawn) const
 {
-	float x;
-	float y;
 	float z = PlayerPawn->GetActorLocation().Z;
+	FVector RandomLocation;
+	if (PreviousSpawn.IsZero())
+	{
+		do 
+		{
+			RandomLocation = GetRandomLocationFromReferencePlane();
+			RandomLocation.Z = z;
 
-	y = FMath::RandRange(-1950, 1950);
-	x = FMath::RandRange(2900, 3000);
-	FVector RandomLocation(x, y, z);
+		} while (CalcDistance(PreviousSpawn,RandomLocation)<600);
+	}
+	else
+	{
+		RandomLocation = GetRandomLocationFromReferencePlane();
+		RandomLocation.Z = z;
+	}
+	
+
+	return RandomLocation;
+}
+
+float AGameManager::CalcDistance(FVector Position1, FVector Position2) const
+{
+	float x, y, z;
+	x = Position1.X - Position2.X;
+	x = x * x;
+	y = Position1.Y - Position2.Y;
+	y = y * y;
+	z = Position1.Z - Position2.Z;
+	z = z * z;
+
+	return FMath::Sqrt(x + y + z);
+}
+
+FVector AGameManager::GetRandomLocationFromReferencePlane() const
+{
+	FVector RandomLocation;
+	FVector Origin;
+	FVector BoundsExtent;
+	ReferencePlane->GetActorBounds(false, Origin, BoundsExtent);
+
+	RandomLocation = FMath::RandPointInBox(FBox::BuildAABB(Origin, BoundsExtent));
+
 	return RandomLocation;
 }
 
