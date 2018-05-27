@@ -181,7 +181,14 @@ void ALuchadoresAereosPawn::FireShot(FVector FireDirection)
 						World->SpawnActor<ALightBullet>(SpawnLocation, FireRotation);
 						break;
 					case PlayerShot::Heavy:
+						FVector SpawnLocation2, SpawnLocation3, ActorFordwardVector;
+						ActorFordwardVector = GetActorForwardVector();
+						SpawnLocation2 = SpawnLocation + ActorFordwardVector * 100;
+						SpawnLocation3 = SpawnLocation - ActorFordwardVector * 100;
+
 						World->SpawnActor<AHeavyAmo>(SpawnLocation, FireRotation);
+						World->SpawnActor<AHeavyAmo>(SpawnLocation2, FireRotation);
+						World->SpawnActor<AHeavyAmo>(SpawnLocation3, FireRotation);
 						break;
 				}
 			}
