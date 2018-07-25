@@ -30,7 +30,7 @@ ALightBullet::ALightBullet():Super()
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
 
 													  // Die after 0.1 seconds by default
-	InitialLifeSpan = 0.5f;
+	InitialLifeSpan = 0.7f;
 
 	Damage = 7.5;
 }
